@@ -8,13 +8,14 @@ const nav = [
 ];
 
 const path = Astro.url.pathname;
+const isHome = Astro.url.pathname === '/';
 const isActive = (href: string) =>
   href === '/'
     ? path === '/'
     : path === href || (href !== '/' && path.startsWith(href));
 ---
 
-<header class="sticky top-0 z-50 backdrop-blur bg-digi-bg/70 border-b border-white/5">
+<header class={`sticky top-0 z-50 ${isHome ? 'backdrop-blur bg-digi-ink/30' : 'bg-digi-ink/60'} border-b border-white/5`}>
   <div class="container-prose h-16 flex items-center justify-between">
     <!-- Brand -->
     <a href="/" class="flex items-center gap-3" aria-label="Digissential home">
