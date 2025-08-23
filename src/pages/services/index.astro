@@ -14,7 +14,23 @@ for (const e of all) {
   (groups[cat] ||= []).push(e);
 }
 const cats = Object.keys(groups).sort();
+
+const items = await getCollection('services');
+const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
+const itemListLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": items.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "url": new URL(`/services/${e.slug}`, site).toString(),
+    "name": e.data.title
+  }))
+};
+
 ---
+
+<script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
 
 <Base title="Services — Digissential" description="Our full list of computer repair & IT support services in Stellenbosch.">
   <main class="container-prose pt-6">

@@ -33,6 +33,7 @@ const canonical = new URL(Astro.url.pathname, site).toString();
     <meta property="og:image" content={ogImage} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    {Astro.props.noindex && <meta name="robots" content="noindex,nofollow" />}
     <link rel="alternate" type="application/rss+xml" title="Digissential Blog" href="/rss.xml" />
 
     <link rel="icon" href="/favicon.svg" />
