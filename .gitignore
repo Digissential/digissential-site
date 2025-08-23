@@ -6,6 +6,9 @@ dist/
 .pnpm-store/
 .vercel/
 .netlify/
+.astro/
+.env
+.env.*
 
 # Logs
 npm-debug.log*

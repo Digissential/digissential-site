@@ -11,4 +11,5 @@ faqs:
   - q: "What if I need more than 8 apps?"
     a: "We’ll quote a fair fixed price or add labour if it’s highly customised."
 ---
+
 Ideal when setting up a fresh system with a standard toolset in one go.

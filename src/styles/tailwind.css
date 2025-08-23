@@ -6,9 +6,12 @@
 /* Global theme helpers                                               */
 /* ------------------------------------------------------------------ */
 
-:root { color-scheme: dark; }
+:root {
+  color-scheme: dark;
+}
 
-html, body {
+html,
+body {
   @apply bg-digi-bg text-white antialiased;
 }
 
@@ -29,10 +32,16 @@ html, body {
 }
 
 /* If your project used this custom radius, define it here */
-.rounded-xl2 { border-radius: 1rem; }
+.rounded-xl2 {
+  border-radius: 1rem;
+}
 
 /* Optional soft shadow used around cards/buttons when desired */
-.shadow-glow { box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 10px 30px -10px rgba(0,0,0,.5); }
+.shadow-glow {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
 
 /* ------------------------------------------------------------------ */
 /* Buttons                                                            */
@@ -42,27 +51,57 @@ html, body {
   @apply inline-flex items-center justify-center rounded-xl2 px-4 py-2 font-semibold transition focus-ring;
 }
 
-.btn-primary   { @apply bg-digi-primary text-white hover:brightness-110 active:brightness-95; }
-.btn-secondary { @apply bg-digi-accent  text-white hover:brightness-110 active:brightness-95; }
-.btn-outline   { @apply border border-white/25 text-white hover:border-digi-primary hover:bg-digi-primary/10; }
-.btn-ghost     { @apply text-white hover:bg-white/5; }
+.btn-primary {
+  @apply bg-digi-primary text-white hover:brightness-110 active:brightness-95;
+}
+.btn-secondary {
+  @apply bg-digi-accent  text-white hover:brightness-110 active:brightness-95;
+}
+.btn-outline {
+  @apply border border-white/25 text-white hover:border-digi-primary hover:bg-digi-primary/10;
+}
+.btn-ghost {
+  @apply text-white hover:bg-white/5;
+}
 
 /* Fancy link style for “View details”, etc. */
-.link-fancy { @apply text-digi-primary hover:underline; }
+.link-fancy {
+  @apply text-digi-primary hover:underline;
+}
 
 /* ------------------------------------------------------------------ */
 /* Hero background flourish (subtle gradients)                        */
 /* ------------------------------------------------------------------ */
 
-.hero-bg { position: relative; }
+.hero-bg {
+  position: relative;
+}
 .hero-bg::before {
   content: "";
-  position: absolute; inset: 0; z-index: -1;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background:
-    radial-gradient(800px 400px at 80% -10%, rgba(47,123,255,0.25), transparent 60%),
-    radial-gradient(600px 300px at -10% 20%, rgba(255,107,61,0.18), transparent 60%),
-    linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(255,255,255,0));
+    radial-gradient(
+      800px 400px at 80% -10%,
+      rgba(47, 123, 255, 0.25),
+      transparent 60%
+    ),
+    radial-gradient(
+      600px 300px at -10% 20%,
+      rgba(255, 107, 61, 0.18),
+      transparent 60%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0)
+    );
   /* Gently fades it out toward edges */
-  -webkit-mask-image: radial-gradient(circle at center, #000 60%, transparent 100%);
-          mask-image: radial-gradient(circle at center, #000 60%, transparent 100%);
+  -webkit-mask-image: radial-gradient(
+    circle at center,
+    #000 60%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(circle at center, #000 60%, transparent 100%);
 }

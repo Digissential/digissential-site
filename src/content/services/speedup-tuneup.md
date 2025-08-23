@@ -14,4 +14,5 @@ faqs:
   - q: "How long does it take?"
     a: "Typically under an hour depending on the number of apps and update size."
 ---
+
 A fast, low-cost refresh that often makes older machines feel responsive again.

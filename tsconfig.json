@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "strict": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],

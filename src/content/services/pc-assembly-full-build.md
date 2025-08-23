@@ -11,4 +11,5 @@ faqs:
   - q: "Do you install Windows too?"
     a: "Add our OS & Burn-In add-on for a ready-to-use system."
 ---
+
 A meticulous, reliable build that looks great and runs even better.

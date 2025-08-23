@@ -23,7 +23,7 @@ const isActive = (href: string) =>
     </a>
 
     <!-- Desktop nav -->
-    <nav class="hidden md:flex items-center gap-6">
+    <nav aria-label="Primary" class="hidden md:flex items-center gap-6">
       {nav.map((item) => (
         <a
           href={item.href}
@@ -58,7 +58,7 @@ const isActive = (href: string) =>
   <!-- Mobile menu -->
   <div id="mobile-menu" data-mobile-menu class="md:hidden hidden border-t border-white/5 bg-digi-bg/95 backdrop-blur">
     <div class="container-prose py-3">
-      <nav class="grid gap-1">
+      <nav aria-label="Mobile" class="grid gap-1">
         {nav.map((item) => (
           <a
             href={item.href}

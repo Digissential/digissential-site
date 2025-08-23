@@ -14,4 +14,5 @@ faqs:
   - q: "Will I need my license?"
     a: "Most devices auto-activate. If not, we’ll guide you through your license key."
 ---
+
 The most reliable way to resolve severe corruption or persistent malware: a truly fresh Windows.

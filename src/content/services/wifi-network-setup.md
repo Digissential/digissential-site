@@ -11,4 +11,5 @@ faqs:
   - q: "Do you supply routers or APs?"
     a: "We can recommend/quote or work with your current equipment."
 ---
+
 Get stable coverage and sensible defaults for home or small office networks.

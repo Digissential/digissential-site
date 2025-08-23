@@ -11,4 +11,5 @@ faqs:
   - q: "Is my keyboard replaceable?"
     a: "Many are; some are riveted to the top case—We’ll advise options per model."
 ---
+
 Restores reliable input for stuck, missing or non-responsive keys.

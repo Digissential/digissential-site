@@ -13,4 +13,5 @@ faqs:
   - q: "Will I lose files?"
     a: "No—this resets the password for a local account only."
 ---
+
 Locked out of a local Windows account? We can safely restore access.

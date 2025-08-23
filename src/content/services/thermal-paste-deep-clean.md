@@ -11,4 +11,5 @@ faqs:
   - q: "When should I do this?"
     a: "Every 2–3 years, or sooner if your device runs hot/noisy or throttles."
 ---
+
 A proper thermal refresh often restores sustained performance and reduces fan noise.

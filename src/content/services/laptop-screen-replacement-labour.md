@@ -11,4 +11,5 @@ faqs:
   - q: "Do you replace touch screens?"
     a: "Yes where available—availability varies by model."
 ---
+
 We identify the correct panel and complete a clean fit with verification checks.

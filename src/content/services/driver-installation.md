@@ -11,4 +11,5 @@ faqs:
   - q: "Do you roll back bad drivers?"
     a: "Yes—we keep a restore path if a vendor driver misbehaves."
 ---
+
 Correct drivers often fix crashes, stutter or missing features after a reinstall or upgrade.

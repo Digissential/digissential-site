@@ -12,4 +12,5 @@ faqs:
   - q: "Do you support custom domain email?"
     a: "Yes—we can help set up or migrate to your preferred provider."
 ---
+
 We make sure mail flows reliably and is configured for safe, consistent use across devices.

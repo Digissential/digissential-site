@@ -11,4 +11,5 @@ faqs:
   - q: "Can I book this in advance?"
     a: "Yes—contact us to schedule urgent work and we’ll confirm availability."
 ---
+
 For time-critical issues when you need help outside normal hours.

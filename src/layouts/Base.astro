@@ -8,17 +8,21 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  noindex?: boolean;
 }
+
+const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
+const canonical = new URL(Astro.url.pathname, site).toString();
 
 const {
   title = 'Digissential — Computer Repair & IT Support in Stellenbosch',
   description = 'Fast, honest computer repairs and IT support. Windows installs, data recovery, malware removal, upgrades, and on-site service. Keeping your tech essentials perfect!',
-  ogImage = '/favicon.svg'
+  ogImage = '/social.png',
+  noindex = false
 } = Astro.props as Props;
-
-const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
-const canonical = new URL(Astro.url.pathname, site).toString();
 ---
+
+
 <!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
@@ -32,7 +36,15 @@ const canonical = new URL(Astro.url.pathname, site).toString();
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Digissential" />
+
+
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     {Astro.props.noindex && <meta name="robots" content="noindex,nofollow" />}
     <link rel="alternate" type="application/rss+xml" title="Digissential Blog" href="/rss.xml" />
 
@@ -45,6 +57,11 @@ const canonical = new URL(Astro.url.pathname, site).toString();
   </head>
 
   <body class="min-h-screen flex flex-col bg-digi-bg text-white">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 bg-black/80 text-white px-3 py-2 rounded">
+      Skip to content
+    </a>
+  
+  
     <!-- Sticky site header -->
     <header class="sticky top-0 z-50 border-b border-white/5 bg-digi-ink/80 backdrop-blur supports-[backdrop-filter]:bg-digi-ink/60">
       <Header />
