@@ -1,0 +1,58 @@
+---
+interface Crumb { href: string; label: string }
+
+type Props = {
+  items: Crumb[];
+  includeHome?: boolean;  // auto-prepend Home crumb
+  homeLabel?: string;     // default "Home"
+};
+
+const {
+  items = [],
+  includeHome = true,
+  homeLabel = 'Home',
+} = Astro.props as Props;
+
+const site = Astro.site?.toString?.() || 'http://localhost:4321';
+
+// Build the full crumb list (optionally prepend Home if not present)
+const needsHome = includeHome && items[0]?.href !== '/';
+const crumbs: Crumb[] = needsHome ? [{ href: '/', label: homeLabel }, ...items] : items;
+
+const lastIndex = Math.max(0, crumbs.length - 1);
+
+// JSON-LD
+const itemList = crumbs.map((c, i) => ({
+  '@type': 'ListItem',
+  position: i + 1,
+  name: c.label,
+  item: new URL(c.href, site).toString(),
+}));
+---
+
+<nav aria-label="Breadcrumb" class="mb-6 text-sm">
+  <ol class="flex flex-wrap items-center gap-2 text-white/60">
+    {crumbs.map((c, i) => (
+      <li class="inline-flex items-center gap-2">
+        {i > 0 && (
+          <svg aria-hidden="true" class="opacity-60" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        )}
+        {i === lastIndex ? (
+          <span aria-current="page" class="text-white">{c.label}</span>
+        ) : (
+          <a href={c.href} class="hover:text-white focus-ring rounded">{c.label}</a>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json">
+{JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: itemList
+})}
+</script>

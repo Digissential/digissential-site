@@ -1,0 +1,16 @@
+---
+interface Props { title: string; price: string; bullets: string[]; ctaHref?: string; ctaLabel?: string }
+const { title, price, bullets, ctaHref = '/contact', ctaLabel = 'Book now' } = Astro.props as Props;
+---
+<div class="card p-6 flex flex-col">
+  <div class="flex-1">
+    <h3 class="text-xl font-bold">{title}</h3>
+    <p class="mt-1 text-3xl font-extrabold text-digi-primary">{price}</p>
+    <ul class="mt-4 space-y-2 text-sm text-white/80 list-disc pl-5">
+      {bullets.map((b) => <li>{b}</li>)}
+    </ul>
+  </div>
+  <div class="mt-6">
+    <a href={ctaHref} class="inline-flex w-full items-center justify-center rounded-xl2 bg-digi-primary px-4 py-3 font-semibold text-white hover:brightness-110">{ctaLabel}</a>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+---
+import Base from '@layouts/Base.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+const updated = new Date().toISOString().split('T')[0];
+---
+<Base title="Data Recovery Consent & Waiver — Digissential" description="Data Recovery Consent & Waiver for Digissential." ogImage="/favicon.svg">
+  <main class="container-prose pt-28 prose prose-invert max-w-3xl">
+    <Breadcrumbs items={[
+      { href: '/', label: 'Home' },
+      { href: '/legal', label: 'Legal' },
+      { href: Astro.url.pathname, label: 'Data Recovery Consent & Waiver' }
+    ]} />
+    <h1>Data Recovery Consent & Waiver</h1>
+    <p><em>Last updated: {updated}</em></p>
+    <p>This is the full public version. We also provide the original document for download below. A PDF version will be added shortly.</p>
+    <hr/>
+    <p><strong>Download the original document:</strong> <a class="text-digi-primary hover:underline" href="/legal/Master_Data_Recovery_Consent_Waiver.docx" download>Master_Data_Recovery_Consent_Waiver.docx</a></p>
+  </main>
+</Base>

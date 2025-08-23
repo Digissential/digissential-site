@@ -1,0 +1,19 @@
+---
+import Base from '@layouts/Base.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+const updated = new Date().toISOString().split('T')[0];
+---
+<Base title="Master Legal Policies — Digissential" description="Master Legal Policies for Digissential." ogImage="/favicon.svg">
+  <main class="container-prose pt-28 prose prose-invert max-w-3xl">
+    <Breadcrumbs items={[
+      { href: '/', label: 'Home' },
+      { href: '/legal', label: 'Legal' },
+      { href: Astro.url.pathname, label: 'Master Legal Policies' }
+    ]} />
+    <h1>Master Legal Policies</h1>
+    <p><em>Last updated: {updated}</em></p>
+    <p>This is the full public version. We also provide the original document for download below. A PDF version will be added shortly.</p>
+    <hr/>
+    <p><strong>Download the original document:</strong> <a class="text-digi-primary hover:underline" href="/legal/Master_Legal_Policies.docx" download>Master_Legal_Policies.docx</a></p>
+  </main>
+</Base>

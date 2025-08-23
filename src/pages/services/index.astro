@@ -1,0 +1,59 @@
+---
+import Base from '@layouts/Base.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+const all = (await getCollection('services'))
+  .map(e => ({ ...e, data: { ...e.data } }))
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+// group by category
+const groups: Record<string, typeof all> = {};
+for (const e of all) {
+  const cat = e.data.category || 'Other';
+  (groups[cat] ||= []).push(e);
+}
+const cats = Object.keys(groups).sort();
+---
+
+<Base title="Services — Digissential" description="Our full list of computer repair & IT support services in Stellenbosch.">
+  <main class="container-prose pt-6">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/services', label: 'Services' }]} />
+
+    <header class="mt-6">
+      <h1 class="text-3xl sm:text-4xl font-extrabold">Services</h1>
+      <p class="mt-2 text-white/70 max-w-2xl">
+        Browse our full catalogue. Transparent rates and clear scope.
+      </p>
+    </header>
+
+    <section class="mt-8 grid gap-10">
+      {cats.map((c) => (
+        <div id={c.toLowerCase()} class="scroll-mt-24">
+          <h2 class="text-2xl font-bold mb-4">{c}</h2>
+          <div class="grid gap-4 md:grid-cols-2">
+            {groups[c].map((e) => (
+              <article class="card p-5 spotlight h-full flex flex-col">
+                <h3 class="text-lg font-semibold">
+                  <a class="hover:text-white link-fancy" href={`/services/${e.slug}`}>{e.data.title}</a>
+                </h3>
+                <p class="mt-1 text-white/70 text-sm">{e.data.summary}</p>
+
+                {e.data.bullets?.length > 0 && (
+                  <ul class="mt-3 list-disc pl-5 text-sm text-white/80">
+                    {e.data.bullets.slice(0, 3).map((b: string) => <li>{b}</li>)}
+                  </ul>
+                )}
+
+                <div class="mt-4 flex items-center justify-between text-sm">
+                  <a class="btn btn-outline" href={`/services/${e.slug}`}>View details</a>
+                  <span class="text-white/80">{e.data.price ? `From ${e.data.price}` : 'Get a quote'}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+  </main>
+</Base>

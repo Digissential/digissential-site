@@ -1,0 +1,100 @@
+---
+import Base from '@layouts/Base.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+---
+
+<Base title="Contact — Digissential" description="Get a quick quote or ask a question. We reply fast.">
+  <main class="container-prose pt-6">
+    <!-- Breadcrumbs sit below the sticky header -->
+    <Breadcrumbs items={[
+      { href: '/', label: 'Home' },
+      { href: '/contact', label: 'Contact' },
+    ]} />
+
+    <!-- Page content -->
+    <section class="pt-10 pb-20">
+      <h1 class="text-3xl sm:text-4xl font-extrabold">Contact</h1>
+      <p class="mt-2 text-white/70 max-w-2xl">
+        Fast, honest help. Send a quick message and we’ll get back to you.
+      </p>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        <!-- Quick Contact (same fields & layout as the hero card) -->
+        <div class="card p-6">
+          <h2 class="font-semibold">Quick Contact</h2>
+          <form
+            name="quick-contact"
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            class="mt-4 grid gap-5"
+            action="/contact/success"
+          >
+            <input type="hidden" name="form-name" value="quick-contact" />
+            <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
+
+            <label class="text-sm">Name
+              <input required name="name" placeholder="Your Name" class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary" />
+            </label>
+
+            <label class="text-sm">Email
+              <input required type="email" name="email" placeholder="your.email@example.com" class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary" />
+            </label>
+
+            <fieldset class="text-sm">
+              <legend class="mb-1 text-white/80">Common issues (select any)</legend>
+              <div class="flex flex-wrap gap-3 text-xs">
+                <label class="inline-flex items-center gap-2 leading-none"><input type="checkbox" name="issue_type" value="Malware Removal" class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]" />Malware Removal</label>
+                <label class="inline-flex items-center gap-2 leading-none"><input type="checkbox" name="issue_type" value="Data Recovery" class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]" />Data Recovery</label>
+                <label class="inline-flex items-center gap-2 leading-none"><input type="checkbox" name="issue_type" value="Windows Reinstall" class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]" />Windows Reinstall</label>
+                <label class="inline-flex items-center gap-2 leading-none"><input type="checkbox" name="issue_type" value="Performance" class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]" />Performance</label>
+                <label class="inline-flex items-center gap-2 leading-none"><input type="checkbox" name="issue_type" value="Other" class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]" />Other</label>
+              </div>
+            </fieldset>
+
+            <div class="md:hidden grid gap-2 text-sm">
+              <label>Issue type (quick select)
+                <select name="issue_select" class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2">
+                  <option value="">Choose an option</option>
+                  <option>Malware Removal</option>
+                  <option>Data Recovery</option>
+                  <option>Windows Reinstall</option>
+                  <option>Performance</option>
+                  <option>Other</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="text-sm">What can we help with?
+              <textarea required name="message" rows="3" maxlength="500" data-count-target="#qc-count" class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary" placeholder="Describe the issue briefly (max 500 chars)"></textarea>
+            </label>
+            <div class="text-xs text-white/60" aria-live="polite">Characters: <span id="qc-count">0</span>/500</div>
+
+            <label class="flex items-center gap-2 text-sm text-white/80 font-semibold">
+              <input type="checkbox" required class="accent-digi-primary h-5 w-5" />
+              I consent to handling of my info for contact (POPIA).
+            </label>
+
+            <button class="rounded-xl2 bg-digi-primary px-4 py-2 font-semibold hover:brightness-110">Send</button>
+          </form>
+        </div>
+
+        <!-- Direct details -->
+        <div class="card p-6">
+          <h2 class="font-semibold">Direct</h2>
+          <p class="mt-2">Phone: <a class="link-fancy" href="tel:+27664256314">066 425 6314</a></p>
+          <p>Email: <a class="link-fancy" href="mailto:digissentialteam@gmail.com">digissentialteam@gmail.com</a></p>
+          <p class="mt-4 text-white/70 text-sm">Prefer WhatsApp/Signal? Mention it in your message.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- same counter behavior as on the homepage -->
+  <script is:inline>
+    const ta = document.querySelector('textarea[name="message"]');
+    const out = document.querySelector('#qc-count');
+    function sync(){ if(ta && out){ out.textContent = String(ta.value.length); } }
+    ta?.addEventListener('input', sync); sync();
+  </script>
+</Base>

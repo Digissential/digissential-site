@@ -1,0 +1,206 @@
+---
+import Base from '@layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+
+const allPosts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Filters (SEO-friendly via URL params)
+const q   = (Astro.url.searchParams.get('q')   || '').toLowerCase().trim();
+const tag = (Astro.url.searchParams.get('tag') || '').toLowerCase().trim();
+
+function readMinutes(p: any) {
+  if (p.data.readingTime?.minutes) return Math.max(1, Math.round(p.data.readingTime.minutes));
+  // fallback: rough estimate from description if no readingTime provided
+  const words = String(p.data.description || '').split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / 180)); // ~180wpm
+}
+
+// Build tag list (slug -> label, count)
+const tagCounts = new Map<string, number>();
+for (const p of allPosts) {
+  const tags: string[] = (p.data.tags || []).map((t: string) => t.toLowerCase());
+  tags.forEach(t => tagCounts.set(t, (tagCounts.get(t) || 0) + 1));
+}
+const tags = [...tagCounts.entries()]
+  .sort((a, b) => a[0].localeCompare(b[0]))
+  .map(([slug, count]) => ({ slug, label: slug.replace(/-/g, ' '), count }));
+
+// Apply filters
+let posts = allPosts;
+if (tag) {
+  posts = posts.filter(p => (p.data.tags || []).map((t: string) => t.toLowerCase()).includes(tag));
+}
+if (q) {
+  posts = posts.filter(p => {
+    const needle = q.toLowerCase();
+    const hay = [
+      p.data.title,
+      p.data.description,
+      ...(p.data.tags || []).map((t: string) => t.toLowerCase())
+    ].join(' ');
+    return hay.toLowerCase().includes(needle);
+  });
+}
+
+// Structured data (Blog + ItemList)
+const site = Astro.site?.toString?.() || 'http://localhost:4321';
+const blogLd = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Digissential Blog",
+  "url": new URL('/blog', site).toString(),
+  "description": "Short, practical posts: tips, repair guides, and notes from our workshop in Stellenbosch.",
+  "publisher": { "@type": "Organization", "name": "Digissential" }
+};
+const listLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": posts.map((p, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "url": new URL(`/blog/${p.slug}`, site).toString(),
+    "name": p.data.title
+  }))
+};
+---
+
+<Base title="Blog — Digissential" description="Tips, repair guides, and notes from our workshop in Stellenbosch.">
+  <main class="container-prose pt-6">
+    <Breadcrumbs items={[
+      { href: '/', label: 'Home' },
+      { href: '/blog', label: 'Blog' },
+    ]} />
+
+    <!-- Techy hero -->
+    <section class="relative overflow-hidden mt-6 rounded-3xl border border-white/5 bg-gradient-to-br from-white/[0.03] to-white/[0.01]">
+      <!-- subtle grid background -->
+      <svg aria-hidden="true" class="pointer-events-none absolute inset-0 h-full w-full opacity-[0.07]">
+        <defs>
+          <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+            <path d="M32 0H0V32" fill="none" stroke="currentColor" stroke-width="0.75"/>
+          </pattern>
+          <radialGradient id="glow" cx="50%" cy="0%" r="80%">
+            <stop offset="0%"  stop-color="rgb(56 189 248)" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="transparent"/>
+          </radialGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)"/>
+        <rect width="120%" height="60%" x="-10%" y="-10%" fill="url(#glow)"/>
+      </svg>
+
+      <div class="relative p-6 sm:p-8 lg:p-10">
+        <div class="flex flex-wrap items-end gap-4 justify-between">
+          <div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold">Blog</h1>
+            <p class="mt-2 text-white/70 max-w-2xl">
+              Short, practical posts to keep your devices healthy — with repair tips, malware hygiene, backup basics, and more.
+            </p>
+          </div>
+          <a class="btn btn-outline" href="/rss.xml" rel="alternate">Subscribe</a>
+        </div>
+
+        <!-- search + tags -->
+        <form method="GET" class="mt-6 grid gap-3 md:grid-cols-[1fr,auto]">
+          <input
+            type="search"
+            name="q"
+            value={q}
+            placeholder="Search posts (e.g., malware, backup, windows)…"
+            class="rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
+            aria-label="Search blog posts"
+          />
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+
+        {tags.length > 0 && (
+          <div class="mt-4 flex gap-2 overflow-x-auto pb-1" role="listbox" aria-label="Filter by topic">
+            <a href="/blog" class={`chip ${!tag ? 'chip--active' : ''}`}>All</a>
+            {tags.map(t => (
+              <a
+                href={`/blog?tag=${encodeURIComponent(t.slug)}${q ? `&q=${encodeURIComponent(q)}` : ''}`}
+                class={`chip ${tag === t.slug ? 'chip--active' : ''}`}
+              >
+                {t.label} <span class="opacity-70">({t.count})</span>
+              </a>
+            ))}
+          </div>
+        )}
+
+        {(q || tag) && (
+          <p class="mt-3 text-sm text-white/60">
+            Showing <strong>{posts.length}</strong> result{posts.length === 1 ? '' : 's'}
+            {tag && <> in <strong>{tag.replace(/-/g,' ')}</strong></>}
+            {q && <> for “<strong>{q}</strong>”</>}
+            . <a class="link-fancy" href="/blog">Clear filters</a>
+          </p>
+        )}
+      </div>
+    </section>
+
+    <!-- Posts -->
+    <section class="pt-10">
+      <div class="grid gap-6">
+        {posts.map((p) => {
+          const minutes = readMinutes(p);
+          const tags = (p.data.tags || []) as string[];
+          return (
+            <article class="card p-6 spotlight">
+              <h2 class="text-xl font-bold">
+                <a class="link-fancy hover:text-white" href={`/blog/${p.slug}`}>{p.data.title}</a>
+              </h2>
+
+              <p class="mt-1 text-white/70 text-sm">
+                <time datetime={new Date(p.data.pubDate).toISOString()}>
+                  {new Date(p.data.pubDate).toLocaleDateString()}
+                </time>
+                {' · '}
+                <span>{p.data.author || 'Digissential Team'}</span>
+                {' · '}
+                <span>{minutes} min read</span>
+              </p>
+
+              <p class="mt-3 text-white/80">{p.data.description}</p>
+
+              {tags.length > 0 && (
+                <p class="mt-3 flex flex-wrap gap-2">
+                  {tags.map(t => {
+                    const slug = t.toLowerCase();
+                    return <a class="chip" href={`/blog?tag=${encodeURIComponent(slug)}`}>{t}</a>;
+                  })}
+                </p>
+              )}
+
+              <p class="mt-4">
+                <a class="btn btn-outline" href={`/blog/${p.slug}`}>Read post</a>
+              </p>
+            </article>
+          );
+        })}
+      </div>
+
+      {posts.length === 0 && (
+        <div class="card p-6 mt-8">
+          <p class="text-white/80">No posts found. Try a different search or topic.</p>
+        </div>
+      )}
+    </section>
+
+    <!-- Structured data -->
+    <script type="application/ld+json">{JSON.stringify(blogLd)}</script>
+    <script type="application/ld+json">{JSON.stringify(listLd)}</script>
+  </main>
+
+  <!-- tiny styles for chips -->
+  <style>
+    .chip {
+      @apply inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80 hover:text-white hover:border-white/20 transition;
+      white-space: nowrap;
+    }
+    .chip--active {
+      @apply border-digi-primary/40 bg-digi-primary/10 text-white;
+    }
+  </style>
+</Base>

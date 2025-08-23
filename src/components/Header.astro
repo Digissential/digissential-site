@@ -1,0 +1,95 @@
+---
+const nav = [
+  { href: '/',            label: 'Home'     },
+  { href: '/services',    label: 'Services' },
+  { href: '/blog',        label: 'Blog'     },
+  { href: '/legal',       label: 'Trust'    },
+  { href: '/contact',     label: 'Contact'  },
+];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/'
+    ? path === '/'
+    : path === href || (href !== '/' && path.startsWith(href));
+---
+
+<header class="sticky top-0 z-50 backdrop-blur bg-digi-bg/70 border-b border-white/5">
+  <div class="container-prose h-16 flex items-center justify-between">
+    <!-- Brand -->
+    <a href="/" class="flex items-center gap-3" aria-label="Digissential home">
+      <img src="/assets/logo.svg" alt="Digissential" class="h-7 w-auto" loading="eager" fetchpriority="high" />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-6">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+          class={`hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-digi-primary
+                  ${isActive(item.href) ? 'text-digi-primary font-semibold' : ''}`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Desktop CTA -->
+    <div class="hidden md:flex items-center gap-3">
+      <a href="tel:+27664256314" class="btn btn-accent" aria-label="Call Digissential now">Call now</a>
+    </div>
+
+    <!-- Mobile toggle -->
+    <button
+      class="md:hidden p-2 rounded-xl2 border border-white/10 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-digi-primary"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-toggle
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" data-mobile-menu class="md:hidden hidden border-t border-white/5 bg-digi-bg/95 backdrop-blur">
+    <div class="container-prose py-3">
+      <nav class="grid gap-1">
+        {nav.map((item) => (
+          <a
+            href={item.href}
+            data-close-menu
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class={`block w-full px-4 py-3 rounded-xl2 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-digi-primary
+                    ${isActive(item.href) ? 'text-digi-primary font-semibold' : ''}`}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+      <div class="mt-2 px-4">
+        <a href="tel:+27664256314" class="btn btn-accent w-full" data-close-menu>Call now</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const toggleBtn = document.querySelector('[data-menu-toggle]');
+  const menu = document.getElementById('mobile-menu');
+  function setExpanded(open) {
+    toggleBtn?.setAttribute('aria-expanded', String(open));
+    if (menu) (open ? menu.classList.remove('hidden') : menu.classList.add('hidden'));
+  }
+  toggleBtn?.addEventListener('click', () => {
+    const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+    setExpanded(!expanded);
+  });
+  document.querySelectorAll('#mobile-menu [data-close-menu]').forEach((a) => {
+    a.addEventListener('click', () => setExpanded(false));
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setExpanded(false); });
+</script>

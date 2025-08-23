@@ -1,0 +1,9 @@
+---
+interface Props { label: string; size?: 'sm' | 'lg' }
+const { label, size = 'sm' } = Astro.props as Props;
+const sizing = size === 'lg' ? 'px-4 py-1.5 text-sm' : 'px-3 py-1 text-xs';
+---
+<span class={`inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 ${sizing} text-white/80`}>
+  <span class="size-1.5 rounded-full bg-digi-primary"></span>
+  {label}
+</span>

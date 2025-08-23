@@ -1,0 +1,44 @@
+---
+import Base from '@layouts/Base.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+---
+
+
+<Base title="Legal — Digissential" description="All public legal documents and policies for Digissential.">
+  <main class="container-prose pt-28 pb-20">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/legal', label: 'Legal' }]} />
+    <h1 class="text-3xl sm:text-4xl font-extrabold">Legal</h1>
+    <p class="mt-2 text-white/80">View summaries or download the full documents below.</p>
+
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <article class="card p-6">
+        <h2 class="text-xl font-bold"><a class="link-fancy" href="/legal/privacy">Privacy & POPIA</a></h2>
+        <p class="mt-2 text-white/70 text-sm">How we process personal information.</p>
+        <p class="mt-3"><a class="btn btn-outline" href="/legal/privacy-popia-processing-notice.pdf" download>Download Privacy & POPIA Notice (PDF)</a></p>
+      </article>
+
+      <article class="card p-6">
+        <h2 class="text-xl font-bold"><a class="link-fancy" href="/legal/warranty">Warranty & Returns</a></h2>
+        <p class="mt-2 text-white/70 text-sm">Summary of warranty and returns terms.</p>
+        <p class="mt-3"><a class="btn btn-outline" href="/legal/warranty-returns-procedure.pdf" download>Download Warranty & Returns (PDF)</a></p>
+      </article>
+
+      <article class="card p-6">
+        <h2 class="text-xl font-bold"><a class="link-fancy" href="/legal/ewaste">E-waste Policy</a></h2>
+        <p class="mt-2 text-white/70 text-sm">How we manage e-waste responsibly.</p>
+        <p class="mt-3"><a class="btn btn-outline" href="/legal/ewaste-disposal-policy.pdf" download>Download E-waste Policy (PDF)</a></p>
+      </article>
+
+      <article class="card p-6">
+        <h2 class="text-xl font-bold">More Documents</h2>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a class="link-fancy" href="/legal/standard-fees-and-diagnostic-rates.pdf" download>Standard Fees & Diagnostic Rates (PDF)</a></li>
+          <li><a class="link-fancy" href="/legal/on-site-safety-checklist.pdf" download>On-site Safety Checklist (PDF)</a></li>
+          <li><a class="link-fancy" href="/legal/legal-policies.pdf" download>Legal Policies (PDF)</a></li>
+          <li><a class="link-fancy" href="/legal/ohs-compliance-statement.pdf" download>OHS Compliance Statement (PDF)</a></li>
+          <li><a class="link-fancy" href="/legal/warranty-claim-form.pdf" download>Warranty Claim Form (PDF)</a></li>
+        </ul>
+      </article>
+    </div>
+  </main>
+</Base>

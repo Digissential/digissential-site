@@ -1,0 +1,59 @@
+---
+import '@styles/tailwind.css';
+import LocalBusinessLD from '@components/LocalBusinessLD.astro';
+import Footer from '@components/Footer.astro';
+import Header from '@components/Header.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'Digissential — Computer Repair & IT Support in Stellenbosch',
+  description = 'Fast, honest computer repairs and IT support. Windows installs, data recovery, malware removal, upgrades, and on-site service. Keeping your tech essentials perfect!',
+  ogImage = '/favicon.svg'
+} = Astro.props as Props;
+
+const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
+const canonical = new URL(Astro.url.pathname, site).toString();
+---
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" type="application/rss+xml" title="Digissential Blog" href="/rss.xml" />
+
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+    <LocalBusinessLD />
+  </head>
+
+  <body class="min-h-screen flex flex-col bg-digi-bg text-white">
+    <!-- Sticky site header -->
+    <header class="sticky top-0 z-50 border-b border-white/5 bg-digi-ink/80 backdrop-blur supports-[backdrop-filter]:bg-digi-ink/60">
+      <Header />
+    </header>
+
+    <!-- Page content -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

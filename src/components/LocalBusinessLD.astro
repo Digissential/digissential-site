@@ -1,0 +1,27 @@
+---
+/** LocalBusiness JSON-LD for Digissential (Stellenbosch) */
+const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
+
+const lb = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness","ProfessionalService"],
+  "@id": `${site}#localbusiness`,
+  "name": "Digissential",
+  "url": site,
+  "telephone": "+27 66 425 6314",
+  "email": "digissentialteam@gmail.com",
+  "image": `${site}/assets/logo.svg`,
+  "logo": `${site}/assets/logo.svg`,
+  "description": "Computer repair & IT support in Stellenbosch: reinstalls, recovery, malware removal, upgrades, and remote help.",
+  "priceRange": "R",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Stellenbosch",
+    "addressRegion": "Western Cape",
+    "addressCountry": "ZA"
+  },
+  "areaServed": { "@type": "City", "name": "Stellenbosch" }
+  // Optionally add "sameAs": ["https://facebook.com/…","https://instagram.com/…","https://x.com/…"]
+};
+---
+<script type="application/ld+json">{JSON.stringify(lb)}</script>

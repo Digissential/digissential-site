@@ -1,0 +1,1 @@
+Now lets work on the modal details overlay on the homepage (same content as service pages, blurred background, URL deep-link like ?service=slug, and SEO-safe), I can layer that on top of this rail without changing the markup you just added.
