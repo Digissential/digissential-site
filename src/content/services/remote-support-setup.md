@@ -11,4 +11,5 @@ faqs:
   - q: "Is this the same as a repair?"
     a: "No—this prepares your device for future remote sessions."
 ---
+
 A one-time setup that makes future help fast and painless.

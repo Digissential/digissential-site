@@ -11,4 +11,5 @@ faqs:
   - q: "Do you replace touch panels?"
     a: "Yes—availability varies by model. We’ll quote options."
 ---
+
 Where possible we favour OEM-grade panels with consistent colour and brightness.

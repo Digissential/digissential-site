@@ -11,4 +11,5 @@ faqs:
   - q: "Is success guaranteed?"
     a: "No—outcomes depend on damage and whether new writes have overwritten the data."
 ---
+
 We attempt safe, non-destructive recovery. If physical damage exists, we’ll advise lab options.

@@ -13,4 +13,5 @@ faqs:
   - q: "Does this include a repair?"
     a: "No—this finds the fault. We’ll quote the repair or replacement afterward."
 ---
+
 Ideal for tricky, intermittent faults that need thorough bench time to confirm root cause before repair.

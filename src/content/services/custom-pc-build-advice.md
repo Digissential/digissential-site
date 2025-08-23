@@ -11,4 +11,5 @@ faqs:
   - q: "Can you order parts?"
     a: "Yes—we can quote recommended parts and handle sourcing if you prefer."
 ---
+
 We’ll help you buy right the first time for gaming, creative work, or a quiet office PC.

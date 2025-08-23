@@ -13,4 +13,5 @@ faqs:
   - q: "Will apps be reinstalled?"
     a: "Apps are not included by default—see Software Installation."
 ---
+
 A safe reset with your important files preserved and restored after the reinstall.

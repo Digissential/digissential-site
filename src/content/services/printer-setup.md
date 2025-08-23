@@ -11,4 +11,5 @@ faqs:
   - q: "Do you set up scanning?"
     a: "Yes where supported; we’ll walk you through scan-to-email/folder basics."
 ---
+
 Reliable printing without the usual driver headaches.

@@ -24,4 +24,27 @@ const lb = {
   // Optionally add "sameAs": ["https://facebook.com/…","https://instagram.com/…","https://x.com/…"]
 };
 ---
-<script type="application/ld+json">{JSON.stringify(lb)}</script>
+
+<script type="application/ld+json">
+{JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://www.digissential.co.za/#business",
+  "name": "Digissential",
+  "url": "https://www.digissential.co.za",
+  "telephone": "+27 66 425 6314",
+  "priceRange": "R",                // e.g., R to RRR
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Stellenbosch",
+    "addressRegion": "WC",
+    "addressCountry": "ZA"
+  },
+  "areaServed": [{ "@type": "City", "name": "Stellenbosch" }],
+  "sameAs": [
+    // "https://www.facebook.com/…",
+    // "https://www.instagram.com/…"
+  ]
+})}
+</script>
+

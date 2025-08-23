@@ -11,4 +11,5 @@ faqs:
   - q: "Is success guaranteed?"
     a: "No—success depends on the condition of the media and how quickly we act after data loss."
 ---
+
 We attempt logical recovery with professional software. Severe physical issues may require a specialist lab.

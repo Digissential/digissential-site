@@ -11,4 +11,5 @@ faqs:
   - q: "Do you install paid security suites?"
     a: "We can recommend options; free baselines are often adequate for many users."
 ---
+
 Reduce common risks with sensible defaults, good patching, and clear advice tailored to you.

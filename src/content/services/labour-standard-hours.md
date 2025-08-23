@@ -11,4 +11,5 @@ faqs:
   - q: "When is this used?"
     a: "For custom/complex tasks not listed as fixed-price services."
 ---
+
 Transparent hourly work for unique or complex issues outside fixed items.

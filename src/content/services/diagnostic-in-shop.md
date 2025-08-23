@@ -14,4 +14,5 @@ faqs:
   - q: "Is the fee deducted if I proceed?"
     a: "Often yes, at our discretion, when the diagnostic directly leads to a paid repair."
 ---
+
 Bring your device in for a quick, professional diagnosis so we can advise the best repair path and costs upfront.

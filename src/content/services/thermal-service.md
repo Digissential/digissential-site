@@ -11,4 +11,5 @@ faqs:
   - q: "When should this be done?"
     a: "If your laptop/desktop runs hot or loud, or every 2–3 years as preventative care."
 ---
+
 A good thermal service often restores performance and reduces throttling.

@@ -13,4 +13,5 @@ faqs:
   - q: "Can you migrate settings?"
     a: "Light config is included; complex migrations can be quoted."
 ---
+
 We install trusted software from reputable sources and ensure it’s configured responsibly.

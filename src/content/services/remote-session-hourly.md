@@ -13,4 +13,5 @@ faqs:
   - q: "Is it safe?"
     a: "Yes—sessions are authorised by you and can be terminated at any time."
 ---
+
 Skip the travel: many problems can be solved quickly over a secure remote session.
