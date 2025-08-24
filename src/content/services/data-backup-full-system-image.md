@@ -1,15 +1,36 @@
 ---
 title: "Data Backup (Full System Image)"
-summary: Disk image for disaster recovery to your storage.
+summary: "Bit-for-bit image of your Windows drive, so you can restore everything—including apps and settings."
 price: "R650"
 category: "Data"
+featured: false
 bullets:
-  - Full system image for faster restore
-  - Stored to your supplied drive
-  - Good before major changes or travel
-faqs:
-  - q: "Is this a clone or compressed image?"
-    a: "Typically an image that can be restored; we’ll choose the best approach for your hardware."
+  - Full-disk image (OS, apps, data)
+  - Verifies image integrity
+  - Labeling & basic recovery notes
+  - Great before risky changes
+faq:
+  - q: "Can I restore this image myself?"
+    a: "Yes. We provide basic written steps. If you prefer, we can perform the restore for you as a separate service."
+  - q: "How big is the image?"
+    a: "Roughly the size of the data used on your drive (sometimes smaller with compression). We’ll estimate before starting."
 ---
 
-A full image provides the quickest path back after serious issues or drive failure.
+## What’s included
+- Sector-level image of your Windows drive  
+- Integrity verification after imaging  
+- Label & date marked clearly on your storage  
+- Basic restore guide (plain English)
+
+## Details
+
+### When this service is ideal
+- Before a major upgrade or OS reinstall  
+- Mission-critical devices that can’t afford downtime  
+- Keeping an exact “known-good” snapshot of your system
+
+### Storage
+Bring a USB SSD/HDD with free space ≥ used space on your PC’s drive. We can supply storage if needed (ask for pricing).
+
+### Turnaround
+Usually **same day** (size-dependent).

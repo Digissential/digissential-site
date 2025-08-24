@@ -1,7 +1,9 @@
 /** @type {import('tailwindcss').Config} */
+import typography from '@tailwindcss/typography'
+
 export default {
   content: [
-    "./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
+    "./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue,mjs}",
     "./public/**/*.html",
   ],
   theme: {
@@ -35,5 +37,5 @@ export default {
       borderRadius: { xl2: "1.25rem" },
     },
   },
-  plugins: [],
+   plugins: [typography],
 };
