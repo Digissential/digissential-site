@@ -1,15 +1,30 @@
 ---
 title: "Expedited Service Fee"
-summary: Prioritised next-business-day commencement (subject to parts).
-price: "R500"
+summary: "Priority handling ahead of the standard queue—ideal when downtime is costly."
+price: "500"
 category: "Support"
+featured: false
 bullets:
-  - Moves your job to the front of the queue
+  - Prioritised next-business-day commencement
   - Subject to parts availability
-  - Great for time-critical work
-faqs:
+  - Clear status updates during the job
+  - Add-on to normal service fees
+faq:
   - q: "Does this guarantee same-day completion?"
-    a: "No—It prioritises start time; completion depends on complexity and parts."
+    a: "No, but it guarantees your job starts ahead of the normal queue. Completion depends on findings and parts availability."
+  - q: "What if parts are delayed?"
+    a: "We’ll update you promptly and discuss temporary workarounds where possible."
 ---
 
-When timing matters, we can start your job sooner for an additional fee.
+## What’s included
+- **Queue priority** and **next-business-day commencement**.  
+- Clear communication at each step.
+
+## Details
+
+### When to use it
+- Time-sensitive work, business devices, urgent student deadlines.  
+- Before travel or exams when you need certainty.
+
+### Notes
+This is an **add-on** to standard services. We’ll confirm feasibility before you commit.

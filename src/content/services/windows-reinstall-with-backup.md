@@ -1,17 +1,45 @@
 ---
 title: "Windows OS Reinstall + Data Backup"
-summary: Clean install plus a pre-install backup of your data.
+category: "Core services"
 price: "R900"
-category: "Windows"
+summary: "Back up your personal files first, then clean-install Windows and restore your data safely."
+featured: true
 bullets:
-  - Up to 100GB backed up (then +R100 per extra 50GB)
-  - Clean install with drivers & updates
-  - Restore your data to the new system
-faqs:
-  - q: "Where is data stored?"
-    a: "To your supplied drive; or we can supply storage at cost if needed."
-  - q: "Will apps be reinstalled?"
-    a: "Apps are not included by default—see Software Installation."
+  - Backup of user folders (Documents, Desktop, etc.)
+  - Clean install of Windows & drivers
+  - Restore personal data post-install
+  - Basic hardening & update baseline
+faq:
+  - q: "Which files are backed up?"
+    a: "Common user folders by default. Tell us about special locations or app data you need preserved."
+  - q: "Does this include apps?"
+    a: "We reinstall Windows and restore your data. We can help reinstall apps if you provide installers/keys."
 ---
 
-A safe reset with your important files preserved and restored after the reinstall.
+### What this service does
+
+We **back up your personal data**, perform a **clean Windows install**, then **restore your files** and apply a **basic hardening baseline**.
+
+- Pre-install data backup  
+- Clean install & drivers  
+- Data restore and sanity checks  
+- Updates & basic privacy settings
+
+<div class="card p-4 mt-4">
+  <p class="m-0 text-white/80 text-sm">If the drive shows signs of failure, we’ll recommend a clone or <a class="link-fancy" href="/services/data-migration-device-to-device">Data Migration</a> to a healthy disk.</p>
+</div>
+
+### Ideal for
+- Malware damage but you need your files  
+- Heavily corrupted Windows  
+- Slow systems needing a fresh start
+
+### Turnaround
+Usually **same day to next day** depending on data size.
+
+### What to prepare
+- Space for temporary backups (we can supply if needed)  
+- Any encryption passwords (BitLocker, etc.)
+
+### After the reinstall
+We’ll provide **clear handover notes** and optional security/backup recommendations.

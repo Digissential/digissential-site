@@ -2,6 +2,7 @@
 import Base from '@layouts/Base.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
+import RateBanner from '@components/RateBanner.astro';
 
 const all = (await getCollection('services'))
   .map(e => ({ ...e, data: { ...e.data } }))
@@ -38,9 +39,7 @@ const itemListLd = {
 
     <header class="mt-6">
       <h1 class="text-3xl sm:text-4xl font-extrabold">Services</h1>
-      <p class="mt-2 text-white/70 max-w-2xl">
-        Browse our full catalogue. Transparent rates and clear scope.
-      </p>
+      <RateBanner emitLd={true} />
     </header>
 
     <section class="mt-8 grid gap-10">

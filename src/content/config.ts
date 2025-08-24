@@ -9,6 +9,8 @@ const services = defineCollection({
     badge: z.string().optional(),
     category: z
       .enum([
+        "Core services",
+        "Software",
         "Security",
         "Data",
         "Windows",
