@@ -4,8 +4,9 @@ import sitemap from "@astrojs/sitemap";
 import netlify from "@astrojs/netlify/functions";
 
 export default defineConfig({
-  site: "https://www.digissential.co.za",
+  site: 'https://example.netlify.app',
   integrations: [tailwind({ applyBaseStyles: true }), sitemap()],
-  output: "server",
+  output: "static",
   adapter: netlify({ edgeMiddleware: false }),
+  build: { outDir: 'dist' },
 });
