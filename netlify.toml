@@ -2,10 +2,14 @@
   command = "npm run build"
   publish = "dist"
 
-[functions]
-  node_bundler = "esbuild"
+# (optional) local dev proxy
+[dev]
+  command = "npm run dev"
+  port = 8888
+  targetPort = 4321
 
-[[redirects]]
-  from = "/legal"
-  to = "/legal/privacy"
-  status = 301
+# (optional) clean URLs / fallback for static routes you might add
+# [[redirects]]
+#   from = "/*"
+#   to = "/404.html"
+#   status = 404
