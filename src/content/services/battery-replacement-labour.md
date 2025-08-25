@@ -1,7 +1,7 @@
 ---
 title: "Battery Replacement (Labour)"
 summary: "We fit a genuine or trusted-brand battery, update firmware if needed, and calibrate for best lifespan."
-price: "RXXX"
+price: "R450"
 category: "Hardware"
 featured: false
 bullets:

@@ -4,11 +4,19 @@ import Breadcrumbs from '@components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
 import RateBanner from '@components/RateBanner.astro';
 
+// Fetch and sort all services
 const all = (await getCollection('services'))
   .map(e => ({ ...e, data: { ...e.data } }))
-  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+  .sort((a, b) => (a.data.title || '').localeCompare(b.data.title || ''));
 
-// group by category
+// Helper: numeric price for filtering
+const getPriceNum = (p: unknown) => {
+  if (p == null) return '';
+  const n = Number(String(p).replace(/[^\d.]/g, ''));
+  return Number.isFinite(n) ? n : '';
+};
+
+// Group by category
 const groups: Record<string, typeof all> = {};
 for (const e of all) {
   const cat = e.data.category || 'Other';
@@ -16,8 +24,9 @@ for (const e of all) {
 }
 const cats = Object.keys(groups).sort();
 
-const items = await getCollection('services');
+// SEO: ItemList
 const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
+const items = await getCollection('services');
 const itemListLd = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -29,6 +38,14 @@ const itemListLd = {
   }))
 };
 
+// UI helper: format price uniformly (adds "R" if numeric)
+const fmtPrice = (p: unknown) => {
+  if (typeof p === 'number') return `R${p}`;
+  const s = String(p || '').trim();
+  // If the string already has an "R" or is not a clean number, just return it
+  if (/^r?\s*\d+/i.test(s) && !/^r/i.test(s)) return `R${s}`;
+  return s || '';
+};
 ---
 
 <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
@@ -42,33 +59,175 @@ const itemListLd = {
       <RateBanner emitLd={true} />
     </header>
 
+      <!-- Filter toolbar -->
+  <section class="mt-6 card p-4 md:p-5">
+    <form id="filters" class="mt-6 grid gap-4 md:grid-cols-[1fr,240px,240px,auto] items-end">
+      <label class="text-sm">
+        Search
+        <input id="q" name="q"
+          class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
+          type="search" placeholder="Type a service, keyword, or issue…" autocomplete="off" />
+      </label>
+
+      <label class="text-sm">
+        Category
+        <select id="cat" name="cat"
+          class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary">
+          <option value="">All categories</option>
+          {cats.map(c => <option value={c}>{c}</option>)}
+        </select>
+      </label>
+
+      <label class="text-sm">
+        Price
+        <select id="price" name="price"
+          class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary">
+          <option value="">Any price</option>
+          <option value="lt500">&lt; R500</option>
+          <option value="500-1000">R500–R1000</option>
+          <option value="gt1000">&gt; R1000</option>
+        </select>
+      </label>
+
+      <button type="reset" class="btn btn-outline w-full md:w-auto">Clear</button>
+    </form>
+
+    <p class="mt-3 text-sm text-white/60">
+      <span id="result-count">{all.length}</span> services
+    </p>
+  </section>
+
+
+    <!-- Results by category (still grouped for SEO/UX) -->
     <section class="mt-8 grid gap-10">
       {cats.map((c) => (
-        <div id={c.toLowerCase()} class="scroll-mt-24">
+        <section id={c.toLowerCase()} class="svc-group scroll-mt-24">
           <h2 class="text-2xl font-bold mb-4">{c}</h2>
+
           <div class="grid gap-4 md:grid-cols-2">
-            {groups[c].map((e) => (
-              <article class="card p-5 spotlight h-full flex flex-col">
-                <h3 class="text-lg font-semibold">
-                  <a class="hover:text-white link-fancy" href={`/services/${e.slug}`}>{e.data.title}</a>
-                </h3>
-                <p class="mt-1 text-white/70 text-sm">{e.data.summary}</p>
+            {groups[c].map((e) => {
+              // Build a lowercase keywords string for client-side searching
+              const keywords = [
+                e.data.summary || '',
+                ...(Array.isArray(e.data.bullets) ? e.data.bullets : []),
+              ].join(' ').toLowerCase();
 
-                {e.data.bullets?.length > 0 && (
-                  <ul class="mt-3 list-disc pl-5 text-sm text-white/80">
-                    {e.data.bullets.slice(0, 3).map((b: string) => <li>{b}</li>)}
-                  </ul>
-                )}
+              const priceNum = getPriceNum(e.data.price);
 
-                <div class="mt-4 flex items-center justify-between text-sm">
-                  <a class="btn btn-outline" href={`/services/${e.slug}`}>View details</a>
-                  <span class="text-white/80">{e.data.price ? `From ${e.data.price}` : 'Get a quote'}</span>
-                </div>
-              </article>
-            ))}
+              return (
+                <article
+                  class="card p-5 spotlight h-full flex flex-col svc"
+                  data-title={(e.data.title || '').toLowerCase()}
+                  data-keywords={keywords}
+                  data-cat={e.data.category || 'Other'}
+                  data-price={String(priceNum)}
+                >
+                  <h3 class="text-lg font-semibold">
+                    <a class="hover:text-white link-fancy" href={`/services/${e.slug}`}>{e.data.title}</a>
+                  </h3>
+                  <p class="mt-1 text-white/70 text-sm">{e.data.summary}</p>
+
+                  {e.data.bullets?.length > 0 && (
+                    <ul class="mt-3 list-disc pl-5 text-sm text-white/80">
+                      {e.data.bullets.slice(0, 3).map((b: string) => <li>{b}</li>)}
+                    </ul>
+                  )}
+
+                  <div class="mt-4 flex items-center justify-between text-sm">
+                    <a class="btn btn-outline" href={`/services/${e.slug}`}>View details</a>
+                    <span class="text-white/80">{fmtPrice(e.data.price) ? `From ${fmtPrice(e.data.price)}` : 'Get a quote'}</span>
+                  </div>
+                </article>
+              );
+            })}
           </div>
-        </div>
+        </section>
       ))}
+
+      <p id="no-results" class="hidden text-white/60">No services match your filters.</p>
     </section>
   </main>
+
+    <!-- Client-side filtering (no libs) -->
+  <script is:inline>
+    const $ = (s) => document.querySelector(s);
+    const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+    const form  = $('#filters');
+    const q     = $('#q');
+    const cat   = $('#cat');
+    const price = $('#price');
+    const cards = $$('.svc');
+    const countEl = $('#result-count');
+
+    function norm(s){ return (s || '').toLowerCase().trim(); }
+
+    function matchPrice(filter, p) {
+      if (!filter) return true;
+      const n = Number(p || 0);
+      if (!n) return false;
+      if (filter === 'lt500')     return n > 0 && n < 500;
+      if (filter === '500-1000')  return n >= 500 && n <= 1000;
+      if (filter === 'gt1000')    return n > 1000;
+      return true;
+    }
+
+    function updateGroupVisibility() {
+      document.querySelectorAll('.svc-group').forEach(group => {
+        const anyVisible = Array.from(group.querySelectorAll('.svc'))
+          .some(card => card.style.display !== 'none');
+        group.classList.toggle('hidden', !anyVisible);
+      });
+
+      // Show “no results” only when every group is hidden
+      const allHidden = Array.from(document.querySelectorAll('.svc-group'))
+        .every(g => g.classList.contains('hidden'));
+      const empty = document.querySelector('#no-results');
+      if (empty) empty.classList.toggle('hidden', !allHidden);
+    }
+
+    function apply() {
+      const qs = norm(q?.value);
+      const c  = cat?.value || '';
+      const pv = price?.value || '';
+
+      let shown = 0;
+      cards.forEach(card => {
+        const t    = card.dataset.title || '';
+        const k    = card.dataset.keywords || '';
+        const catv = card.dataset.cat || '';
+        const p    = card.dataset.price || '';
+
+        const ok =
+          (!qs || t.includes(qs) || k.includes(qs)) &&
+          (!c  || c === catv) &&
+          matchPrice(pv, p);
+
+        card.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+      });
+
+      if (countEl) countEl.textContent = String(shown);
+      updateGroupVisibility();
+    }
+
+    [q, cat, price].forEach(el => el && el.addEventListener('input', apply));
+
+    // Let the native form reset clear fields; then re-apply filters
+    form?.addEventListener('reset', () => {
+      // Wait a tick for the browser to reset values
+      setTimeout(apply, 0);
+    });
+
+    apply();
+  </script>
+
+
+  <style is:global>
+    /* Make native dropdown options readable inside the Services filter bar */
+    #filters select { color: rgba(255,255,255,.92); }
+    #filters option { color: #0b1220; background: #ffffff; }
+  </style>
+
+
 </Base>

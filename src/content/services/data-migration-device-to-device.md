@@ -3,7 +3,7 @@ title: "Data Migration (Device-to-Device)"
 category: "Core services"
 price: "R450"
 summary: "Move your files to a new drive or computer safely, with sanity checks so nothing important is missed."
-featured: true
+featured: False
 bullets:
   - Copy user data to the new device/drive
   - Integrity checks & folder mapping

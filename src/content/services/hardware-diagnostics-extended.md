@@ -3,7 +3,7 @@ title: "Hardware Diagnostics (Extended)"
 category: "Core services"
 price: "R250"
 summary: "Deeper, targeted hardware testing when faults are intermittent or hard to reproduce."
-featured: true
+featured: false
 bullets:
   - Extended RAM & storage surface tests
   - Thermal/load tests for CPU & GPU
