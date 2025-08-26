@@ -1,25 +1,44 @@
 ---
+// src/pages/services/[slug].astro
 import Base from '@layouts/Base.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import Button from '@components/Button.astro';
-import { getEntryBySlug } from 'astro:content';
+import { getCollection } from 'astro:content';
 
-const { slug } = Astro.params;
-const entry = await getEntryBySlug('services', slug);
-if (!entry) return Astro.redirect('/services');
+// 1) Pre-render all service slugs for static output
+export async function getStaticPaths() {
+  const services = await getCollection('services', ({ data }) => !data.draft);
+  return services.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }, // available as Astro.props.entry
+  }));
+}
 
+// 2) Receive the entry from props and render
+const { entry } = Astro.props as { entry: any };
 const { data } = entry;
 const { Content } = await entry.render();
 
 const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
-const url = `${site}/services/${slug}`;
+const url = `${site}/services/${entry.slug}`;
+
 const desc =
   (Array.isArray(data.bullets) && data.bullets[0]) ||
   data.summary ||
   `${data.title} in Stellenbosch.`;
-const priceNum = Number((data.price || '').replace(/[^\d.]/g, '')) || undefined;
-const priceDisplay = priceNum ? `R${priceNum}` : (data.price ?? '');
 
+// price can be number or string (e.g. "450")
+const priceNum =
+  typeof data.price === 'number'
+    ? data.price
+    : Number(String(data.price ?? '').replace(/[^\d.]/g, '')) || undefined;
+
+const priceDisplay =
+  typeof data.price === 'number'
+    ? `R${data.price}`
+    : (String(data.price ?? '').trim().match(/^r/i) ? String(data.price) : (priceNum ? `R${priceNum}` : ''));
+
+// JSON-LD for Service (and FAQ if present)
 const serviceLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -37,29 +56,28 @@ const serviceLd = {
           priceCurrency: 'ZAR',
           price: priceNum,
           availability: 'https://schema.org/InStock',
-          url
-        }
+          url,
+        },
       }
-    : {})
+    : {}),
 };
 
 const faqLd =
-  data.faq && data.faq.length
+  Array.isArray(data.faq) && data.faq.length
     ? {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: data.faq.map((f) => ({
+        mainEntity: data.faq.map((f: { q: string; a: string }) => ({
           '@type': 'Question',
           name: f.q,
-          acceptedAnswer: { '@type': 'Answer', text: f.a }
-        }))
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
       }
     : null;
 
 const pageTitle = `${data.title} — Digissential`;
 const pageDesc =
-  data.summary ||
-  `${data.title} in Stellenbosch. Transparent pricing and fast turnaround.`;
+  data.summary || `${data.title} in Stellenbosch. Transparent pricing and fast turnaround.`;
 ---
 
 <Base title={pageTitle} description={pageDesc} ogImage="/favicon.svg">
@@ -68,7 +86,7 @@ const pageDesc =
       items={[
         { href: '/', label: 'Home' },
         { href: '/services', label: 'Services' },
-        { href: Astro.url.pathname, label: data.title }
+        { href: Astro.url.pathname, label: data.title },
       ]}
     />
 
@@ -82,18 +100,17 @@ const pageDesc =
       <section class="md:col-span-2 card p-6 prose prose-invert">
         <h2>What’s included</h2>
         <ul>
-          {(data.bullets ?? []).map((b) => <li>{b}</li>)}
+          {(data.bullets ?? []).map((b: string) => <li>{b}</li>)}
         </ul>
 
         <h2>Details</h2>
-        <!-- Renders the Markdown body from the .md file -->
         <Content />
 
-        {data.faq && data.faq.length > 0 && (
+        {Array.isArray(data.faq) && data.faq.length > 0 && (
           <section class="card p-6 mt-6">
             <h2 class="text-xl font-bold mb-3">FAQ</h2>
             <ul class="space-y-4">
-              {data.faq.map((f) => (
+              {data.faq.map((f: { q: string; a: string }) => (
                 <li>
                   <p class="font-semibold">{f.q}</p>
                   <p class="text-white/80">{f.a}</p>
@@ -106,8 +123,10 @@ const pageDesc =
 
       <!-- RIGHT: price card -->
       <aside class="card p-6 h-max">
-        <p class="text-sm text-white/60">From</p>
-        <p class="text-4xl font-extrabold text-digi-primary">{priceDisplay}</p>
+        {priceDisplay && <>
+          <p class="text-sm text-white/60">From</p>
+          <p class="text-4xl font-extrabold text-digi-primary">{priceDisplay}</p>
+        </>}
         <div class="mt-4 grid gap-2">
           <Button href="/contact">Get a free quote</Button>
           <Button href="tel:+27664256314" variant="secondary">Call now</Button>
@@ -119,7 +138,6 @@ const pageDesc =
     </div>
   </main>
 
-  <!-- JSON-LD -->
   <script type="application/ld+json">{JSON.stringify(serviceLd)}</script>
   {faqLd && <script type="application/ld+json">{JSON.stringify(faqLd)}</script>}
 </Base>
