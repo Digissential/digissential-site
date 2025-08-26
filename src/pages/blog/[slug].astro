@@ -1,54 +1,61 @@
 ---
+// src/pages/blog/[slug].astro
 import Base from '@layouts/Base.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
 
-const { slug } = Astro.params;
+// 1) Pre-render ALL blog slugs
+export async function getStaticPaths() {
+  // Only non-draft posts
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
 
-// Get posts, sorted newest -> oldest
-const posts = (await getCollection('blog'))
-  .filter(p => !p.data.draft)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  // Sort oldest -> newest so we can compute prev/next by index
+  posts.sort((a, b) => new Date(a.data.pubDate).valueOf() - new Date(b.data.pubDate).valueOf());
 
-// Find this post
-const idx = posts.findIndex(p => p.slug === slug);
-if (idx === -1) throw new Error('Post not found');
+  return posts.map((entry, i) => {
+    const prev = i > 0 ? { slug: posts[i - 1].slug, title: posts[i - 1].data.title } : null;
+    const next = i < posts.length - 1 ? { slug: posts[i + 1].slug, title: posts[i + 1].data.title } : null;
+    return {
+      params: { slug: entry.slug },
+      props: { entry, prev, next },
+    };
+  });
+}
 
-const entry = posts[idx];
-const front = entry.data;                 // <-- use `front`, not `data`
+// 2) Receive props from getStaticPaths
+const { entry, prev = null, next = null } = Astro.props as {
+  entry: any; prev: { slug: string; title: string } | null; next: { slug: string; title: string } | null;
+};
+
+const { data } = entry;
 const { Content } = await entry.render();
 
-const prev = posts[idx + 1];              // older post
-const next = posts[idx - 1];              // newer post
+// Basic reading-time calc
+const words = String(entry.body ?? '').trim().split(/\s+/).filter(Boolean).length;
+const minutes = Math.max(1, Math.round(words / 200));
 
-// reading time (fallback if not provided)
-const minutes = front.readingTime?.minutes
-  ? Math.max(1, Math.round(front.readingTime.minutes))
-  : Math.max(1, Math.round(String(front.description || '').split(/\s+/).filter(Boolean).length / 180));
+// SEO/LD helpers
+const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
+const url = `${site}/blog/${entry.slug}`;
 
-const site = Astro.site?.toString?.() || 'http://localhost:4321';
-const canonical = new URL(`/blog/${entry.slug}`, site).toString();
-
-// Article JSON-LD
 const articleLd = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": front.title,
-  "description": front.description,
-  "datePublished": new Date(front.pubDate).toISOString(),
-  "dateModified": new Date(front.updatedDate || front.pubDate).toISOString(),
-  "author": { "@type": "Organization", "name": front.author || "Digissential Team" },
-  "mainEntityOfPage": canonical,
-  "url": canonical
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: data.title,
+  description: data.description ?? '',
+  datePublished: new Date(data.pubDate).toISOString(),
+  author: { '@type': 'Organization', name: data.author || 'Digissential' },
+  mainEntityOfPage: url,
+  url,
 };
 ---
 
-<Base title={`${front.title} — Digissential`} description={front.description}>
+<Base title={`${data.title} — Digissential`} description={data.description ?? ''}>
   <main class="container-prose pt-6">
     <Breadcrumbs items={[
       { href: '/', label: 'Home' },
       { href: '/blog', label: 'Blog' },
-      { href: `/blog/${entry.slug}`, label: front.title }
+      { href: `/blog/${entry.slug}`, label: data.title }
     ]} />
 
     <article class="mt-6">
@@ -57,33 +64,33 @@ const articleLd = {
         <svg aria-hidden="true" class="pointer-events-none absolute inset-0 h-full w-full opacity-[0.07]">
           <defs>
             <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-              <path d="M32 0H0V32" fill="none" stroke="currentColor" stroke-width="0.75"/>
+              <path d="M32 0H0V32" fill="none" stroke="currentColor" stroke-width="0.75" />
             </pattern>
             <radialGradient id="glow" cx="50%" cy="0%" r="80%">
-              <stop offset="0%"  stop-color="rgb(56 189 248)" stop-opacity="0.25"/>
-              <stop offset="100%" stop-color="transparent"/>
+              <stop offset="0%" stop-color="rgb(56 189 248)" stop-opacity="0.25" />
+              <stop offset="100%" stop-color="transparent" />
             </radialGradient>
           </defs>
-          <rect width="100%" height="100%" fill="url(#grid)"/>
-          <rect width="120%" height="60%" x="-10%" y="-10%" fill="url(#glow)"/>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+          <rect width="120%" height="60%" x="-10%" y="-10%" fill="url(#glow)" />
         </svg>
 
         <div class="relative">
-          <h1 class="text-3xl sm:text-4xl font-extrabold">{front.title}</h1>
-          <p class="mt-2 text-white/70 max-w-2xl">{front.description}</p>
+          <h1 class="text-3xl sm:text-4xl font-extrabold">{data.title}</h1>
+          {data.description && <p class="mt-2 text-white/70 max-w-2xl">{data.description}</p>}
           <p class="mt-3 text-white/60 text-sm">
-            <time datetime={new Date(front.pubDate).toISOString()}>
-              {new Date(front.pubDate).toLocaleDateString()}
+            <time datetime={new Date(data.pubDate).toISOString()}>
+              {new Date(data.pubDate).toLocaleDateString()}
             </time>
             {' · '}
-            <span>{front.author || 'Digissential Team'}</span>
+            <span>{data.author || 'Digissential Team'}</span>
             {' · '}
             <span>{minutes} min read</span>
           </p>
 
-          {front.tags && front.tags.length > 0 && (
+          {Array.isArray(data.tags) && data.tags.length > 0 && (
             <p class="mt-3 flex flex-wrap gap-2">
-              {front.tags.map((t: string) => {
+              {data.tags.map((t: string) => {
                 const slug = t.toLowerCase();
                 return <a class="chip" href={`/blog?tag=${encodeURIComponent(slug)}`}>{t}</a>;
               })}
@@ -101,11 +108,11 @@ const articleLd = {
 
       <nav class="flex flex-wrap gap-3 justify-between items-center">
         <div>
-          {prev && <a class="btn btn-outline" href={`/blog/${prev.slug}`}>&larr; {prev.data.title}</a>}
+          {prev && <a class="btn btn-outline" href={`/blog/${prev.slug}`}>&larr; {prev.title}</a>}
         </div>
         <a class="link-fancy" href="/blog">Back to all posts</a>
         <div>
-          {next && <a class="btn btn-outline" href={`/blog/${next.slug}`}>{next.data.title} &rarr;</a>}
+          {next && <a class="btn btn-outline" href={`/blog/${next.slug}`}>{next.title} &rarr;</a>}
         </div>
       </nav>
 
