@@ -1,12 +1,16 @@
-
+// src/pages/robots.txt.ts
 export const prerender = true;
 
-const ctx = (process.env.CONTEXT || '').toLowerCase(); // Netlify build context
+// Netlify build context: "production" | "branch-deploy" | "deploy-preview"
+const ctx = (process.env.CONTEXT || '').toLowerCase();
 const isProd = ctx === 'production';
 
-// Prefer PUBLIC_SITE_URL; fall back to your current live URL
+// Prefer PUBLIC_SITE_URL; sensible fallbacks for previews
 const SITE =
-  (import.meta.env.PUBLIC_SITE_URL as string) ||
+  import.meta.env.PUBLIC_SITE_URL ||
+  process.env.PUBLIC_SITE_URL ||
+  process.env.URL ||                // Netlify site URL (prod)
+  process.env.DEPLOY_PRIME_URL ||   // Netlify preview URL
   'https://digissential.netlify.app';
 
 export function GET() {
@@ -14,8 +18,8 @@ export function GET() {
   const lines = [
     'User-agent: *',
     isProd ? 'Allow: /' : 'Disallow: /',
-    isProd ? `Sitemap: ${base}/sitemap-index.xml` : '# Preview build – indexing disabled',
-    '' // ensure trailing newline
+    isProd ? `Sitemap: ${base}/sitemap-index.xml` : '# Preview build — indexing disabled',
+    '' // trailing newline
   ];
 
   return new Response(lines.join('\n'), {
