@@ -1,12 +1,20 @@
-import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
-import sitemap from "@astrojs/sitemap";
-import netlify from "@astrojs/netlify/functions";
+
+import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
+import sitemap from '@astrojs/sitemap';
+import netlify from '@astrojs/netlify'; // ✅ use the new adapter
+
+// Will resolve to your custom domain later; falls back to Netlify env URLs
+const SITE =
+  process.env.PUBLIC_SITE_URL ||
+  process.env.URL ||                // production deploy URL on Netlify
+  process.env.DEPLOY_PRIME_URL ||   // preview deploy URL on Netlify
+  'https://www.digissential.co.za'; // final fallback
 
 export default defineConfig({
-  site: 'https://example.netlify.app',
+  site: 'https://digissential.netlify.app',
+  output: 'static',
+  adapter: netlify(),
   integrations: [tailwind({ applyBaseStyles: true }), sitemap()],
-  output: "static",
-  adapter: netlify({ edgeMiddleware: false }),
   build: { outDir: 'dist' },
 });
