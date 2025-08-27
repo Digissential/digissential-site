@@ -1,7 +1,7 @@
 ---
 title: "Expedited Service Fee"
 summary: "Priority handling ahead of the standard queue—ideal when downtime is costly."
-price: "500"
+price: "R500"
 category: "Support"
 featured: false
 bullets:
