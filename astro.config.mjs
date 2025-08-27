@@ -2,7 +2,6 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
-import netlify from '@astrojs/netlify'; // ✅ use the new adapter
 
 // Will resolve to your custom domain later; falls back to Netlify env URLs
 const SITE =
@@ -14,7 +13,6 @@ const SITE =
 export default defineConfig({
   site: 'digissential.co.za',
   output: 'static',
-  adapter: netlify(),
   integrations: [tailwind({ applyBaseStyles: true }), sitemap()],
   build: { outDir: 'dist' },
 });
