@@ -12,7 +12,7 @@ const SITE =
   'https://www.digissential.co.za'; // final fallback
 
 export default defineConfig({
-  site: 'https://digissential.netlify.app',
+  site: 'digissential.co.za',
   output: 'static',
   adapter: netlify(),
   integrations: [tailwind({ applyBaseStyles: true }), sitemap()],

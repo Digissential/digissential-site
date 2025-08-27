@@ -11,7 +11,7 @@ const SITE =
   process.env.PUBLIC_SITE_URL ||
   process.env.URL ||                // Netlify site URL (prod)
   process.env.DEPLOY_PRIME_URL ||   // Netlify preview URL
-  'https://digissential.netlify.app';
+  'https://digissential.co.za';
 
 export function GET() {
   const base = SITE.replace(/\/$/, '');
