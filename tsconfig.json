@@ -1,18 +1,12 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "strict": true,
-    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"]
-    },
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "target": "ES2022",
-    "types": ["astro/client"]
+    }
   },
-  "include": ["src", "astro.config.mjs", "env.d.ts", "src/env.d.ts"]
+  "include": ["src", "astro.config.mjs", "env.d.ts"]
 }

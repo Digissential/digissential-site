@@ -1,4 +1,7 @@
 // src/pages/robots.txt.ts
+
+import type { APIRoute } from 'astro';
+
 export const prerender = true;
 
 // Netlify build context: "production" | "branch-deploy" | "deploy-preview"
@@ -13,7 +16,7 @@ const SITE =
   process.env.DEPLOY_PRIME_URL ||   // Netlify preview URL
   'https://digissential.co.za';
 
-export function GET() {
+export const GET: APIRoute = () => {
   const base = SITE.replace(/\/$/, '');
   const lines = [
     'User-agent: *',
@@ -28,4 +31,5 @@ export function GET() {
       'Cache-Control': isProd ? 'public, max-age=3600' : 'no-store',
     },
   });
+  
 }
