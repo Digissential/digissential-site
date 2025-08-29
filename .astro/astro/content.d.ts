@@ -213,6 +213,13 @@ declare module 'astro:content' {
   collection: "services";
   data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
+"data-recovery-best-effort.md": {
+	id: "data-recovery-best-effort.md";
+  slug: "data-recovery-best-effort";
+  body: string;
+  collection: "services";
+  data: InferEntrySchema<"services">
+} & { render(): Render[".md"] };
 "data-recovery-simple-logical.md": {
 	id: "data-recovery-simple-logical.md";
   slug: "data-recovery-simple-logical";

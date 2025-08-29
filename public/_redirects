@@ -1,1 +1,6 @@
+# send www to apex
 https://www.digissential.co.za/*  https://digissential.co.za/:splat  301!
+
+# ensure directory URLs keep trailing slash (Netlify generally handles this in static mode,
+# but this preserves consistency in case of future functions)
+# (No rule needed if Astro trailingSlash=always, included above)

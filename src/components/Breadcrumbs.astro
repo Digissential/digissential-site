@@ -1,58 +1,37 @@
 ---
 interface Crumb { href: string; label: string }
-
-type Props = {
+interface Props {
   items: Crumb[];
-  includeHome?: boolean;  // auto-prepend Home crumb
-  homeLabel?: string;     // default "Home"
-};
-
-const {
-  items = [],
-  includeHome = true,
-  homeLabel = 'Home',
-} = Astro.props as Props;
-
-const site = Astro.site?.toString?.() || 'http://localhost:4321';
-
-// Build the full crumb list (optionally prepend Home if not present)
-const needsHome = includeHome && items[0]?.href !== '/';
-const crumbs: Crumb[] = needsHome ? [{ href: '/', label: homeLabel }, ...items] : items;
-
+  includeHome?: boolean;
+  homeLabel?: string;
+}
+const { items = [], includeHome = true, homeLabel = 'Home' } = Astro.props as Props;
+const crumbs: Crumb[] = includeHome ? [{ href: '/', label: homeLabel }, ...items] : items;
 const lastIndex = Math.max(0, crumbs.length - 1);
 
-// JSON-LD
+// JSON-LD for BreadcrumbList
 const itemList = crumbs.map((c, i) => ({
   '@type': 'ListItem',
   position: i + 1,
   name: c.label,
-  item: new URL(c.href, site).toString(),
+  item: new URL(c.href, Astro.site ?? 'https://www.digissential.co.za').toString(),
 }));
 ---
 
-<nav aria-label="Breadcrumb" class="mb-6 text-sm">
-  <ol class="flex flex-wrap items-center gap-2 text-white/60">
+<nav aria-label="Breadcrumb" class="text-sm">
+  <ol class="flex flex-wrap gap-2 items-center text-white/70">
     {crumbs.map((c, i) => (
       <li class="inline-flex items-center gap-2">
-        {i > 0 && (
-          <svg aria-hidden="true" class="opacity-60" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 18l6-6-6-6" />
-          </svg>
-        )}
+        {i > 0 && <span class="opacity-50">/</span>}
         {i === lastIndex ? (
-          <span aria-current="page" class="text-white">{c.label}</span>
+          <span class="font-medium text-white" aria-current="page">{c.label}</span>
         ) : (
-          <a href={c.href} class="hover:text-white focus-ring rounded">{c.label}</a>
+          <a href={c.href} class="hover:text-white underline decoration-white/20 hover:decoration-white">{c.label}</a>
         )}
       </li>
     ))}
   </ol>
+  <script type="application/ld+json">
+    {JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: itemList })}
+  </script>
 </nav>
-
-<script type="application/ld+json">
-{JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: itemList
-})}
-</script>

@@ -3,105 +3,67 @@
 @tailwind utilities;
 
 /* ------------------------------------------------------------------ */
-/* Global theme helpers                                               */
+/* Base                                                                */
 /* ------------------------------------------------------------------ */
+@layer base {
+  :root { color-scheme: dark; }
 
-:root {
-  color-scheme: dark;
-}
-
-html,
-body {
-  @apply bg-digi-bg text-white antialiased;
-}
-
-/* Useful container with comfortable side padding */
-.container-prose {
-  @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
-}
-
-/* Cards: soft surface + subtle border + blur for glassy feel */
-.card {
-  @apply bg-digi-card/80 border border-white/5 rounded-2xl backdrop-blur;
-}
-
-/* Focus ring for all interactive elements (use with class="focus-ring") */
-.focus-ring {
-  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-digi-primary
-         focus-visible:ring-offset-2 focus-visible:ring-offset-digi-bg;
-}
-
-/* If your project used this custom radius, define it here */
-.rounded-xl2 {
-  border-radius: 1rem;
-}
-
-/* Optional soft shadow used around cards/buttons when desired */
-.shadow-glow {
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  html, body {
+    @apply bg-digi-bg text-white antialiased font-sans;
+  }
 }
 
 /* ------------------------------------------------------------------ */
-/* Buttons                                                            */
+/* Components                                                          */
 /* ------------------------------------------------------------------ */
+@layer components {
+  /* Useful container with comfortable side padding */
+  .container-prose {
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
 
-.btn {
-  @apply inline-flex items-center justify-center rounded-xl2 px-4 py-2 font-semibold transition focus-ring;
-}
+  /* Cards: soft surface + subtle border + blur for glassy feel */
+  .card {
+    @apply bg-digi-card/80 border border-white/5 rounded-2xl backdrop-blur;
+  }
 
-.btn-primary {
-  @apply bg-digi-primary text-white hover:brightness-110 active:brightness-95;
-}
-.btn-secondary {
-  @apply bg-digi-accent  text-white hover:brightness-110 active:brightness-95;
-}
-.btn-outline {
-  @apply border border-white/25 text-white hover:border-digi-primary hover:bg-digi-primary/10;
-}
-.btn-ghost {
-  @apply text-white hover:bg-white/5;
-}
+  /* Focus ring for interactive elements */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-digi-primary
+           focus-visible:ring-offset-2 focus-visible:ring-offset-digi-bg;
+  }
 
-/* Fancy link style for “View details”, etc. */
-.link-fancy {
-  @apply text-digi-primary hover:underline;
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-xl2 px-4 py-2 font-semibold transition focus-ring;
+  }
+  .btn-primary   { @apply bg-digi-primary text-white hover:brightness-110 active:brightness-95; }
+  .btn-secondary { @apply bg-digi-accent  text-white hover:brightness-110 active:brightness-95; }
+  .btn-outline   { @apply border border-white/25 text-white hover:border-digi-primary hover:bg-digi-primary/10; }
+  .btn-ghost     { @apply text-white hover:bg-white/5; }
+
+  /* Fancy link style (now keyboard-visible too) */
+  .link-fancy { @apply text-digi-primary hover:underline focus-ring; }
 }
 
 /* ------------------------------------------------------------------ */
-/* Hero background flourish (subtle gradients)                        */
+/* Utilities                                                           */
 /* ------------------------------------------------------------------ */
+@layer utilities {
 
-.hero-bg {
-  position: relative;
-}
-.hero-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(
-      800px 400px at 80% -10%,
-      rgba(47, 123, 255, 0.25),
-      transparent 60%
-    ),
-    radial-gradient(
-      600px 300px at -10% 20%,
-      rgba(255, 107, 61, 0.18),
-      transparent 60%
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.04),
-      rgba(255, 255, 255, 0)
-    );
-  /* Gently fades it out toward edges */
-  -webkit-mask-image: radial-gradient(
-    circle at center,
-    #000 60%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(circle at center, #000 60%, transparent 100%);
+  /* Hero background flourish (subtle gradients) */
+  .hero-bg { position: relative; }
+  .hero-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(800px 400px at 80% -10%, rgba(47, 123, 255, 0.25), transparent 60%),
+      radial-gradient(600px 300px at -10% 20%, rgba(255, 107, 61, 0.18), transparent 60%),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
+    /* Gently fades it out toward edges */
+    -webkit-mask-image: radial-gradient(circle at center, #000 60%, transparent 100%);
+    mask-image: radial-gradient(circle at center, #000 60%, transparent 100%);
+  }
 }

@@ -1,10 +1,280 @@
 ---
 import Base from '@layouts/Base.astro';
 ---
-<Base title="Page Not Found — Digissential">
-  <main class="container-prose pt-28 pb-20 text-center">
-    <h1 class="text-5xl font-extrabold">404</h1>
-    <p class="mt-2 text-white/70">We couldn't find that page.</p>
-    <p class="mt-6"><a href="/" class="text-digi-primary hover:underline">Return home</a></p>
+
+<Base title="Page not found — Digissential" description="Looks like your request crashed. Want us to run diagnostics?">
+  <main class="container-prose py-16 text-center">
+    <div class="mx-auto max-w-2xl">
+      <h1 class="text-5xl font-extrabold tracking-tight">404</h1>
+      <p class="mt-3 text-white/80 text-lg">Looks like your request crashed. Want us to run diagnostics?</p>
+
+      <!-- Cute CSS/SVG mascot -->
+      <div class="mt-8 grid place-items-center">
+        <svg
+  class="w-full max-w-xs sm:max-w-sm aspect-square"
+  viewBox="0 0 200 200"
+  role="img"
+  aria-labelledby="cuteTechTitle cuteTechDesc"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title id="cuteTechTitle">Digissential tiny tech helper trying to fix a missing page</title>
+  <desc id="cuteTechDesc">A cute technician blinks, waves, drops a plug, powers a laptop, then shows 404.</desc>
+
+  <!-- Baseline rendering consistency -->
+  <defs>
+    <style>
+      :root { --t: 6s; } /* single source of truth for timeline */
+
+      /* Make SVG transforms predictable across browsers */
+      .pivot { transform-box: fill-box; transform-origin: center; }
+      .pivot-top { transform-box: fill-box; transform-origin: top center; }
+      .pivot-left { transform-box: fill-box; transform-origin: left center; }
+
+      /* Nicer stroke scaling when the SVG resizes */
+      .ns { vector-effect: non-scaling-stroke; }
+
+      /* Motion prefs */
+      @media (prefers-reduced-motion: reduce) {
+        .anim { animation: none !important; }
+        .scanbar, .searching, .fourOfour { opacity: 0 !important; }
+        .fourOfour { opacity: 1 !important; }
+      }
+
+      /* ---------- ANIMATIONS (synced to --t) ---------- */
+
+      /* Eyes blink */
+      .eye { animation: blink var(--t) infinite; }
+      .eye-r { animation-delay: .15s; }
+      @keyframes blink {
+        0%, 9%, 11%, 29%, 31%, 100% { transform: scaleY(1); }
+        10%, 30% { transform: scaleY(.08); }
+      }
+
+      /* Head tilt */
+      .head { animation: nod var(--t) ease-in-out infinite; }
+      @keyframes nod {
+        0%, 18%   { transform: rotate(0deg); }
+        8%        { transform: rotate(-6deg); }
+        16%       { transform: rotate(3deg); }
+        50%, 100% { transform: rotate(0deg); }
+      }
+
+      /* Waving arm */
+      .arm-wave { animation: wave var(--t) ease-in-out infinite; }
+      @keyframes wave {
+        0%, 12%   { transform: rotate(-12deg); }
+        6%        { transform: rotate(10deg); }
+        50%, 100% { transform: rotate(-12deg); }
+      }
+
+      /* Magnifier bob + shimmer */
+      .arm-glass { animation: bob var(--t) ease-in-out infinite; }
+      @keyframes bob {
+        0%, 50%, 100% { transform: translateY(0); }
+        8%            { transform: translateY(-2px); }
+        16%           { transform: translateY(1px); }
+      }
+      .glass { animation: shimmer 2.4s ease-in-out infinite; }
+      @keyframes shimmer {
+        0%, 100% { transform: rotate(0deg); }
+        50%      { transform: rotate(8deg); }
+      }
+
+      /* Sweat pops when plug lands */
+      .sweat { opacity: 0; animation: sweatPop var(--t) ease-in-out infinite; }
+      @keyframes sweatPop {
+        0%, 22% { opacity: 0; transform: translate(0,0) scale(0.5); }
+        24%     { opacity: 1; transform: translate(1px,2px) scale(1); }
+        30%     { opacity: 0; }
+        100%    { opacity: 0; }
+      }
+
+      /* Plug drop + subtle wiggle.
+         IMPORTANT: parent handles translate; child only rotates to avoid compound jitter. */
+      .plug      { animation: plugDrop var(--t) ease-in-out infinite; }
+      @keyframes plugDrop {
+        0%, 20%  { transform: translateY(-30px) rotate(-6deg); opacity: 0; }
+        24%      { transform: translateY(0) rotate(4deg); opacity: 1; }
+        28%      { transform: translateY(-5px) rotate(-2deg); }
+        32%,100% { transform: translateY(0) rotate(0); }
+      }
+      .plug-head { animation: wiggle var(--t) ease-in-out infinite; }
+      @keyframes wiggle {
+        0%, 23%, 35%, 100% { transform: rotate(0deg); }
+        26%                { transform: rotate(-10deg); }
+        30%                { transform: rotate(6deg); }
+      }
+
+      /* Spark lines up with the cable endpoint, fires right after drop */
+      .spark { opacity: 0; transform: scale(.6); animation: spark var(--t) ease-in-out infinite; }
+      @keyframes spark {
+        0%, 32% { opacity: 0; transform: scale(.6); }
+        34%     { opacity: 1; transform: scale(1.1); }
+        38%     { opacity: 0; transform: scale(.6); }
+        100%    { opacity: 0; }
+      }
+
+      /* Laptop: scan → fade search → show 404 (lock step, no overlap) */
+      .scanbar { animation: scan var(--t) linear infinite; }
+      @keyframes scan {
+        0%   { transform: translateX(-30px); opacity: .75; }
+        42%  { transform: translateX(34px);  opacity: .75; }
+        44%  { opacity: 0; }
+        100% { transform: translateX(34px);  opacity: 0; }
+      }
+      .searching { animation: showSearch var(--t) linear infinite; }
+      @keyframes showSearch {
+        0%, 44% { opacity: 1; }
+        45%,100%{ opacity: 0; }
+      }
+      .fourOfour { opacity: 0; animation: show404 var(--t) linear infinite; }
+      @keyframes show404 {
+        0%, 54% { opacity: 0; }
+        55%,100%{ opacity: 1; }
+      }
+
+      /* Help sign pops right after 404 */
+      .sign { opacity: 0; animation: signPop var(--t) ease-out infinite; }
+      @keyframes signPop {
+        0%, 56% { opacity: 0; transform: scale(.5) rotate(-8deg); }
+        62%     { opacity: 1; transform: scale(1.05) rotate(3deg); }
+        70%,100%{ opacity: 1; transform: scale(1) rotate(0); }
+      }
+
+      /* CTA arrow nudge with a delay so it never races the 404 reveal */
+      .arrow { animation: nudge 2s ease-in-out infinite; animation-delay: calc(var(--t) * 0.55); opacity: .85; }
+      @keyframes nudge {
+        0%,100% { transform: translate(0,0); }
+        50%     { transform: translate(2px,-2px); }
+      }
+    </style>
+  </defs>
+
+  <!-- ground shadow -->
+  <ellipse cx="100" cy="172" rx="46" ry="8" fill="rgba(0,0,0,.25)"></ellipse>
+
+  <!-- cable + plug group (parent translates; head only rotates) -->
+  <g class="plug anim pivot-top">
+    <!-- cable -->
+    <path class="ns" d="M145 40 C145 55, 140 65, 130 72 S110 86, 104 92"
+          fill="none" stroke="#93c5fd" stroke-width="3" stroke-linecap="round"
+          stroke-dasharray="4 6"></path>
+
+    <!-- plug body (positioned once; rotation handled by CSS) -->
+    <g transform="translate(140,36)">
+      <g class="plug-head anim pivot">
+        <rect x="-8" y="-6" width="16" height="12" rx="2" fill="#60a5fa"/>
+        <rect x="-4" y="-9" width="2.2" height="6" rx="1" fill="#93c5fd"/>
+        <rect x="2"  y="-9" width="2.2" height="6" rx="1" fill="#93c5fd"/>
+      </g>
+    </g>
+
+    <!-- sparkle (nudged exactly to cable end) -->
+    <g class="spark anim pivot" transform="translate(106,90)">
+      <path d="M0-6 L1.5-1 L6 0 L1.5 1 L0 6 L-1.5 1 L-6 0 L-1.5 -1 Z" fill="#fcd34d"/>
+    </g>
+  </g>
+
+  <!-- laptop -->
+  <g transform="translate(64,108)">
+    <rect x="0" y="0" width="72" height="46" rx="6" fill="#111827" stroke="#1f2937" stroke-width="2"/>
+    <rect x="6" y="8" width="60" height="30" rx="3" fill="#0b1220" />
+
+    <!-- scanbar travels the viewport width; opacity cuts off before text swap -->
+    <rect class="scanbar anim" x="10" y="12" width="14" height="22" rx="2" fill="#2563eb" opacity=".65"/>
+
+    <!-- searching vs 404 (no overlap) -->
+    <text class="searching anim" x="36" y="28" text-anchor="middle"
+          font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="8" fill="#93c5fd">searching…</text>
+
+    <text class="fourOfour anim" x="36" y="28" text-anchor="middle"
+          font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="14" font-weight="700" fill="#34d399">404</text>
+
+    <rect x="-6" y="44" width="84" height="6" rx="3" fill="#1f2937"/>
+  </g>
+
+  <!-- tiny techie -->
+  <g class="techie" transform="translate(42,56)">
+    <!-- head -->
+    <g class="head anim pivot">
+      <circle cx="36" cy="22" r="16" fill="#3b82f6"/>
+      <!-- eyes -->
+      <g class="eyes">
+        <circle class="eye anim" cx="30" cy="20" r="2.6" fill="#fff"/>
+        <circle class="eye eye-r anim" cx="42" cy="20" r="2.6" fill="#fff"/>
+      </g>
+      <!-- glasses -->
+      <g fill="none" stroke="#dbeafe" stroke-width="1.6">
+        <circle cx="30" cy="20" r="5.5"/>
+        <circle cx="42" cy="20" r="5.5"/>
+        <path d="M35.5 20 H36.5"/>
+      </g>
+      <!-- smile -->
+      <path d="M30 27 q6 6 12 0" stroke="#dbeafe" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- sweat -->
+      <path class="sweat anim" d="M52 16 q3 4 -2 6 q-2 -3 2 -6 Z" fill="#93c5fd" opacity=".9"/>
+    </g>
+
+    <!-- body -->
+    <rect x="28" y="38" width="16" height="22" rx="4" fill="#2563eb"/>
+    <!-- legs -->
+    <rect x="28" y="60" width="5" height="12" rx="2" fill="#1f2937"/>
+    <rect x="39" y="60" width="5" height="12" rx="2" fill="#1f2937"/>
+
+    <!-- waving arm + spanner -->
+    <g class="arm-wave anim pivot-left" transform="translate(24,40)">
+      <rect x="-2" y="0" width="12" height="5" rx="2.5" fill="#2563eb"/>
+      <path d="M8 1 h9 v3 h-9 Z M17 1 c2 -1 3 -1 4 0 c-1 1 -1 2 0 3 c-1 1 -2 1 -4 0 Z"
+            fill="#9ca3af"/>
+    </g>
+
+    <!-- magnifying glass hand -->
+    <g class="arm-glass anim pivot-left" transform="translate(48,40)">
+      <rect x="-8" y="0" width="12" height="5" rx="2.5" fill="#2563eb"/>
+      <!-- glass (rotate around its own center only) -->
+      <g class="glass anim pivot" transform="translate(6,-8)">
+        <circle cx="0" cy="0" r="7" fill="#1f2937" stroke="#93c5fd" stroke-width="2"/>
+        <rect x="-1" y="7" width="2" height="5" rx="1" fill="#93c5fd"/>
+      </g>
+    </g>
+
+    <!-- little sign that pops after 404 -->
+    <g class="sign anim pivot" transform="translate(6,8)">
+      <rect x="0" y="0" width="42" height="16" rx="3" fill="#111827" stroke="#334155" stroke-width="1"/>
+      <text x="21" y="11" text-anchor="middle" font-size="7.2" fill="#e5e7eb" font-family="ui-sans-serif, system-ui">Need help!</text>
+      <rect x="20" y="16" width="2" height="10" fill="#334155"/>
+    </g>
+  </g>
+
+  <!-- tiny arrow to the Go home button (animate locally, not absolute coords) -->
+  <g transform="translate(98,150)">
+    <g class="arrow anim">
+      <path d="M0 0 q16 0 24 10" fill="none" stroke="#93c5fd" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 6"/>
+      <path d="M24 10 l-6 -2 l2 6 Z" fill="#93c5fd"/>
+    </g>
+  </g>
+</svg>
+      </div>
+
+      <!-- Quick links -->
+      <nav class="mt-6">
+        <p class="text-white/70">Need Support?</p>
+        <ul class="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
+          <li><a class="underline decoration-white/30 underline-offset-4 hover:decoration-white" href="/services#data-recovery">Data Recovery</a></li>
+          <li><span class="text-white/30">|</span></li>
+          <li><a class="underline decoration-white/30 underline-offset-4 hover:decoration-white" href="/services#windows-install">Windows Install</a></li>
+          <li><span class="text-white/30">|</span></li>
+          <li><a class="underline decoration-white/30 underline-offset-4 hover:decoration-white" href="/services#student-rescue">Student Rescue Package</a></li>
+        </ul>
+      </nav>
+
+      <!-- Actions -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+        <a class="btn btn-primary" href="/" aria-label="Go to homepage">Go home</a>
+        <a class="btn btn-outline" href="/?report=missing-page" aria-label="Report missing page (redirects home)">Report missing page</a>
+      </div>
+    </div>
   </main>
 </Base>

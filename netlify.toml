@@ -2,15 +2,81 @@
   command = "npm run build"
   publish = "dist"
 
-# (optional) local dev proxy
+# Recommended: lock Node and set your canonical site URL
+[build.environment]
+  NODE_VERSION = "20"
+  # Set this in Netlify UI instead of here if you prefer:
+  # PUBLIC_SITE_URL = "https://digissential.co.za"
+
 [dev]
   command = "npm run dev"
   port = 8888
   targetPort = 4321
 
-# (optional) clean URLs / fallback for static routes you might add
+##########
+# Redirects
+##########
+
+# Pick ONE of these host-canonical rules:
+
+# 1) Apex as canonical (digissential.co.za) — send www -> apex
+[[redirects]]
+  from = "https://www.digissential.co.za/*"
+  to   = "https://digissential.co.za/:splat"
+  status = 301
+  force  = true
+
+# 2) WWW as canonical — send apex -> www  (UNCOMMENT if you prefer www)
+# [[redirects]]
+#   from = "https://digissential.co.za/*"
+#   to   = "https://www.digissential.co.za/:splat"
+#   status = 301
+#   force  = true
+
+# Optional: custom 404 for unknown routes (Astro builds 404.html)
 # [[redirects]]
 #   from = "/*"
-#   to = "/404.html"
+#   to   = "/404.html"
 #   status = 404
 
+#############
+# Security headers
+#############
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; frame-ancestors 'self'"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+
+#########################
+# Caching (performance)
+#########################
+
+# Never cache HTML (lets you update content instantly)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate, max-age=0"
+
+# Astro build assets (hashed) — cache forever
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Images (adjust if you use a transformer/CDN)
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Fonts (long cache)
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

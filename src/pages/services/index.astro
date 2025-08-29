@@ -24,9 +24,30 @@ for (const e of all) {
 }
 const cats = Object.keys(groups).sort();
 
+const toId = (s: string) =>
+  (s || 'other')
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[^\w\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+
+const seenIds = new Set<string>();
+const catIds = Object.fromEntries(
+  cats.map(c => {
+    let id = toId(c);
+    let i = 2;
+    while (seenIds.has(id)) id = `${toId(c)}-${i++}`;
+    seenIds.add(id);
+    return [c, id] as const;
+  })
+);
+
 // SEO: ItemList
 const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
-const items = await getCollection('services');
+const items = (await getCollection('services')).sort((a,b) =>
+  (a.data.title || '').localeCompare(b.data.title || '')
+);
 const itemListLd = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -40,11 +61,14 @@ const itemListLd = {
 
 // UI helper: format price uniformly (adds "R" if numeric)
 const fmtPrice = (p: unknown) => {
-  if (typeof p === 'number') return `R${p}`;
-  const s = String(p || '').trim();
-  // If the string already has an "R" or is not a clean number, just return it
-  if (/^r?\s*\d+/i.test(s) && !/^r/i.test(s)) return `R${s}`;
-  return s || '';
+  if (p == null) return '';
+ if (typeof p === 'number' && Number.isFinite(p)) return `R${p}`;
+  const s = String(p).trim();
+  // Already has R/ r
+  if (/^\s*r\s*\d/i.test(s)) return s.replace(/^\s*r\s*/i, 'R'); // normalize spacing/case
+  // Pure number-ish? Prefix R
+  if (/^\d+([.,]\d+)?$/.test(s)) return `R${s}`;
+  return s;
 };
 ---
 
@@ -65,14 +89,14 @@ const fmtPrice = (p: unknown) => {
       <label class="text-sm">
         Search
         <input id="q" name="q"
-          class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
+          class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
           type="search" placeholder="Type a service, keyword, or issue…" autocomplete="off" />
       </label>
 
       <label class="text-sm">
         Category
         <select id="cat" name="cat"
-          class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary">
+          class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary">
           <option value="">All categories</option>
           {cats.map(c => <option value={c}>{c}</option>)}
         </select>
@@ -92,16 +116,16 @@ const fmtPrice = (p: unknown) => {
       <button type="reset" class="btn btn-outline w-full md:w-auto">Clear</button>
     </form>
 
-    <p class="mt-3 text-sm text-white/60">
-      <span id="result-count">{all.length}</span> services
-    </p>
+   <p class="mt-3 text-sm text-white/60" aria-live="polite" aria-atomic="true">
+     <span id="result-count">{all.length}</span> services
+   </p>
   </section>
 
 
     <!-- Results by category (still grouped for SEO/UX) -->
     <section class="mt-8 grid gap-10">
       {cats.map((c) => (
-        <section id={c.toLowerCase()} class="svc-group scroll-mt-24">
+        <section id={catIds[c]} class="svc-group scroll-mt-24">
           <h2 class="text-2xl font-bold mb-4">{c}</h2>
 
           <div class="grid gap-4 md:grid-cols-2">
@@ -123,7 +147,7 @@ const fmtPrice = (p: unknown) => {
                   data-price={String(priceNum)}
                 >
                   <h3 class="text-lg font-semibold">
-                    <a class="hover:text-white link-fancy" href={`/services/${e.slug}`}>{e.data.title}</a>
+                    <a class="hover:text-white link-fancy" href={`/services/${e.slug}/`}>{e.data.title}</a>
                   </h3>
                   <p class="mt-1 text-white/70 text-sm">{e.data.summary}</p>
 
@@ -134,7 +158,7 @@ const fmtPrice = (p: unknown) => {
                   )}
 
                   <div class="mt-4 flex items-center justify-between text-sm">
-                    <a class="btn btn-outline" href={`/services/${e.slug}`}>View details</a>
+                    <a class="btn btn-outline" href={`/services/${e.slug}/`}>View details</a>
                     <span class="text-white/80">{fmtPrice(e.data.price) ? `From ${fmtPrice(e.data.price)}` : 'Get a quote'}</span>
                   </div>
                 </article>
@@ -211,7 +235,11 @@ const fmtPrice = (p: unknown) => {
       updateGroupVisibility();
     }
 
-    [q, cat, price].forEach(el => el && el.addEventListener('input', apply));
+    function debounce(fn, ms=120) {
+      let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+    }
+    const applyDebounced = debounce(apply, 120);
+    [q, cat, price].forEach(el => el && el.addEventListener('input', applyDebounced));
 
     // Let the native form reset clear fields; then re-apply filters
     form?.addEventListener('reset', () => {

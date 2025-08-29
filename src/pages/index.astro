@@ -7,12 +7,15 @@ import PriceCard from '@components/PriceCard.astro';
 import FeatureCard from '@components/FeatureCard.astro';
 import Trust from '@components/Trust.astro';
 import { getCollection } from 'astro:content';
+import WebSiteLD from '@components/WebSiteLD.astro';
 const services = await getCollection('services');
 const featured = services.filter(s => s.data.featured);
 const others = services.filter(s => !s.data.featured);
 ---
 <Base>
   <a id="top" class="sr-only">Top</a>
+
+  <WebSiteLD />
 
   <section class="relative z-0 hero-bg pt-28 sm:pt-32 pb-14 bg-gradient-to-b from-digi-bg to-digi-ink/60">
     <div class="container-prose grid gap-10 md:grid-cols-2 items-center">

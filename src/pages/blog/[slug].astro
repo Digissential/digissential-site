@@ -1,61 +1,61 @@
 ---
-// src/pages/blog/[slug].astro
 import Base from '@layouts/Base.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
 
-// 1) Pre-render ALL blog slugs
+// 1) Pre-render ALL blog slugs (non-draft), oldest → newest for prev/next
 export async function getStaticPaths() {
-  // Only non-draft posts
   const posts = await getCollection('blog', ({ data }) => !data.draft);
-
-  // Sort oldest -> newest so we can compute prev/next by index
   posts.sort((a, b) => new Date(a.data.pubDate).valueOf() - new Date(b.data.pubDate).valueOf());
 
   return posts.map((entry, i) => {
     const prev = i > 0 ? { slug: posts[i - 1].slug, title: posts[i - 1].data.title } : null;
     const next = i < posts.length - 1 ? { slug: posts[i + 1].slug, title: posts[i + 1].data.title } : null;
-    return {
-      params: { slug: entry.slug },
-      props: { entry, prev, next },
-    };
+    return { params: { slug: entry.slug }, props: { entry, prev, next } };
   });
 }
 
 // 2) Receive props from getStaticPaths
 const { entry, prev = null, next = null } = Astro.props as {
-  entry: any; prev: { slug: string; title: string } | null; next: { slug: string; title: string } | null;
+  entry: any;
+  prev: { slug: string; title: string } | null;
+  next: { slug: string; title: string } | null;
 };
 
 const { data } = entry;
 const { Content } = await entry.render();
 
-// Basic reading-time calc
+// Reading time (≈200 wpm) from raw body text
 const words = String(entry.body ?? '').trim().split(/\s+/).filter(Boolean).length;
 const minutes = Math.max(1, Math.round(words / 200));
 
-// SEO/LD helpers
+// SEO helpers
 const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
-const url = `${site}/blog/${entry.slug}`;
+const url = new URL(`/blog/${entry.slug}/`, site).toString();
+const desc = data.summary ?? data.description ?? '';
+const ogImage = data.image ? new URL(data.image, site).toString() : new URL('/social.png', site).toString();
 
+// JSON-LD
 const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: data.title,
-  description: data.description ?? '',
+  description: desc,
   datePublished: new Date(data.pubDate).toISOString(),
+  ...(data.updatedDate ? { dateModified: new Date(data.updatedDate).toISOString() } : {}),
   author: { '@type': 'Organization', name: data.author || 'Digissential' },
   mainEntityOfPage: url,
   url,
+  image: [ogImage],
 };
 ---
 
-<Base title={`${data.title} — Digissential`} description={data.description ?? ''}>
+<Base title={`${data.title} — Digissential`} description={desc} ogImage={ogImage}>
   <main class="container-prose pt-6">
+    <!-- Home is auto-added by Breadcrumbs; just pass Blog + current -->
     <Breadcrumbs items={[
-      { href: '/', label: 'Home' },
-      { href: '/blog', label: 'Blog' },
-      { href: `/blog/${entry.slug}`, label: data.title }
+      { href: '/blog/', label: 'Blog' },
+      { href: `/blog/${entry.slug}/`, label: data.title }
     ]} />
 
     <article class="mt-6">
@@ -77,10 +77,10 @@ const articleLd = {
 
         <div class="relative">
           <h1 class="text-3xl sm:text-4xl font-extrabold">{data.title}</h1>
-          {data.description && <p class="mt-2 text-white/70 max-w-2xl">{data.description}</p>}
+          {desc && <p class="mt-2 text-white/70 max-w-2xl">{desc}</p>}
           <p class="mt-3 text-white/60 text-sm">
             <time datetime={new Date(data.pubDate).toISOString()}>
-              {new Date(data.pubDate).toLocaleDateString()}
+              {new Intl.DateTimeFormat('en-ZA', { day:'2-digit', month:'short', year:'numeric' }).format(new Date(data.pubDate))}
             </time>
             {' · '}
             <span>{data.author || 'Digissential Team'}</span>
@@ -92,7 +92,7 @@ const articleLd = {
             <p class="mt-3 flex flex-wrap gap-2">
               {data.tags.map((t: string) => {
                 const slug = t.toLowerCase();
-                return <a class="chip" href={`/blog?tag=${encodeURIComponent(slug)}`}>{t}</a>;
+                return <a class="chip" href={`/blog/?tag=${encodeURIComponent(slug)}`}>{t}</a>;
               })}
             </p>
           )}
@@ -108,11 +108,11 @@ const articleLd = {
 
       <nav class="flex flex-wrap gap-3 justify-between items-center">
         <div>
-          {prev && <a class="btn btn-outline" href={`/blog/${prev.slug}`}>&larr; {prev.title}</a>}
+          {prev && <a class="btn btn-outline" href={`/blog/${prev.slug}/`} rel="prev">&larr; {prev.title}</a>}
         </div>
-        <a class="link-fancy" href="/blog">Back to all posts</a>
+        <a class="link-fancy" href="/blog/">Back to all posts</a>
         <div>
-          {next && <a class="btn btn-outline" href={`/blog/${next.slug}`}>{next.title} &rarr;</a>}
+          {next && <a class="btn btn-outline" href={`/blog/${next.slug}/`} rel="next">{next.title} &rarr;</a>}
         </div>
       </nav>
 

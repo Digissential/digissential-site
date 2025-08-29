@@ -9,22 +9,29 @@ interface Props {
   description?: string;
   ogImage?: string;
   noindex?: boolean;
+  lang?: 'en' | 'af';
+  altHref?: { en: string; af: string } | null;
 }
 
 const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
-const canonical = new URL(Astro.url.pathname, site).toString();
+const canonical = new URL(Astro.url.pathname || '/', site).toString();
 
 const {
   title = 'Digissential — Computer Repair & IT Support in Stellenbosch',
   description = 'Fast, honest computer repairs and IT support. Windows installs, data recovery, malware removal, upgrades, and on-site service. Keeping your tech essentials perfect!',
   ogImage = '/social.png',
-  noindex = false
+  noindex = false,
+  lang = 'en',
+  altHref = null,
 } = Astro.props as Props;
+
+// Absolute OG image URL
+const ogAbs = new URL(ogImage, site).toString();
 ---
 
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -34,7 +41,7 @@ const {
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={ogAbs} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Digissential" />
@@ -43,15 +50,25 @@ const {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogAbs} />
 
-    {Astro.props.noindex && <meta name="robots" content="noindex,nofollow" />}
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    {altHref && (
+      <>
+        <link rel="alternate" hrefLang="en" href={new URL(altHref.en, site).toString()} />
+        <link rel="alternate" hrefLang="af" href={new URL(altHref.af, site).toString()} />
+        <link rel="alternate" hrefLang="x-default" href={new URL(altHref.en, site).toString()} />
+      </>
+    )}
     <link rel="alternate" type="application/rss+xml" title="Digissential Blog" href="/rss.xml" />
 
     <link rel="icon" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="generator" content={Astro.generator} />
 
     <LocalBusinessLD />
   </head>

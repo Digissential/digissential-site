@@ -1,0 +1,16 @@
+---
+const site = (Astro.site ?? new URL('https://www.digissential.co.za')).toString();
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${site}#website`,
+  "url": site,
+  "name": "Digissential",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": `${site}blog/?q={search_term_string}`,
+    "query-input": "required name=search_term_string"
+  }
+};
+---
+<script type="application/ld+json">{JSON.stringify(ld)}</script>

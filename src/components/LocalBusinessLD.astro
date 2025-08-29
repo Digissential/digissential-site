@@ -5,7 +5,7 @@ const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
 const lb = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness","ProfessionalService"],
-  "@id": `${site}#localbusiness`,
+  "@id": `${(Astro.site ?? new URL('https://www.digissential.co.za')).toString()}#localbusiness`,
   "name": "Digissential",
   "url": site,
   "telephone": "+27 66 425 6314",
