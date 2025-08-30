@@ -3,16 +3,25 @@ import Base from '@layouts/Base.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 ---
 
-<Base title="Thanks — Digissential">
+<Base
+  title="Thanks — Digissential"
+  description="Thanks for contacting Digissential. We’ll reply shortly."
+  noindex={true}
+>
   <main class="container-prose pt-6">
     <Breadcrumbs items={[
-      { href: '/', label: 'Home' },
-      { href: '/contact', label: 'Contact' },
-      { href: '/contact/success', label: 'Success' },
+      { href: '/contact/', label: 'Contact' },
+      { href: '/contact/success/', label: 'Thanks' },
     ]} />
-    <h1 class="text-3xl sm:text-4xl font-extrabold">Thanks! We’ll be in touch.</h1>
-    <p class="mt-2 text-white/70">Your message has been received.</p>
-    <p class="mt-6"><a class="btn btn-outline" href="/">Back to home</a></p>
-  </main>
-  </Base>
 
+    <section class="mt-6 card p-6 md:p-10 text-center">
+      <h1 class="text-3xl sm:text-4xl font-extrabold">Thanks! We’ll be in touch.</h1>
+      <p class="mt-2 text-white/70">Your message has been received and we’ll get back to you soon.</p>
+
+      <div class="mt-6 flex gap-3 justify-center">
+        <a class="btn btn-outline" href="/">Go home</a>
+        <a class="btn btn-secondary" href="tel:+27664256314">Call now</a>
+      </div>
+    </section>
+  </main>
+</Base>
