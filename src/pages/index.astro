@@ -37,7 +37,7 @@ const others = services.filter(s => !s.data.featured);
         <div class="card p-6">
           <h3 class="font-semibold">Quick Contact</h3>
           <form
-            name="quick-contact"
+            name="contact"
             method="POST"
             action="/contact/success/"
             data-netlify="true"
@@ -45,8 +45,9 @@ const others = services.filter(s => !s.data.featured);
             accept-charset="UTF-8"
             class="mt-4 grid gap-5"
           >
-            <input type="hidden" name="form-name" value="quick-contact" />
+            <input type="hidden" name="form-name" value="contact" />
             <input type="hidden" name="subject" value="Quick contact" />
+            <input type="hidden" name="form_source" value="home-hero" />
             <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field" /></label></p>
             <label class="text-sm">Name
               <input required name="name" autocomplete="name" placeholder="Your Name"
@@ -83,10 +84,10 @@ const others = services.filter(s => !s.data.featured);
               </label>
             </div>
             <label class="text-sm" for="qc-msg">What can we help with?</label>
-            <textarea id="qc-msg" required name="message" rows="3" maxlength="500" aria-describedby="qc-count"
+            <textarea id="qc-msg" required name="message" rows="3" maxlength="700" aria-describedby="qc-count"
               class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
-              placeholder="Describe the issue briefly (max 500 chars)"></textarea>
-            <div class="text-xs text-white/60" aria-live="polite">Characters: <span id="qc-count">0</span>/500</div>
+              placeholder="Describe the issue briefly (max 700 chars)"></textarea>
+            <div class="text-xs text-white/60" aria-live="polite">Characters: <span id="qc-count">0</span>/700</div>
             <label class="flex items-center gap-2 text-sm text-white/80 font-semibold">
               <input type="checkbox" name="consent" value="yes" required class="accent-digi-primary h-5 w-5" />
               I consent to handling of my info for contact (POPIA).
@@ -145,7 +146,7 @@ const others = services.filter(s => !s.data.featured);
       <div class="card p-6">
         <h3 class="font-semibold">Request a Quote</h3>
         <form
-          name="quote"
+          name="contact"
           method="POST"
           action="/contact/success/"
           data-netlify="true"
@@ -154,8 +155,9 @@ const others = services.filter(s => !s.data.featured);
           accept-charset="UTF-8"
           class="mt-4 grid gap-5"
         >
-          <input type="hidden" name="form-name" value="quote" />
+          <input type="hidden" name="form-name" value="contact" />
           <input type="hidden" name="subject" value="Quote request" />
+          +   <input type="hidden" name="form_source" value="home-quote" />
 
           <p class="hidden" aria-hidden="true">
             <label>Don’t fill this out: <input name="bot-field" /></label>
@@ -213,7 +215,7 @@ const others = services.filter(s => !s.data.featured);
           </div>
 
           <label class="text-sm" for="q-msg">Device & Issue</label>
-            <textarea id="q-msg" required name="issue" rows="4" maxlength="700" aria-describedby="q-count"
+            <textarea id="q-msg" required name="message" rows="4" maxlength="700" aria-describedby="q-count"
             class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
             placeholder="Describe the device and problem (max 700 chars)"></textarea>
           <div class="text-xs text-white/60" aria-live="polite">Characters: <span id="q-count">0</span>/700</div>

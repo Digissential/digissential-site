@@ -19,7 +19,7 @@ import Breadcrumbs from '@components/Breadcrumbs.astro';
           <h2 class="font-semibold">Quick Contact</h2>
 
           <form
-            name="quick-contact"
+            name="contact"
             method="POST"
             action="/contact/success/"
             data-netlify="true"
@@ -28,8 +28,9 @@ import Breadcrumbs from '@components/Breadcrumbs.astro';
             accept-charset="UTF-8"
             class="mt-4 grid gap-5"
           >
-            <input type="hidden" name="form-name" value="quick-contact" />
-            <input type="hidden" name="subject" value="Quick contact" />
+            <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="subject" value="Contact message" />
+            <input type="hidden" name="form_source" value="contact-page" />
             <p class="hidden" aria-hidden="true">
               <label>Don’t fill this out: <input name="bot-field" /></label>
             </p>
@@ -93,10 +94,10 @@ import Breadcrumbs from '@components/Breadcrumbs.astro';
             </div>
 
             <label class="text-sm" for="msg">What can we help with?</label>
-            <textarea id="msg" required name="message" rows="3" maxlength="500" aria-describedby="qc-count"
+            <textarea id="msg" required name="message" rows="3" maxlength="700" aria-describedby="qc-count"
               class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
-              placeholder="Describe the issue briefly (max 500 chars)"></textarea>
-            <div class="text-xs text-white/60" aria-live="polite">Characters: <span id="qc-count">0</span>/500</div>
+              placeholder="Describe the issue briefly (max 700 chars)"></textarea>
+            <div class="text-xs text-white/60" aria-live="polite">Characters: <span id="qc-count">0</span>/700</div>
 
             <label class="flex items-center gap-2 text-sm text-white/80 font-semibold">
               <input type="checkbox" name="consent" value="yes" required class="accent-digi-primary h-5 w-5" />
@@ -108,6 +109,19 @@ import Breadcrumbs from '@components/Breadcrumbs.astro';
             </button>
           </form>
         </div>
+
+        <!-- Netlify form template (hidden) so all fields are registered under one form -->
+        <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+          <input type="text"    name="name" />
+          <input type="email"   name="email" />
+          <input type="tel"     name="phone" />
+          <input type="text"    name="issue_type" />
+          <textarea name="message"></textarea>
+          <input type="text"    name="subject" />
+          <input type="text"    name="form_source" />
+          <input type="text"    name="bot-field" />
+        </form>
+
 
         <!-- Direct details -->
         <div class="card p-6">
