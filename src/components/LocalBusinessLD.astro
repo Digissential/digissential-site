@@ -1,50 +1,35 @@
 ---
-/** LocalBusiness JSON-LD for Digissential (Stellenbosch) */
-const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
-
-const lb = {
+const site = (Astro.site ?? new URL('https://www.digissential.co.za')).toString();
+const ld = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness","ProfessionalService"],
-  "@id": `${(Astro.site ?? new URL('https://www.digissential.co.za')).toString()}#localbusiness`,
+  "@id": `${site}#localbusiness`,
   "name": "Digissential",
   "url": site,
   "telephone": "+27 66 425 6314",
   "email": "digissentialteam@gmail.com",
   "image": `${site}/assets/logo.svg`,
   "logo": `${site}/assets/logo.svg`,
-  "description": "Computer repair & IT support in Stellenbosch: reinstalls, recovery, malware removal, upgrades, and remote help.",
+  "description": "Computer repair & IT support in Stellenbosch: Windows installs, data recovery, malware removal, upgrades, and remote help.",
   "priceRange": "R",
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Stellenbosch",
-    "addressRegion": "Western Cape",
-    "addressCountry": "ZA"
-  },
-  "areaServed": { "@type": "City", "name": "Stellenbosch" }
-  // Optionally add "sameAs": ["https://facebook.com/…","https://instagram.com/…","https://x.com/…"]
-};
----
-
-<script type="application/ld+json">
-{JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "@id": "https://www.digissential.co.za/#business",
-  "name": "Digissential",
-  "url": "https://www.digissential.co.za",
-  "telephone": "+27 66 425 6314",
-  "priceRange": "R",                // e.g., R to RRR
-  "address": {
-    "@type": "PostalAddress",
+    "streetAddress": "Berg-en-Dal, La Colline",
     "addressLocality": "Stellenbosch",
     "addressRegion": "WC",
+    "postalCode": "7600",
     "addressCountry": "ZA"
   },
-  "areaServed": [{ "@type": "City", "name": "Stellenbosch" }],
-  "sameAs": [
-    // "https://www.facebook.com/…",
-    // "https://www.instagram.com/…"
-  ]
-})}
-</script>
-
+  "areaServed": { "@type": "City", "name": "Stellenbosch" },
+  "openingHoursSpecification": [ 
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    }
+  ],
+  // "sameAs": ["https://www.facebook.com/profile.php?id=61580005651505","https://www.instagram.com/digi.ssential/", "https://x.com/Digi_ssential", "https://www.youtube.com/channel/UCJGDwg2FGiwAButfLsLyNtg", "https://www.tiktok.com/@digissential"]
+};
+---
+<script type="application/ld+json">{JSON.stringify(ld)}</script>

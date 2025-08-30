@@ -1,10 +1,10 @@
 ---
 const nav = [
   { href: '/',            label: 'Home'     },
-  { href: '/services',    label: 'Services' },
-  { href: '/blog',        label: 'Blog'     },
-  { href: '/legal',       label: 'Trust'    },
-  { href: '/contact',     label: 'Contact'  },
+  { href: '/services/',    label: 'Services' },
+  { href: '/blog/',        label: 'Blog'     },
+  { href: '/legal/',       label: 'Trust'    },
+  { href: '/contact/',     label: 'Contact'  },
 ];
 
 const path = Astro.url.pathname;
@@ -18,7 +18,7 @@ const isActive = (href: string) =>
 <header class={`sticky top-0 z-50 ${isHome ? 'backdrop-blur bg-digi-ink/30' : 'bg-digi-ink/60'} border-b border-white/5`}>
   <div class="container-prose h-16 flex items-center justify-between">
     <!-- Brand -->
-    <a href="/" class="flex items-center gap-3" aria-label="Digissential home">
+    <a href="/" rel="home" class="flex items-center gap-3" aria-label="Digissential home">
       <img src="/assets/logo.svg" alt="Digissential" class="h-7 w-auto" loading="eager" fetchpriority="high" />
     </a>
 
@@ -38,7 +38,7 @@ const isActive = (href: string) =>
 
     <!-- Desktop CTA -->
     <div class="hidden md:flex items-center gap-3">
-      <a href="tel:+27664256314" class="btn btn-accent" aria-label="Call Digissential now">Call now</a>
+      <a href="tel:+27664256314" class="btn btn-secondary" aria-label="Call Digissential now">Call now</a>
     </div>
 
     <!-- Mobile toggle -->
@@ -72,7 +72,7 @@ const isActive = (href: string) =>
         ))}
       </nav>
       <div class="mt-2 px-4">
-        <a href="tel:+27664256314" class="btn btn-accent w-full" data-close-menu>Call now</a>
+        <a href="tel:+27664256314" class="btn btn-secondary w-full" data-close-menu>Call now</a>
       </div>
     </div>
   </div>
@@ -81,16 +81,35 @@ const isActive = (href: string) =>
 <script is:inline>
   const toggleBtn = document.querySelector('[data-menu-toggle]');
   const menu = document.getElementById('mobile-menu');
+  const firstMenuLink = menu?.querySelector('a');
+  let lastFocused = null;
+
   function setExpanded(open) {
-    toggleBtn?.setAttribute('aria-expanded', String(open));
-    if (menu) (open ? menu.classList.remove('hidden') : menu.classList.add('hidden'));
+    if (!toggleBtn || !menu) return;
+    toggleBtn.setAttribute('aria-expanded', String(open));
+    toggleBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    menu.classList.toggle('hidden', !open);
+    document.documentElement.classList.toggle('overflow-hidden', open);
+
+    if (open) {
+      lastFocused = document.activeElement;
+      firstMenuLink?.focus();
+    } else {
+      (lastFocused instanceof HTMLElement ? lastFocused : toggleBtn).focus();
+    }
   }
+
   toggleBtn?.addEventListener('click', () => {
     const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
     setExpanded(!expanded);
   });
+
   document.querySelectorAll('#mobile-menu [data-close-menu]').forEach((a) => {
     a.addEventListener('click', () => setExpanded(false));
   });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setExpanded(false); });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setExpanded(false);
+  });
 </script>
+

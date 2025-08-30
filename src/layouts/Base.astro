@@ -14,7 +14,6 @@ interface Props {
 }
 
 const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
-const canonical = new URL(Astro.url.pathname || '/', site).toString();
 
 const {
   title = 'Digissential — Computer Repair & IT Support in Stellenbosch',
@@ -25,9 +24,10 @@ const {
   altHref = null,
 } = Astro.props as Props;
 
-// Absolute OG image URL
-const ogAbs = new URL(ogImage, site).toString();
+const canonical = new URL(Astro.url.pathname || '/', site).toString();
+const ogAbs = new URL(ogImage, site).toString();   // <-- single declaration
 ---
+
 
 
 <!doctype html>

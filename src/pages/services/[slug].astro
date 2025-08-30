@@ -85,8 +85,8 @@ const pageDesc =
     <Breadcrumbs
       items={[
         { href: '/', label: 'Home' },
-        { href: '/services', label: 'Services' },
-        { href: Astro.url.pathname, label: data.title },
+        { href: '/services/', label: 'Services' },
+        { href: `${Astro.url.pathname.endsWith('/') ? Astro.url.pathname : Astro.url.pathname + '/'}`, label: data.title },
       ]}
     />
 

@@ -38,7 +38,7 @@ const subscribeHref = '/rss.xml';
   <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
 
   <main class="container-prose pt-6">
-    <Breadcrumbs items={[{ href: '/blog/', label: 'Blog' }]} />
+    <Breadcrumbs items={[ { href: '/blog/', label: 'Blog' } ]} />
 
     <!-- Hero -->
     <section class="mt-6 card p-6 md:p-8 hero-bg">
@@ -58,9 +58,9 @@ const subscribeHref = '/rss.xml';
 
       {tags.length > 0 && (
         <ul id="tags" class="mt-4 flex flex-wrap gap-2 text-xs">
-          <li><button data-tag="" class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">All</button></li>
+          <li><button type="button" data-tag="" aria-pressed="true" class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">All</button></li>
           {tags.map(t => (
-            <li><button data-tag={t.slug} class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">
+            <li><button type="button" data-tag={t.slug} aria-pressed="false" class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">
               {t.label} ({t.count})
             </button></li>
           ))}
@@ -69,7 +69,10 @@ const subscribeHref = '/rss.xml';
     </section>
 
     <!-- Posts -->
-    <section class="mt-8 grid gap-6">
+      <p id="result-count" class="mt-6 text-sm text-white/60" aria-live="polite" aria-atomic="true">
+        {posts.length} posts
+      </p>
+      <section class="mt-2 grid gap-6">
       {posts.map(p => (
         <article class="card p-6 post"
           data-title={(p.data.title || '').toLowerCase()}
@@ -106,13 +109,13 @@ const subscribeHref = '/rss.xml';
     const q = $('#q');
     const buttons = $$('#tags [data-tag]');
     const cards = $$('.post');
-    const empty = $('#no-results');
+    const countEl = $('#result-count');
     let activeTag = '';
 
     // read initial state from URL
     const params = new URLSearchParams(location.search);
-    const initQ = params.get('q') || '';
-    const initTag = params.get('tag') || '';
+    cconst initQ = (params.get('q') || '').toLowerCase();
+    const initTag = (params.get('tag') || '').toLowerCase();
     if (q) q.value = initQ;
     if (initTag) activeTag = initTag;
 
@@ -132,6 +135,7 @@ const subscribeHref = '/rss.xml';
         if (ok) shown++;
       });
       if (empty) empty.classList.toggle('hidden', shown !== 0);
+      if (countEl) countEl.textContent = `${shown} ${shown === 1 ? 'post' : 'posts'}`;
       // write state to URL (no reload)
       const next = new URL(location.href);
       if (q?.value) next.searchParams.set('q', q.value);
@@ -148,6 +152,8 @@ const subscribeHref = '/rss.xml';
         buttons.forEach(x => x.classList.remove('ring-2','ring-digi-primary'));
         if (activeTag === '') buttons[0]?.classList.add('ring-2','ring-digi-primary');
         else b.classList.add('ring-2','ring-digi-primary');
+        // a11y state
+        buttons.forEach(x => x.setAttribute('aria-pressed', String(x === b || (activeTag==='' && x.dataset.tag===''))));
         apply();
       });
     });
@@ -156,8 +162,16 @@ const subscribeHref = '/rss.xml';
     q?.addEventListener('input', () => { clearTimeout((q)._t); (q)._t = setTimeout(apply, 120) });
 
     // default select
-    if (!activeTag) buttons[0]?.classList.add('ring-2','ring-digi-primary');
-    else buttons.find(b => b.dataset.tag === activeTag)?.classList.add('ring-2','ring-digi-primary');
+    if (!activeTag) {
+      buttons[0]?.classList.add('ring-2','ring-digi-primary');
+      buttons.forEach(x => x.setAttribute('aria-pressed', String(x === buttons[0])));
+    } else {
+      const activeBtn = buttons.find(x => x.dataset.tag === activeTag);
+      if (activeBtn) {
+        activeBtn.classList.add('ring-2','ring-digi-primary');
+        buttons.forEach(x => x.setAttribute('aria-pressed', String(x === activeBtn)));
+      }
+    }
     apply();
   </script>
 </Base>
