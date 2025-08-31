@@ -1,0 +1,56 @@
+---
+interface Props {
+  phone?: string;
+  phoneDisplay?: string;
+  email?: string;
+  address?: string;
+
+  /** Search text for the map (used when no embedSrc is supplied) */
+  mapQuery?: string;
+  /** Optional full Google “embed?pb=…” URL; wins over mapQuery */
+  embedSrc?: string;
+
+  /** UI tweaks */
+  mapZoom?: number;          // e.g. 13–16
+  mapHeightClass?: string;   // Tailwind classes for height (e.g. "h-72 md:h-96")
+  class?: string;            // extra classes on the outer card
+}
+
+const {
+  phone = '+27664256314',
+  phoneDisplay = '066 425 6314',
+  email = 'digissentialteam@gmail.com',
+  address = 'Stellenbosch, South Africa',
+  mapQuery = 'Digissential, Stellenbosch, South Africa',
+  embedSrc = '',
+  mapZoom = 14,
+  mapHeightClass = 'h-72 md:h-80 lg:h-96',
+} = Astro.props as Props;
+
+const searchEmbed = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&hl=en&z=${mapZoom}&output=embed`;
+const mapSrc = embedSrc && embedSrc.includes('/maps/embed?pb=') ? embedSrc : searchEmbed;
+const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+---
+
+<div class={`card p-6 ${Astro.props.class ?? ''}`}>
+  <h3 class="text-lg font-semibold">Direct Contact</h3>
+
+  <ul class="mt-3 space-y-2 text-white/80">
+    <li>Phone: <a class="link-fancy" href={`tel:${phone}`}>{phoneDisplay}</a></li>
+    <li>Email: <a class="link-fancy break-all" href={`mailto:${email}`}>{email}</a></li>
+    <li>{address}</li>
+  </ul>
+
+  <div class="mt-6">
+    <iframe
+      title="Digissential on Google Maps"
+      class={`w-full ${mapHeightClass} rounded-xl2 border border-white/10`}
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      src={mapSrc}
+    ></iframe>
+    <p class="mt-2 text-xs text-white/60">
+      <a class="link-fancy" href={mapsLink} target="_blank" rel="noopener">Open in Google Maps</a>
+    </p>
+  </div>
+</div>

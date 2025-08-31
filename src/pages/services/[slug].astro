@@ -84,7 +84,6 @@ const pageDesc =
   <main class="container-prose pt-28">
     <Breadcrumbs
       items={[
-        { href: '/', label: 'Home' },
         { href: '/services/', label: 'Services' },
         { href: `${Astro.url.pathname.endsWith('/') ? Astro.url.pathname : Astro.url.pathname + '/'}`, label: data.title },
       ]}
@@ -128,7 +127,7 @@ const pageDesc =
           <p class="text-4xl font-extrabold text-digi-primary">{priceDisplay}</p>
         </>}
         <div class="mt-4 grid gap-2">
-          <Button href="/contact">Get a free quote</Button>
+          <Button href="/contact/">Get a free quote</Button>
           <Button href="tel:+27664256314" variant="secondary">Call now</Button>
         </div>
         <p class="mt-4 text-xs text-white/60">
