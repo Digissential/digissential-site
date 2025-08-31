@@ -2,6 +2,7 @@
 import Base from '@layouts/Base.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
+import fs from 'node:fs';
 
 // Posts (no drafts), newest first
 const posts = (await getCollection('blog'))
@@ -32,23 +33,32 @@ const fmtDate = (d: Date) =>
 
 // Optional: where your subscribe button goes
 const subscribeHref = '/rss.xml';
+
+// Helper: does a /public image actually exist?
+const hasPublicFile = (p?: string) => {
+  if (!p || !p.startsWith('/')) return false;
+  try {
+    // file path relative to this file: src/pages/blog/index.astro → project root → /public
+    return fs.existsSync(new URL('../../../public' + p, import.meta.url));
+  } catch { return false; }
+};
 ---
 
 <Base title="Blog — Digissential" description="Short, practical posts to keep your devices healthy — repair tips, malware hygiene, backup basics, and more.">
   <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
 
-  <main class="container-prose pt-6">
+  <main class="container-prose pt-4">
     <Breadcrumbs items={[ { href: '/blog/', label: 'Blog' } ]} />
 
     <!-- Hero -->
-    <section class="mt-6 card p-6 md:p-8 hero-bg">
-      <h1 class="text-3xl md:text-4xl font-extrabold">Blog</h1>
-      <p class="mt-2 text-white/75 max-w-2xl">
+    <section class="mt-4 card p-5 md:p-6 hero-bg">
+      <h1 class="text-2xl md:text-3xl font-extrabold">Blog</h1>
+      <p class="mt-1 text-white/75 max-w-2xl">
         Short, practical posts to keep your devices healthy — with repair tips, malware hygiene, backup basics, and more.
       </p>
 
-      <div class="mt-5 flex flex-wrap gap-3 items-center">
-        <form id="search" class="flex-1 min-w-[280px] flex gap-2">
+      <div class="mt-4 flex flex-wrap gap-3 items-center">
+        <form id="search" class="flex-1 min-w-[240px] flex gap-2">
           <input id="q" type="search" placeholder="Search posts (e.g., malware, backup, windows)…"
             class="w-full rounded-2xl bg-white/10 px-4 py-2 outline-none focus:ring-2 focus:ring-digi-primary" autocomplete="off" />
           <button class="btn btn-primary">Search</button>
@@ -57,10 +67,10 @@ const subscribeHref = '/rss.xml';
       </div>
 
       {tags.length > 0 && (
-        <ul id="tags" class="mt-4 flex flex-wrap gap-2 text-xs">
-          <li><button type="button" data-tag="" aria-pressed="true" class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">All</button></li>
+        <ul id="tags" class="mt-3 flex flex-nowrap gap-2 text-xs overflow-x-auto pr-2 -mr-2">
+          <li class="shrink-0"><button type="button" data-tag="" aria-pressed="true" class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">All</button></li>
           {tags.map(t => (
-            <li><button type="button" data-tag={t.slug} aria-pressed="false" class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">
+            <li class="shrink-0"><button type="button" data-tag={t.slug} aria-pressed="false" class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">
               {t.label} ({t.count})
             </button></li>
           ))}
@@ -72,30 +82,57 @@ const subscribeHref = '/rss.xml';
       <p id="result-count" class="mt-6 text-sm text-white/60" aria-live="polite" aria-atomic="true">
         {posts.length} posts
       </p>
-      <section class="mt-2 grid gap-6">
-      {posts.map(p => (
-        <article class="card p-6 post"
-          data-title={(p.data.title || '').toLowerCase()}
-          data-summary={(p.data.summary || '').toLowerCase()}
-          data-tags={(p.data.tags || []).join(',').toLowerCase()}>
-          <h2 class="text-xl font-bold">
-            <a href={`/blog/${p.slug}/`} class="hover:underline">{p.data.title}</a>
-          </h2>
-          <p class="mt-1 text-white/60 text-sm">
-            {fmtDate(p.data.pubDate)}
-            {p.data.author ? ` · ${p.data.author}` : '' }
-          </p>
-          {p.data.summary && <p class="mt-3 text-white/80">{p.data.summary}</p>}
-          {Array.isArray(p.data.tags) && p.data.tags.length > 0 && (
-            <ul class="mt-3 flex gap-2 text-xs">
-              {p.data.tags.map(t => <li class="px-2 py-1 rounded bg-white/10">{t}</li>)}
-            </ul>
-          )}
-          <p class="mt-4">
-            <a href={`/blog/${p.slug}/`} class="btn btn-outline">Read post</a>
-          </p>
-        </article>
-      ))}
+      <section class="mt-2 grid gap-3 md:grid-cols-2">
+      {posts.map(p => {
+        const tags = p.data.tags || [];
+        const shown = tags.slice(0, 3);
+        const extra = Math.max(0, tags.length - shown.length);
+        const hero = p.data.hero?.src;
+        const showHero = hasPublicFile(hero);
+        const heroAlt = p.data.hero?.alt ?? '';
+        const updated = p.data.updatedDate && p.data.updatedDate > p.data.pubDate;
+        return (
+          <article
+            class="post relative group card p-3 md:p-4 hover:shadow-md transition
+                   focus-within:ring-2 focus-within:ring-digi-primary/70"
+            data-title={(p.data.title || '').toLowerCase()}
+            data-desc={(p.data.description || '').toLowerCase()}
+            data-tags={tags.join(',').toLowerCase()}
+          >
+            <a href={`/blog/${p.slug}/`} class="absolute inset-0 rounded-[inherit]" aria-label={`Read: ${p.data.title}`}></a>
+            <div class="flex gap-3 md:gap-4">
+              {showHero && (
+                <img
+                  src={hero!}
+                  alt={heroAlt}
+                  loading="lazy"
+                  decoding="async"
+                  class="hidden sm:block h-16 w-24 md:h-20 md:w-28 rounded-lg object-cover flex-none"
+                />
+              )}
+              <div class="min-w-0">
+                <h2 class="text-base md:text-lg font-semibold leading-tight text-white clamp-2 group-hover:underline">
+                  {p.data.title}
+                </h2>
+                <p class="mt-0.5 text-white/60 text-[11px] md:text-xs">
+                  {fmtDate(p.data.pubDate)}
+                  {updated && ` · Updated ${fmtDate(p.data.updatedDate as Date)}`}
+                  {p.data.author ? ` · ${p.data.author}` : ''}
+                </p>
+                {p.data.description && (
+                  <p class="mt-1 text-white/80 text-xs sm:text-sm clamp-2">{p.data.description}</p>
+                )}
+                {shown.length > 0 && (
+                  <ul class="mt-1.5 flex flex-wrap gap-1 text-[10.5px]">
+                    {shown.map(t => <li class="px-2 py-0.5 rounded bg-white/10">{t}</li>)}
+                    {extra > 0 && <li class="px-2 py-0.5 rounded bg-white/5 text-white/60">+{extra}</li>}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </article>
+        );
+      })}
       {posts.length === 0 && <p class="text-white/60">No posts yet.</p>}
 
       <p id="no-results" class="hidden text-white/60">No posts match your search/tag.</p>
@@ -110,11 +147,12 @@ const subscribeHref = '/rss.xml';
     const buttons = $$('#tags [data-tag]');
     const cards = $$('.post');
     const countEl = $('#result-count');
+    const empty = $('#no-results');
     let activeTag = '';
 
     // read initial state from URL
     const params = new URLSearchParams(location.search);
-    cconst initQ = (params.get('q') || '').toLowerCase();
+    const initQ = (params.get('q') || '').toLowerCase();
     const initTag = (params.get('tag') || '').toLowerCase();
     if (q) q.value = initQ;
     if (initTag) activeTag = initTag;
@@ -126,15 +164,15 @@ const subscribeHref = '/rss.xml';
       let shown = 0;
       cards.forEach(card => {
         const title = card.dataset.title || '';
-        const summ  = card.dataset.summary || '';
+        const desc  = card.dataset.desc || '';
         const tags  = card.dataset.tags || '';
-        const matchText = !qs || title.includes(qs) || summ.includes(qs);
+        const matchText = !qs || title.includes(qs) || desc.includes(qs);
         const matchTag  = !activeTag || tags.split(',').includes(activeTag);
         const ok = matchText && matchTag;
         card.style.display = ok ? '' : 'none';
         if (ok) shown++;
       });
-      if (empty) empty.classList.toggle('hidden', shown !== 0);
+      if (empty) empty.classList.toggle('hidden', shown !== 0)
       if (countEl) countEl.textContent = `${shown} ${shown === 1 ? 'post' : 'posts'}`;
       // write state to URL (no reload)
       const next = new URL(location.href);

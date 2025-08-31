@@ -8,7 +8,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "format": "prettier --write .",
-    "lint": "eslint . --ext .js,.ts,.astro"
+    "lint": "eslint . --ext .js,.ts,.astro",
+    "seo:check": "node scripts/seo-lint.mjs",
+    "new:post": "node scripts/new-post.mjs"
   },
   "engines": {
     "node": "^20 || ^22"

@@ -1,0 +1,113 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  pubDate?: Date | string;
+  updatedDate?: Date | string;
+  tags?: string[];
+  hero?: { src: string; alt?: string };
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  faq?: { q: string; a: string }[];
+  howTo?: { title: string; steps: string[] };
+  video?: {
+    url: string; name: string; description: string; thumbnailUrl: string;
+    uploadDate: Date | string; durationISO?: string;
+  };
+}
+
+const props = Astro.props as Props;
+
+// Build canonical with trailing slash from runtime URL + Astro.site
+const pathWithSlash = Astro.url.pathname.endsWith("/")
+  ? Astro.url.pathname
+  : Astro.url.pathname + "/";
+
+const canonicalUrl =
+  props.canonical ??
+  (Astro.site ? new URL(pathWithSlash, Astro.site).toString() : undefined);
+
+// Build absolute OG image
+const rawOg = props.ogImage ?? props.hero?.src;
+const absOg =
+  rawOg && Astro.site ? new URL(rawOg, Astro.site).toString() : undefined;
+
+// JSON-LD BlogPosting
+const blogPosting: Record<string, any> = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": props.title,
+  "description": props.description,
+  "datePublished": props.pubDate ? new Date(props.pubDate).toISOString() : undefined,
+  "dateModified": props.updatedDate ? new Date(props.updatedDate).toISOString() : undefined,
+  "mainEntityOfPage": canonicalUrl,
+  "image": absOg ? [absOg] : undefined,
+  "author": [{ "@type": "Organization", "name": "Digissential" }],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Digissential",
+    "logo": {
+      "@type": "ImageObject",
+      "url": Astro.site ? new URL("/images/logo.png", Astro.site).toString() : "/images/logo.png"
+    }
+  }
+};
+
+const ld: any[] = [blogPosting];
+if (Array.isArray(props.faq) && props.faq.length) {
+  ld.push({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": props.faq.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a }
+    }))
+  });
+}
+if (props.howTo?.steps?.length) {
+  ld.push({
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": props.howTo.title,
+    "step": props.howTo.steps.map((s, i) => ({ "@type": "HowToStep", "position": i + 1, "name": s }))
+  });
+}
+if (props.video?.url) {
+  ld.push({
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": props.video.name,
+    "description": props.video.description,
+    "thumbnailUrl": [props.video.thumbnailUrl],
+    "uploadDate": new Date(props.video.uploadDate).toISOString(),
+    "contentUrl": props.video.url,
+    "embedUrl": props.video.url,
+    ...(props.video.durationISO ? { "duration": props.video.durationISO } : {})
+  });
+}
+---
+
+<title>{props.title}</title>
+<meta name="description" content={props.description} />
+{props.noindex
+  ? <meta name="robots" content="noindex, nofollow" />
+  : <meta name="robots" content="index, follow" />
+}
+{canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content={props.title} />
+<meta property="og:description" content={props.description} />
+{canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+{absOg && <meta property="og:image" content={absOg} />}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={props.title} />
+<meta name="twitter:description" content={props.description} />
+{absOg && <meta name="twitter:image" content={absOg} />}
+
+<script type="application/ld+json">{JSON.stringify(ld)}</script>
