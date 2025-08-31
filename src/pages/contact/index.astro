@@ -1,6 +1,8 @@
 ---
 import Base from '@layouts/Base.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
+import ContactForm from '@components/ContactForm.astro';
+import ContactInfoCard from '@components/ContactInfoCard.astro';
 ---
 
 <Base title="Contact — Digissential" description="Get a quick quote or ask a question. We reply fast.">
@@ -14,131 +16,23 @@ import Breadcrumbs from '@components/Breadcrumbs.astro';
       </p>
 
       <div class="mt-8 grid gap-6 md:grid-cols-2">
-        <!-- Quick Contact -->
+        <!-- Left: form -->
         <div class="card p-6">
           <h2 class="font-semibold">Quick Contact</h2>
-
-          <form
-            name="contact"
-            method="POST"
-            action="/contact/success/"
-            data-netlify="true"
-            netlify
-            netlify-honeypot="bot-field"
-            accept-charset="UTF-8"
-            class="mt-4 grid gap-5"
-          >
-            <input type="hidden" name="form-name" value="contact" />
-            <input type="hidden" name="subject" value="Contact message" />
-            <input type="hidden" name="form_source" value="contact-page" />
-            <p class="hidden" aria-hidden="true">
-              <label>Don’t fill this out: <input name="bot-field" /></label>
-            </p>
-
-            <label class="text-sm">Name
-              <input required name="name" autocomplete="name" placeholder="Your Name"
-                class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary" />
-            </label>
-
-            <label class="text-sm">Email
-              <input required type="email" name="email" autocomplete="email" placeholder="your.email@example.com"
-                class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary" />
-            </label>
-
-            <!-- New: Phone (optional) -->
-            <label class="text-sm">Phone (optional)
-              <input type="tel" name="phone" inputmode="tel" autocomplete="tel"
-                placeholder="066 425 6314"
-                class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary" />
-            </label>
-
-            <!-- Desktop: multi-select via checkboxes -->
-            <fieldset class="text-sm hidden md:block">
-              <legend class="mb-1 text-white/80">Common issues (select any)</legend>
-              <div class="flex flex-wrap gap-3 text-xs">
-                <label class="inline-flex items-center gap-2 leading-none">
-                  <input type="checkbox" name="issue_type" value="Malware Removal"
-                    class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]" />Malware Removal
-                </label>
-                <label class="inline-flex items-center gap-2 leading-none">
-                  <input type="checkbox" name="issue_type" value="Data Recovery"
-                    class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]" />Data Recovery
-                </label>
-                <label class="inline-flex items-center gap-2 leading-none">
-                  <input type="checkbox" name="issue_type" value="Windows Reinstall"
-                    class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]" />Windows Reinstall
-                </label>
-                <label class="inline-flex items-center gap-2 leading-none">
-                  <input type="checkbox" name="issue_type" value="Performance"
-                    class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]" />Performance
-                </label>
-                <label class="inline-flex items-center gap-2 leading-none">
-                  <input type="checkbox" name="issue_type" value="Other"
-                    class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]" />Other
-                </label>
-              </div>
-            </fieldset>
-
-            <!-- Mobile: single-select -->
-            <div class="md:hidden grid gap-2 text-sm">
-              <label>Issue type (quick select)
-                <select name="issue_type" class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2">
-                  <option value="">Choose an option</option>
-                  <option>Malware Removal</option>
-                  <option>Data Recovery</option>
-                  <option>Windows Reinstall</option>
-                  <option>Performance</option>
-                  <option>Other</option>
-                </select>
-              </label>
-            </div>
-
-            <label class="text-sm" for="msg">What can we help with?</label>
-            <textarea id="msg" required name="message" rows="3" maxlength="700" aria-describedby="qc-count"
-              class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
-              placeholder="Describe the issue briefly (max 700 chars)"></textarea>
-            <div class="text-xs text-white/60" aria-live="polite">Characters: <span id="qc-count">0</span>/700</div>
-
-            <label class="flex items-center gap-2 text-sm text-white/80 font-semibold">
-              <input type="checkbox" name="consent" value="yes" required class="accent-digi-primary h-5 w-5" />
-              I consent to handling of my info for contact (POPIA).
-            </label>
-
-            <button type="submit" class="rounded-xl2 bg-digi-primary px-4 py-2 font-semibold hover:brightness-110">
-              Send
-            </button>
-          </form>
+          <ContactForm subject="Contact message" source="contact-page" />
         </div>
 
-        <!-- Netlify form template (hidden) so all fields are registered under one form -->
-        <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-          <input type="text"    name="name" />
-          <input type="email"   name="email" />
-          <input type="tel"     name="phone" />
-          <input type="text"    name="issue_type" />
-          <textarea name="message"></textarea>
-          <input type="text"    name="subject" />
-          <input type="text"    name="form_source" />
-          <input type="text"    name="bot-field" />
-        </form>
-
-
-        <!-- Direct details -->
-        <div class="card p-6">
-          <h2 class="font-semibold">Direct</h2>
-          <p class="mt-2">Phone: <a class="link-fancy" href="tel:+27664256314">066 425 6314</a></p>
-          <p>Email: <a class="link-fancy" href="mailto:digissentialteam@gmail.com">digissentialteam@gmail.com</a></p>
-          <p class="mt-4 text-white/70 text-sm">Prefer WhatsApp/Signal? Mention it in your message.</p>
-        </div>
+        <!-- Right: unified contact info + Google Map -->
+        <ContactInfoCard
+          phone="+27664256314"
+          phoneDisplay="066 425 6314"
+          email="digissentialteam@gmail.com"
+          address="Stellenbosch & surrounds"
+          mapQuery="Digissential, Stellenbosch, South Africa"
+          mapZoom={15}
+          mapHeightClass="h-80 md:h-96 lg:h-[28rem]"
+        />
       </div>
     </section>
   </main>
-
-  <!-- character counter -->
-  <script is:inline>
-    const ta = document.querySelector('textarea[name="message"]');
-    const out = document.querySelector('#qc-count');
-    function sync(){ if(ta && out){ out.textContent = String(ta.value.length); } }
-    ta?.addEventListener('input', sync); sync();
-  </script>
 </Base>

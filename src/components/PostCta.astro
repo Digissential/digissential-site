@@ -1,0 +1,11 @@
+---
+interface Props { variant?: "primary" | "outline"; class?: string }
+const { variant = "primary", class: klass = "" } = Astro.props as Props;
+---
+<div class={`rounded-xl border p-5 ${klass}`}>
+  <p class="mb-3 text-sm text-slate-600">Need help fast?</p>
+  <div class="flex gap-3">
+    <a href="/contact/" class="rounded-lg px-4 py-2 text-white bg-slate-900 hover:bg-slate-700">Book diagnostic</a>
+    <a href="tel:+27664256314" class="rounded-lg px-4 py-2 border border-slate-300 hover:bg-slate-50">Call 066 425 6314</a>
+  </div>
+</div>

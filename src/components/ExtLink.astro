@@ -1,0 +1,10 @@
+---
+interface Props { href: string; utm?: string; class?: string }
+const { href, class: klass = "", utm = "utm_source=blog&utm_medium=referral&utm_campaign=content" } = Astro.props as Props;
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const isExternal = /^https?:\/\//i.test(href) && !href.startsWith(site);
+const finalHref = isExternal ? (href.includes("?") ? `${href}&${utm}` : `${href}?${utm}`) : href;
+---
+<a href={finalHref} class={klass} rel={isExternal ? "noopener nofollow" : undefined} target={isExternal ? "_blank" : undefined}>
+  <slot />
+</a>

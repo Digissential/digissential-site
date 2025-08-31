@@ -8,6 +8,8 @@ import FeatureCard from '@components/FeatureCard.astro';
 import Trust from '@components/Trust.astro';
 import { getCollection } from 'astro:content';
 import WebSiteLD from '@components/WebSiteLD.astro';
+import ContactForm from '@components/ContactForm.astro';
+import ContactInfoCard from '@components/ContactInfoCard.astro';
 const services = await getCollection('services');
 const featured = services.filter(s => s.data.featured);
 const others = services.filter(s => !s.data.featured);
@@ -36,64 +38,7 @@ const others = services.filter(s => !s.data.featured);
       <div class="relative">
         <div class="card p-6">
           <h3 class="font-semibold">Quick Contact</h3>
-          <form
-            name="contact"
-            method="POST"
-            action="/contact/success/"
-            data-netlify="true"
-            netlify-honeypot="bot-field"
-            accept-charset="UTF-8"
-            class="mt-4 grid gap-5"
-          >
-            <input type="hidden" name="form-name" value="contact" />
-            <input type="hidden" name="subject" value="Quick contact" />
-            <input type="hidden" name="form_source" value="home-hero" />
-            <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field" /></label></p>
-            <label class="text-sm">Name
-              <input required name="name" autocomplete="name" placeholder="Your Name"
-                class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"/>
-            </label>
-            <label class="text-sm">Email
-              <input required type="email" name="email" autocomplete="email" placeholder="your.email@example.com"
-                class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"/>
-            </label>
-            <label class="text-sm">Phone (optional)
-              <input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="066 425 6314"
-                class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"/>
-            </label>
-            <fieldset class="text-sm hidden md:block">
-              <legend class="mb-1 text-white/80">Common issues (select any)</legend>
-              <div class="flex flex-wrap gap-3 text-xs">
-                <label class="inline-flex items-center gap-2 leading-none"><input type="checkbox" name="issue_type" value="Malware Removal" class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]">Malware Removal</label>
-                <label class="inline-flex items-center gap-2 leading-none"><input type="checkbox" name="issue_type" value="Data Recovery" class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]">Data Recovery</label>
-                <label class="inline-flex items-center gap-2 leading-none"><input type="checkbox" name="issue_type" value="Windows Reinstall" class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]">Windows Reinstall</label>
-                <label class="inline-flex items-center gap-2 leading-none"><input type="checkbox" name="issue_type" value="Performance" class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]">Performance</label>
-                <label class="inline-flex items-center gap-2 leading-none"><input type="checkbox" name="issue_type" value="Other" class="accent-digi-primary h-4 w-4 align-middle translate-y-[1px]">Other</label>
-              </div>
-            </fieldset>
-            <div class="md:hidden grid gap-2 text-sm">
-              <label>Issue type (quick select)
-                <select name="issue_type" class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2">
-                  <option value="">Choose an option</option>
-                  <option>Malware Removal</option>
-                  <option>Data Recovery</option>
-                  <option>Windows Reinstall</option>
-                  <option>Performance</option>
-                  <option>Other</option>
-                </select>
-              </label>
-            </div>
-            <label class="text-sm" for="qc-msg">What can we help with?</label>
-            <textarea id="qc-msg" required name="message" rows="3" maxlength="700" aria-describedby="qc-count"
-              class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
-              placeholder="Describe the issue briefly (max 700 chars)"></textarea>
-            <div class="text-xs text-white/60" aria-live="polite">Characters: <span id="qc-count">0</span>/700</div>
-            <label class="flex items-center gap-2 text-sm text-white/80 font-semibold">
-              <input type="checkbox" name="consent" value="yes" required class="accent-digi-primary h-5 w-5" />
-              I consent to handling of my info for contact (POPIA).
-            </label>
-            <button type="submit" class="rounded-xl2 bg-digi-primary px-4 py-2 font-semibold hover:brightness-110">Send</button>
-          </form>
+          <ContactForm subject="Quote request" source="home-quote" />
         </div>
       </div>
     </div>
@@ -141,109 +86,30 @@ const others = services.filter(s => !s.data.featured);
 
   <Trust />
 
-  <Section id="contact" eyebrow="Contact" title="Get help today" description="Fast replies during business hours. Remote support available.">
+    <Section
+    id="contact"
+    eyebrow="Contact"
+    title="Get help today"
+    description="Fast replies during business hours. Remote support available."
+  >
     <div class="grid gap-6 md:grid-cols-2">
+      <!-- Left: form card -->
       <div class="card p-6">
         <h3 class="font-semibold">Request a Quote</h3>
-        <form
-          name="contact"
-          method="POST"
-          action="/contact/success/"
-          data-netlify="true"
-          netlify
-          netlify-honeypot="bot-field"
-          accept-charset="UTF-8"
-          class="mt-4 grid gap-5"
-        >
-          <input type="hidden" name="form-name" value="contact" />
-          <input type="hidden" name="subject" value="Quote request" />
-          +   <input type="hidden" name="form_source" value="home-quote" />
-
-          <p class="hidden" aria-hidden="true">
-            <label>Don’t fill this out: <input name="bot-field" /></label>
-          </p>
-
-          <label class="text-sm">Full Name
-            <input required name="name" autocomplete="name" placeholder="Your Name"
-              class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary" />
-          </label>
-
-          <label class="text-sm">Email
-            <input required type="email" name="email" autocomplete="email" placeholder="your.email@example.com"
-              class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary" />
-          </label>
-
-          <label class="text-sm">Phone (optional)
-            <input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="071 234 5678"
-              class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary" />
-          </label>
-
-          <!-- Desktop multi-select -->
-          <fieldset class="text-sm">
-            <legend class="mb-1 text-white/80">Common issues (select any)</legend>
-            <div class="flex flex-wrap gap-3 text-xs">
-              <label class="inline-flex items-center gap-2 leading-none">
-                <input type="checkbox" name="issue_type" value="Malware Removal" class="accent-digi-primary h-4 w-4 translate-y-[1px]" />Malware Removal
-              </label>
-              <label class="inline-flex items-center gap-2 leading-none">
-                <input type="checkbox" name="issue_type" value="Data Recovery" class="accent-digi-primary h-4 w-4 translate-y-[1px]" />Data Recovery
-              </label>
-              <label class="inline-flex items-center gap-2 leading-none">
-                <input type="checkbox" name="issue_type" value="Windows Reinstall" class="accent-digi-primary h-4 w-4 translate-y-[1px]" />Windows Reinstall
-              </label>
-              <label class="inline-flex items-center gap-2 leading-none">
-                <input type="checkbox" name="issue_type" value="Performance" class="accent-digi-primary h-4 w-4 translate-y-[1px]" />Performance
-              </label>
-              <label class="inline-flex items-center gap-2 leading-none">
-                <input type="checkbox" name="issue_type" value="Other" class="accent-digi-primary h-4 w-4 translate-y-[1px]" />Other
-              </label>
-            </div>
-          </fieldset>
-
-          <!-- Mobile single-select -->
-          <div class="md:hidden grid gap-2 text-sm">
-            <label>Issue type (quick select)
-              <select name="issue_type" class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2">
-                <option value="">Choose an option</option>
-                <option>Malware Removal</option>
-                <option>Data Recovery</option>
-                <option>Windows Reinstall</option>
-                <option>Performance</option>
-               <option>Other</option>
-              </select>
-            </label>
-          </div>
-
-          <label class="text-sm" for="q-msg">Device & Issue</label>
-            <textarea id="q-msg" required name="message" rows="4" maxlength="700" aria-describedby="q-count"
-            class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
-            placeholder="Describe the device and problem (max 700 chars)"></textarea>
-          <div class="text-xs text-white/60" aria-live="polite">Characters: <span id="q-count">0</span>/700</div>
-
-          <label class="flex items-center gap-2 text-sm text-white/80 font-semibold">
-            <input type="checkbox" name="consent" value="yes" required class="accent-digi-primary h-5 w-5" />
-            I consent to handling of my info for quoting (POPIA).
-          </label>
-
-          <button type="submit" class="rounded-xl2 bg-digi-primary px-4 py-2 font-semibold hover:brightness-110">
-            Submit
-          </button>
-        </form>
-
+        <ContactForm subject="Quote request" source="home-contact" />
       </div>
-      <div class="card p-6">
-        <h3 class="font-semibold">Direct Contact</h3>
-        <ul class="mt-3 space-y-2 text-white/80">
-          <li>Phone: <a class="hover:text-white" href="tel:+27664256314">066 425 6314</a></li>
-          <li>Email: <a class="hover:text-white" href="mailto:digissentialteam@gmail.com">digissentialteam@gmail.com</a></li>
-          <li>Service area: Stellenbosch & surrounds</li>
-        </ul>
-        <div class="mt-6">
-          <iframe title="Map" class="w-full h-56 rounded-xl2 border border-white/10" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3311.427!2d18.85!3d-33.93!2m3!1f0!2f0!3f0!"></iframe>
-        </div>
-      </div>
+
+      <!-- Right: unified contact info + map -->
+      <ContactInfoCard
+        phone="+27664256314"
+        phoneDisplay="066 425 6314"
+        email="digissentialteam@gmail.com"
+        address="Stellenbosch & surrounds"
+        mapQuery="Digissential, Stellenbosch, South Africa"
+      />
     </div>
   </Section>
+
 
   <script is:inline>
     const attachCounter = (sel) => {

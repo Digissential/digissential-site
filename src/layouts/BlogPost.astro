@@ -1,0 +1,90 @@
+---
+import Seo from "@/components/Seo.astro";
+import PostCta from "@/components/PostCta.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+type Post = CollectionEntry<"blog">["data"];
+
+const { content, headings } = Astro.props;
+const frontmatter = content?.frontmatter as Post;
+
+const { title, description, pubDate, updatedDate, tags, hero, canonical, ogImage, noindex, faq, howTo, video } = frontmatter;
+const all = await getCollection("blog");
+const related = (all
+  .filter(p => p.slug !== content.slug && p.data.tags?.some((t: string) => (tags||[]).includes(t)))
+  .slice(0, 3));
+---
+
+<html lang="en">
+  <head>
+    <Seo
+      title={title}
+      description={description}
+      pubDate={pubDate}
+      updatedDate={updatedDate}
+      tags={tags}
+      hero={hero}
+      canonical={canonical}
+      ogImage={ogImage}
+      noindex={noindex}
+      faq={faq}
+      faq={faq}
+      video={video}
+    />
+  </head>
+  <body class="min-h-screen bg-white text-slate-900 antialiased">
+    <article class="mx-auto max-w-6xl px-4 py-10 grid gap-8 lg:grid-cols-[1fr_300px]">
+      <div class="prose prose-slate max-w-none">
+      <header class="mb-8">
+        <p class="text-sm text-slate-500">
+          Published {new Date(pubDate).toLocaleDateString("en-ZA", { year: "numeric", month: "long", day: "numeric" })} ·
+          Updated {new Date(updatedDate ?? pubDate).toLocaleDateString("en-ZA", { year: "numeric", month: "long", day: "numeric" })}
+        </p>
+        <h1 class="mb-3">{title}</h1>
+        <p class="mt-0 text-slate-600">{description}</p>
+        {tags?.length ? (
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {tags.map((t) => <li class="rounded-full bg-slate-100 px-3 py-1 text-xs">{t}</li>)}
+          </ul>
+        ) : null}
+      </header>
+
+      {hero?.src && (
+        <figure class="my-8">
+          <img src={hero.src} alt={hero.alt ?? ""} class="w-full rounded-xl" loading="eager" fetchpriority="high" />
+          {hero.caption && <figcaption class="mt-2 text-center text-sm text-slate-500">{hero.caption}</figcaption>}
+        </figure>
+      )}
+
+      <slot />
+
+      <!-- Optional in-post CTA -->
+      <section aria-labelledby="cta" class="mt-12 rounded-xl border border-slate-200 p-6">
+        <h2 id="cta" class="!mt-0">Need help fast?</h2>
+        <p>We repair and support laptops & PCs across Stellenbosch. POPIA-aligned handling, CPA warranties, and lawful e-waste.</p>
+        <div class="mt-4 flex gap-3">
+          <a href="/contact/" class="rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-700">Contact us</a>
+          <a href="tel:+27664256314" class="rounded-lg border border-slate-300 px-4 py-2 hover:bg-slate-50">066 425 6314</a>
+        </div>
+      </section>
+      <hr class="my-10" />
+      {related.length ? (
+        <section class="mt-6">
+          <h2 class="!mt-0">Related posts</h2>
+          <ul class="grid gap-3">
+            {related.map(r => (
+              <li><a href={`/blog/${r.slug}/`} class="hover:underline">{r.data.title}</a></li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+      </div>
+
+      <!-- Sidebar CTA (primary) -->
+      <aside class="self-start lg:sticky lg:top-24">
+        <PostCta />
+      </aside>
+    </article>
+  </body>
+</html>
