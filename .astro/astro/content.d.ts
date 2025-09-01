@@ -146,70 +146,70 @@ declare module 'astro:content' {
   slug: "2025-08-31-data-recovery-stellenbosch";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "2025-08-31-laptop-battery-stellenbosch-loadshedding-replacements.md": {
 	id: "2025-08-31-laptop-battery-stellenbosch-loadshedding-replacements.md";
   slug: "2025-08-31-laptop-battery-stellenbosch-loadshedding-replacements";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "2025-08-31-laptop-repair-stellenbosch-costs-turnarounds.md": {
 	id: "2025-08-31-laptop-repair-stellenbosch-costs-turnarounds.md";
   slug: "2025-08-31-laptop-repair-stellenbosch-costs-turnarounds";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "2025-08-31-laptop-water-spill-stellenbosch-rescue-guide.md": {
 	id: "2025-08-31-laptop-water-spill-stellenbosch-rescue-guide.md";
   slug: "2025-08-31-laptop-water-spill-stellenbosch-rescue-guide";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "2025-08-31-sme-device-health-stellenbosch-quarterly-checklist.md": {
 	id: "2025-08-31-sme-device-health-stellenbosch-quarterly-checklist.md";
   slug: "2025-08-31-sme-device-health-stellenbosch-quarterly-checklist";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "2025-08-31-stellenbosch-ewaste-2025.md": {
 	id: "2025-08-31-stellenbosch-ewaste-2025.md";
   slug: "2025-08-31-stellenbosch-ewaste-2025";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "2025-08-31-stellenbosch-wifi-quick-fixes.md": {
 	id: "2025-08-31-stellenbosch-wifi-quick-fixes.md";
   slug: "2025-08-31-stellenbosch-wifi-quick-fixes";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "2025-08-31-su-exam-week-emergency-laptop-fixes-stellenbosch.md": {
 	id: "2025-08-31-su-exam-week-emergency-laptop-fixes-stellenbosch.md";
   slug: "2025-08-31-su-exam-week-emergency-laptop-fixes-stellenbosch";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "2025-08-31-technopark-cbd-sme-ransomware-readiness-checklist.md": {
 	id: "2025-08-31-technopark-cbd-sme-ransomware-readiness-checklist.md";
   slug: "2025-08-31-technopark-cbd-sme-ransomware-readiness-checklist";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "2025-08-31-windows-11-slow-vs-clean-reinstall-stellenbosch.md": {
 	id: "2025-08-31-windows-11-slow-vs-clean-reinstall-stellenbosch.md";
   slug: "2025-08-31-windows-11-slow-vs-clean-reinstall-stellenbosch";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 };
 "services": {
@@ -218,308 +218,308 @@ declare module 'astro:content' {
   slug: "battery-replacement-labour";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "cloud-backup-setup.md": {
 	id: "cloud-backup-setup.md";
   slug: "cloud-backup-setup";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "component-replacement-assistance.md": {
 	id: "component-replacement-assistance.md";
   slug: "component-replacement-assistance";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "custom-pc-build-advice.md": {
 	id: "custom-pc-build-advice.md";
   slug: "custom-pc-build-advice";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "cybersecurity-hardening.md": {
 	id: "cybersecurity-hardening.md";
   slug: "cybersecurity-hardening";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "data-backup-basic.md": {
 	id: "data-backup-basic.md";
   slug: "data-backup-basic";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "data-backup-full-system-image.md": {
 	id: "data-backup-full-system-image.md";
   slug: "data-backup-full-system-image";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "data-destruction-certified-wipe.md": {
 	id: "data-destruction-certified-wipe.md";
   slug: "data-destruction-certified-wipe";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "data-migration-device-to-device.md": {
 	id: "data-migration-device-to-device.md";
   slug: "data-migration-device-to-device";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "data-recovery-best-effort.md": {
 	id: "data-recovery-best-effort.md";
   slug: "data-recovery-best-effort";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "data-recovery-simple-logical.md": {
 	id: "data-recovery-simple-logical.md";
   slug: "data-recovery-simple-logical";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "diagnostic-in-shop.md": {
 	id: "diagnostic-in-shop.md";
   slug: "diagnostic-in-shop";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "driver-installation.md": {
 	id: "driver-installation.md";
   slug: "driver-installation";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "email-setup.md": {
 	id: "email-setup.md";
   slug: "email-setup";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "expedited-service-fee.md": {
 	id: "expedited-service-fee.md";
   slug: "expedited-service-fee";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "firmware-bios-uefi-updates.md": {
 	id: "firmware-bios-uefi-updates.md";
   slug: "firmware-bios-uefi-updates";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "gpu-cpu-upgrade-labour.md": {
 	id: "gpu-cpu-upgrade-labour.md";
   slug: "gpu-cpu-upgrade-labour";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "hardware-diagnostics-extended.md": {
 	id: "hardware-diagnostics-extended.md";
   slug: "hardware-diagnostics-extended";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "hinge-chassis-tighten-service.md": {
 	id: "hinge-chassis-tighten-service.md";
   slug: "hinge-chassis-tighten-service";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "labour-after-hours-emergency.md": {
 	id: "labour-after-hours-emergency.md";
   slug: "labour-after-hours-emergency";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "labour-standard-hours.md": {
 	id: "labour-standard-hours.md";
   slug: "labour-standard-hours";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "laptop-keyboard-replacement-labour.md": {
 	id: "laptop-keyboard-replacement-labour.md";
   slug: "laptop-keyboard-replacement-labour";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "laptop-screen-replacement-labour.md": {
 	id: "laptop-screen-replacement-labour.md";
   slug: "laptop-screen-replacement-labour";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "mesh-wifi-planning-install.md": {
 	id: "mesh-wifi-planning-install.md";
   slug: "mesh-wifi-planning-install";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "new-pc-laptop-setup.md": {
 	id: "new-pc-laptop-setup.md";
   slug: "new-pc-laptop-setup";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "on-site-surcharge-within-20km.md": {
 	id: "on-site-surcharge-within-20km.md";
   slug: "on-site-surcharge-within-20km";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "os-burn-in-add-on.md": {
 	id: "os-burn-in-add-on.md";
   slug: "os-burn-in-add-on";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "password-reset-windows-local.md": {
 	id: "password-reset-windows-local.md";
   slug: "password-reset-windows-local";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "pc-assembly-full-build.md": {
 	id: "pc-assembly-full-build.md";
   slug: "pc-assembly-full-build";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "pickup-dropoff-within-10km.md": {
 	id: "pickup-dropoff-within-10km.md";
   slug: "pickup-dropoff-within-10km";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "printer-setup.md": {
 	id: "printer-setup.md";
   slug: "printer-setup";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "printer-troubleshooting.md": {
 	id: "printer-troubleshooting.md";
   slug: "printer-troubleshooting";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "quarterly-device-health-check-remote.md": {
 	id: "quarterly-device-health-check-remote.md";
   slug: "quarterly-device-health-check-remote";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "remote-support-session.md": {
 	id: "remote-support-session.md";
   slug: "remote-support-session";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "remote-support-setup.md": {
 	id: "remote-support-setup.md";
   slug: "remote-support-setup";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "software-installation-bulk.md": {
 	id: "software-installation-bulk.md";
   slug: "software-installation-bulk";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "software-installation-standard.md": {
 	id: "software-installation-standard.md";
   slug: "software-installation-standard";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "speedup-tuneup.md": {
 	id: "speedup-tuneup.md";
   slug: "speedup-tuneup";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "ssd-upgrade-bundle-clone-swap.md": {
 	id: "ssd-upgrade-bundle-clone-swap.md";
   slug: "ssd-upgrade-bundle-clone-swap";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "thermal-paste-deep-clean.md": {
 	id: "thermal-paste-deep-clean.md";
   slug: "thermal-paste-deep-clean";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "virus-malware-removal.md": {
 	id: "virus-malware-removal.md";
   slug: "virus-malware-removal";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "wifi-network-setup.md": {
 	id: "wifi-network-setup.md";
   slug: "wifi-network-setup";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "windows-reinstall-no-backup.md": {
 	id: "windows-reinstall-no-backup.md";
   slug: "windows-reinstall-no-backup";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 "windows-reinstall-with-backup.md": {
 	id: "windows-reinstall-with-backup.md";
   slug: "windows-reinstall-with-backup";
   body: string;
   collection: "services";
-  data: any
+  data: InferEntrySchema<"services">
 } & { render(): Render[".md"] };
 };
 
@@ -531,5 +531,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("./../../src/content/config.js");
 }

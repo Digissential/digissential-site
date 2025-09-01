@@ -1,4 +1,5 @@
 ---
+// src/pages/blog/index.astro
 import Base from '@layouts/Base.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
@@ -9,12 +10,17 @@ const posts = (await getCollection('blog'))
   .filter(p => !p.data.draft)
   .sort((a,b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
-// Tag counts
+// Tag counts → top + more
 const tagCounts = new Map<string, number>();
-for (const p of posts) for (const t of (p.data.tags ?? [])) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
-const tags = Array.from(tagCounts.entries())
-  .sort((a,b) => a[0].localeCompare(b[0]))
+for (const p of posts) for (const t of (p.data.tags ?? [])) {
+  tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
+}
+const allTags = [...tagCounts.entries()]
+  .sort((a,b) => (b[1] - a[1]) || a[0].localeCompare(b[0]))
   .map(([slug, count]) => ({ slug, label: slug.replace(/-/g,' '), count }));
+const MAX_INLINE_TAGS = 8;
+const topTags  = allTags.slice(0, MAX_INLINE_TAGS);
+const moreTags = allTags.slice(MAX_INLINE_TAGS);
 
 const site = (Astro.site ?? new URL('https://www.digissential.co.za')).toString();
 const itemListLd = {
@@ -31,14 +37,12 @@ const itemListLd = {
 const fmtDate = (d: Date) =>
   new Intl.DateTimeFormat('en-ZA', { year: 'numeric', month: 'short', day: '2-digit' }).format(d);
 
-// Optional: where your subscribe button goes
 const subscribeHref = '/rss.xml';
 
 // Helper: does a /public image actually exist?
 const hasPublicFile = (p?: string) => {
   if (!p || !p.startsWith('/')) return false;
   try {
-    // file path relative to this file: src/pages/blog/index.astro → project root → /public
     return fs.existsSync(new URL('../../../public' + p, import.meta.url));
   } catch { return false; }
 };
@@ -59,30 +63,57 @@ const hasPublicFile = (p?: string) => {
 
       <div class="mt-4 flex flex-wrap gap-3 items-center">
         <form id="search" class="flex-1 min-w-[240px] flex gap-2">
-          <input id="q" type="search" placeholder="Search posts (e.g., malware, backup, windows)…"
-            class="w-full rounded-2xl bg-white/10 px-4 py-2 outline-none focus:ring-2 focus:ring-digi-primary" autocomplete="off" />
-          <button class="btn btn-primary">Search</button>
+          <input id="q" type="search" enterkeyhint="search"
+            placeholder="Search posts (e.g., malware, backup, windows)…"
+            class="w-full rounded-2xl bg-white/10 px-4 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
+            autocomplete="off" />
+          <button class="btn btn-primary" type="submit">Search</button>
         </form>
         <a href={subscribeHref} class="btn btn-outline">Subscribe</a>
       </div>
 
-      {tags.length > 0 && (
-        <ul id="tags" class="mt-3 flex flex-nowrap gap-2 text-xs overflow-x-auto pr-2 -mr-2">
-          <li class="shrink-0"><button type="button" data-tag="" aria-pressed="true" class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">All</button></li>
-          {tags.map(t => (
-            <li class="shrink-0"><button type="button" data-tag={t.slug} aria-pressed="false" class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">
-              {t.label} ({t.count})
-            </button></li>
-          ))}
-        </ul>
+      {allTags.length > 0 && (
+        <div class="mt-3 space-y-2">
+          <!-- Inline (top) tags -->
+          <ul id="tags-inline" class="flex flex-wrap gap-2 text-xs">
+            <li><button type="button" data-tag="" aria-pressed="true"
+              class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">All</button></li>
+            {topTags.map(t => (
+              <li><button type="button" data-tag={t.slug} aria-pressed="false"
+                class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">
+                {t.label} ({t.count})
+              </button></li>
+            ))}
+            {moreTags.length > 0 && (
+              <li>
+                <button id="more-tags" type="button" aria-expanded="false" aria-controls="tags-more"
+                  class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">More tags</button>
+              </li>
+            )}
+          </ul>
+
+          <!-- Hidden panel with the rest -->
+          {moreTags.length > 0 && (
+            <div id="tags-more" class="hidden">
+              <ul class="flex flex-wrap gap-2 text-xs">
+                {moreTags.map(t => (
+                  <li><button type="button" data-tag={t.slug} aria-pressed="false"
+                    class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">
+                    {t.label} ({t.count})
+                  </button></li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       )}
     </section>
 
     <!-- Posts -->
-      <p id="result-count" class="mt-6 text-sm text-white/60" aria-live="polite" aria-atomic="true">
-        {posts.length} posts
-      </p>
-      <section class="mt-2 grid gap-3 md:grid-cols-2">
+    <p id="result-count" class="mt-6 text-sm text-white/60" aria-live="polite" aria-atomic="true">
+      {posts.length} posts
+    </p>
+    <section class="mt-2 grid gap-3 md:grid-cols-2">
       {posts.map(p => {
         const tags = p.data.tags || [];
         const shown = tags.slice(0, 3);
@@ -141,75 +172,88 @@ const hasPublicFile = (p?: string) => {
 
   <!-- Client-side search + tag filter -->
   <script is:inline>
-    const $ = (s) => document.querySelector(s);
+  (() => {
+    const $  = (s) => document.querySelector(s);
     const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+    const searchForm = $('#search');
     const q = $('#q');
-    const buttons = $$('#tags [data-tag]');
     const cards = $$('.post');
     const countEl = $('#result-count');
     const empty = $('#no-results');
+
+    const moreBtn  = $('#more-tags');
+    const moreWrap = $('#tags-more');
+
+    const getTagButtons = () => $$('[data-tag]');
     let activeTag = '';
 
-    // read initial state from URL
-    const params = new URLSearchParams(location.search);
-    const initQ = (params.get('q') || '').toLowerCase();
+    const params  = new URLSearchParams(location.search);
+    const initQ   = (params.get('q') || '').toLowerCase();
     const initTag = (params.get('tag') || '').toLowerCase();
     if (q) q.value = initQ;
     if (initTag) activeTag = initTag;
 
-    function norm(s){ return (s||'').toLowerCase().trim(); }
+    const norm = (s) => (s || '').toLowerCase().trim();
 
-    function apply(){
+    function setTagPressed(tag) {
+      getTagButtons().forEach(btn => {
+        const on = (btn.dataset.tag || '') === tag;
+        btn.classList.toggle('ring-2', on);
+        btn.classList.toggle('ring-digi-primary', on);
+        btn.setAttribute('aria-pressed', String(on));
+        if (tag === '' && btn.dataset.tag === '') {
+          btn.classList.add('ring-2','ring-digi-primary');
+          btn.setAttribute('aria-pressed','true');
+        }
+      });
+    }
+
+    function apply() {
       const qs = norm(q?.value);
       let shown = 0;
+
       cards.forEach(card => {
-        const title = card.dataset.title || '';
-        const desc  = card.dataset.desc || '';
-        const tags  = card.dataset.tags || '';
-        const matchText = !qs || title.includes(qs) || desc.includes(qs);
-        const matchTag  = !activeTag || tags.split(',').includes(activeTag);
-        const ok = matchText && matchTag;
+        const title = (card.dataset.title || '');
+        const desc  = (card.dataset.desc  || '');
+        const tags  = (card.dataset.tags  || '');
+        const okText = !qs || title.includes(qs) || desc.includes(qs);
+        const okTag  = !activeTag || tags.split(',').includes(activeTag);
+        const ok = okText && okTag;
         card.style.display = ok ? '' : 'none';
         if (ok) shown++;
       });
-      if (empty) empty.classList.toggle('hidden', shown !== 0)
+
+      if (empty) empty.classList.toggle('hidden', shown !== 0);
       if (countEl) countEl.textContent = `${shown} ${shown === 1 ? 'post' : 'posts'}`;
-      // write state to URL (no reload)
+
       const next = new URL(location.href);
-      if (q?.value) next.searchParams.set('q', q.value);
-      else next.searchParams.delete('q');
-      if (activeTag) next.searchParams.set('tag', activeTag);
-      else next.searchParams.delete('tag');
+      if (qs) next.searchParams.set('q', qs); else next.searchParams.delete('q');
+      if (activeTag) next.searchParams.set('tag', activeTag); else next.searchParams.delete('tag');
       history.replaceState(null, '', next);
     }
 
-    buttons.forEach(b => {
-      b.addEventListener('click', () => {
-        activeTag = b.dataset.tag || '';
-        // visual state
-        buttons.forEach(x => x.classList.remove('ring-2','ring-digi-primary'));
-        if (activeTag === '') buttons[0]?.classList.add('ring-2','ring-digi-primary');
-        else b.classList.add('ring-2','ring-digi-primary');
-        // a11y state
-        buttons.forEach(x => x.setAttribute('aria-pressed', String(x === b || (activeTag==='' && x.dataset.tag===''))));
-        apply();
-      });
+    searchForm?.addEventListener('submit', (e) => { e.preventDefault(); apply(); });
+    q?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); apply(); } });
+    q?.addEventListener('search', () => apply());
+    q?.addEventListener('input', () => { clearTimeout(q._t); q._t = setTimeout(apply, 120); });
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-tag]');
+      if (!btn) return;
+      activeTag = (btn.dataset.tag || '');
+      setTagPressed(activeTag);
+      apply();
     });
 
-    $('#search')?.addEventListener('submit', e => { e.preventDefault(); apply(); });
-    q?.addEventListener('input', () => { clearTimeout((q)._t); (q)._t = setTimeout(apply, 120) });
+    moreBtn?.addEventListener('click', () => {
+      const open = moreWrap?.classList.toggle('hidden') === false;
+      moreBtn.setAttribute('aria-expanded', String(open));
+      moreBtn.textContent = open ? 'Fewer tags' : 'More tags';
+    });
 
-    // default select
-    if (!activeTag) {
-      buttons[0]?.classList.add('ring-2','ring-digi-primary');
-      buttons.forEach(x => x.setAttribute('aria-pressed', String(x === buttons[0])));
-    } else {
-      const activeBtn = buttons.find(x => x.dataset.tag === activeTag);
-      if (activeBtn) {
-        activeBtn.classList.add('ring-2','ring-digi-primary');
-        buttons.forEach(x => x.setAttribute('aria-pressed', String(x === activeBtn)));
-      }
-    }
+    setTagPressed(activeTag || '');
     apply();
+  })();
   </script>
 </Base>

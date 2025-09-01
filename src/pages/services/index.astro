@@ -173,82 +173,96 @@ const fmtPrice = (p: unknown) => {
   </main>
 
     <!-- Client-side filtering (no libs) -->
-  <script is:inline>
-    const $ = (s) => document.querySelector(s);
-    const $$ = (s) => Array.from(document.querySelectorAll(s));
+    <script is:inline>
+      (() => {
+      const $  = (s) => document.querySelector(s);
+      const $$ = (s) => Array.from(document.querySelectorAll(s));
 
-    const form  = $('#filters');
-    const q     = $('#q');
-    const cat   = $('#cat');
-    const price = $('#price');
-    const cards = $$('.svc');
-    const countEl = $('#result-count');
+      const form  = $('#filters');
+      if (!form) return;
 
-    function norm(s){ return (s || '').toLowerCase().trim(); }
+      const q     = $('#q');
+      const cat   = $('#cat');
+      const price = $('#price');
+      const cards = $$('.svc');
+      const countEl = $('#result-count');
 
-    function matchPrice(filter, p) {
-      if (!filter) return true;
-      const n = Number(p || 0);
-      if (!n) return false;
-      if (filter === 'lt500')     return n > 0 && n < 500;
-      if (filter === '500-1000')  return n >= 500 && n <= 1000;
-      if (filter === 'gt1000')    return n > 1000;
-      return true;
-    }
+      const norm = (s) => (s || '').toLowerCase().trim();
+      const getAttr = (el, name) => (el.getAttribute(name) || '');
 
-    function updateGroupVisibility() {
-      document.querySelectorAll('.svc-group').forEach(group => {
-        const anyVisible = Array.from(group.querySelectorAll('.svc'))
-          .some(card => card.style.display !== 'none');
-        group.classList.toggle('hidden', !anyVisible);
+      // Stop form submissions (prevents URL changes/reloads)
+      form.addEventListener('submit', (e) => e.preventDefault());
+
+      // Also prevent Enter in the search box from submitting
+      q?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); apply(); }
       });
 
-      // Show “no results” only when every group is hidden
-      const allHidden = Array.from(document.querySelectorAll('.svc-group'))
-        .every(g => g.classList.contains('hidden'));
-      const empty = document.querySelector('#no-results');
-      if (empty) empty.classList.toggle('hidden', !allHidden);
-    }
+      // Fire when the native clear (✕) is used
+      q?.addEventListener('search', () => apply());
 
-    function apply() {
-      const qs = norm(q?.value);
-      const c  = cat?.value || '';
-      const pv = price?.value || '';
+      function matchPrice(filter, p) {
+        if (!filter) return true;
+        const n = Number(p || 0);
+        if (!Number.isFinite(n) || n <= 0) return false;
+        if (filter === 'lt500')    return n < 500;
+        if (filter === '500-1000') return n >= 500 && n <= 1000;
+        if (filter === 'gt1000')   return n > 1000;
+        return true;
+      }
 
-      let shown = 0;
-      cards.forEach(card => {
-        const t    = card.dataset.title || '';
-        const k    = card.dataset.keywords || '';
-        const catv = card.dataset.cat || '';
-        const p    = card.dataset.price || '';
+      function updateGroupVisibility() {
+        document.querySelectorAll('.svc-group').forEach(group => {
+          const anyVisible = Array.from(group.querySelectorAll('.svc'))
+            .some(card => !card.classList.contains('hidden'));
+          group.classList.toggle('hidden', !anyVisible);
+        });
+        const allHidden = Array.from(document.querySelectorAll('.svc-group'))
+          .every(g => g.classList.contains('hidden'));
+        const empty = document.querySelector('#no-results');
+        if (empty) empty.classList.toggle('hidden', !allHidden);
+      }
 
-        const ok =
-          (!qs || t.includes(qs) || k.includes(qs)) &&
-          (!c  || c === catv) &&
-          matchPrice(pv, p);
+      function apply() {
+        const qs = norm(q?.value);
+        const c  = cat?.value || '';
+        const pv = price?.value || '';
 
-        card.style.display = ok ? '' : 'none';
-        if (ok) shown++;
-      });
+        let shown = 0;
+        cards.forEach(card => {
+          const t    = norm(getAttr(card, 'data-title'));
+          const k    = norm(getAttr(card, 'data-keywords'));
+          const catv = getAttr(card, 'data-cat');
+          const p    = getAttr(card, 'data-price');
 
-      if (countEl) countEl.textContent = String(shown);
-      updateGroupVisibility();
-    }
+          const ok =
+            (!qs || t.includes(qs) || k.includes(qs)) &&
+            (!c  || c === catv) &&
+           matchPrice(pv, p);
 
-    function debounce(fn, ms=120) {
-      let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
-    }
-    const applyDebounced = debounce(apply, 120);
-    [q, cat, price].forEach(el => el && el.addEventListener('input', applyDebounced));
+          card.classList.toggle('hidden', !ok);
+          if (ok) shown++;
+        });
 
-    // Let the native form reset clear fields; then re-apply filters
-    form?.addEventListener('reset', () => {
-      // Wait a tick for the browser to reset values
-      setTimeout(apply, 0);
-    });
+        if (countEl) countEl.textContent = String(shown);
+        updateGroupVisibility();
+      }
 
-    apply();
-  </script>
+      // Debounce only the text input
+      function debounce(fn, ms = 120) {
+        let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+      }
+      q?.addEventListener('input', debounce(apply, 150));
+      cat?.addEventListener('change', apply);
+      price?.addEventListener('change', apply);
+
+      // Let native reset clear fields, then re-apply
+      form.addEventListener('reset', () => setTimeout(apply, 0));
+
+      apply();
+    })();
+    </script>
+
 
 
   <style is:global>
