@@ -111,7 +111,7 @@ const others = services.filter(s => !s.data.featured);
   </Section>
 
 
-  <script is:inline>
+  <script>
     const attachCounter = (sel) => {
       document.querySelectorAll(sel).forEach((ta) => {
         const out = document.querySelector(ta.getAttribute('data-count-target'));
