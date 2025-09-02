@@ -39,6 +39,12 @@
 #   to   = "/404.html"
 #   status = 404
 
+[[redirects]]
+  from = "/sitemap-index.xml"
+  to   = "/sitemap.xml"
+  status = 301
+  force = true
+
 #############
 # Security headers
 #############
