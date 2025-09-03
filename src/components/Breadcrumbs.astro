@@ -33,12 +33,5 @@ const breadcrumbLd = {
       </li>
     ))}
   </ol>
-  <script
-  type="application/ld+json"
-  set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement
-  })}
-/>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
 </nav>
