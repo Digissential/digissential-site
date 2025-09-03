@@ -136,6 +136,6 @@ const pageDesc =
     </div>
   </main>
 
-  <script type="application/ld+json">{JSON.stringify(serviceLd)}</script>
-  {faqLd && <script type="application/ld+json">{JSON.stringify(faqLd)}</script>}
+  <script type="application/ld+json" is:inline>{JSON.stringify(serviceLd)}</script>
+  {faqLd && <script type="application/ld+json" is:inline>{JSON.stringify(faqLd)}</script>}
 </Base>

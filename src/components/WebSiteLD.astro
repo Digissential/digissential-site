@@ -1,6 +1,5 @@
 ---
-const base = (Astro.site?.toString?.() || 'https://digissential.co.za')
-  .replace(/\/+$/, ''); // no trailing slash
+const base = (Astro.site?.toString?.() || 'https://digissential.co.za').replace(/\/+$/, '');
 
 const website = {
   "@context": "https://schema.org",
@@ -49,6 +48,6 @@ const localBusiness = {
   areaServed: { "@type": "City", name: "Stellenbosch" }
 };
 
-const ld = [website, organization, localBusiness];
+const graph = { "@context": "https://schema.org", "@graph": [website, organization, localBusiness] };
 ---
-<script type="application/ld+json">{JSON.stringify(ld)}</script>
+<script type="application/ld+json" is:inline>{JSON.stringify(graph)}</script>
