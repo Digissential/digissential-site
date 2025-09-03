@@ -50,4 +50,5 @@ const localBusiness = {
 
 const graph = { "@context": "https://schema.org", "@graph": [website, organization, localBusiness] };
 ---
-<script type="application/ld+json" is:inline>{JSON.stringify(graph)}</script>
+<script type="application/ld+json" set:html={JSON.stringify(ld)} />
+
