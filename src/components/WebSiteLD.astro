@@ -48,7 +48,10 @@ const localBusiness = {
   areaServed: { "@type": "City", name: "Stellenbosch" }
 };
 
-const graph = { "@context": "https://schema.org", "@graph": [website, organization, localBusiness] };
+const graph = {
+  "@context": "https://schema.org",
+  "@graph": [website, organization, localBusiness],
+};
 ---
-<script type="application/ld+json" set:html={JSON.stringify(ld)} />
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />
 

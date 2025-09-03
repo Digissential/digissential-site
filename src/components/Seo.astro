@@ -110,6 +110,5 @@ if (props.video?.url) {
 <meta name="twitter:description" content={props.description} />
 {absOg && <meta name="twitter:image" content={absOg} />}
 
-{ld?.length > 0 && (
-  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
-)}
+<script type="application/ld+json" set:html={JSON.stringify(ld)} />
+
