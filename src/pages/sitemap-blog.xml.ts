@@ -3,39 +3,24 @@ import { getCollection } from 'astro:content';
 
 export const prerender = true;
 
-const ctx = (process.env.CONTEXT || '').toLowerCase();
-const isProd = ctx === 'production';
+function baseUrl(site?: URL | null) {
+  return (site?.toString() || import.meta.env.PUBLIC_SITE_URL || 'https://digissential.co.za').replace(/\/+$/, '');
+}
 
-const SITE =
-  import.meta.env.PUBLIC_SITE_URL ||
-  process.env.PUBLIC_SITE_URL ||
-  process.env.URL ||
-  process.env.DEPLOY_PRIME_URL ||
-  'https://www.digissential.co.za';
+export const GET: APIRoute = async ({ site }) => {
+  const base = baseUrl(site);
+  const posts = (await getCollection('blog', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
-const base = SITE.replace(/\/$/, '');
-
-const toUrl = (slug: string) => `${base}/blog/${slug}/`;
-
-export const GET: APIRoute = async () => {
-  const posts = (await getCollection('blog'))
-    .filter(p => !p.data.draft);
-
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ${posts.map(p => `
-    <url>
-      <loc>${toUrl(p.slug)}</loc>
-      <lastmod>${new Date((p.data.updatedDate || p.data.pubDate) as Date).toISOString()}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.75</priority>
-    </url>`).join('')}
-  </urlset>`;
-
-  return new Response(xml, {
-    headers: {
-      'Content-Type': 'application/xml; charset=utf-8',
-      'Cache-Control': isProd ? 'public, max-age=3600' : 'no-store',
-    },
+  const body = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${posts.map(p => {
+  const d = (p.data.updatedDate && p.data.updatedDate > p.data.pubDate) ? p.data.updatedDate : p.data.pubDate;
+  const lastmod = (d instanceof Date ? d : new Date(d)).toISOString();
+  return `  <url><loc>${base}/blog/${p.slug}/</loc><changefreq>weekly</changefreq><priority>0.6</priority><lastmod>${lastmod}</lastmod></url>`;
+}).join('\n')}
+</urlset>`;
+  return new Response(body, {
+    headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=3600' }
   });
 };

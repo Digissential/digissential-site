@@ -1,16 +1,54 @@
 ---
-const site = (Astro.site ?? new URL('https://www.digissential.co.za')).toString();
-const ld = {
+const base = (Astro.site?.toString?.() || 'https://digissential.co.za')
+  .replace(/\/+$/, ''); // no trailing slash
+
+const website = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": `${site}#website`,
-  "url": site,
-  "name": "Digissential",
-  "potentialAction": {
+  "@id": `${base}#website`,
+  url: `${base}/`,
+  name: "Digissential",
+  inLanguage: "en-ZA",
+  potentialAction: {
     "@type": "SearchAction",
-    "target": `${site}blog/?q={search_term_string}`,
+    target: `${base}/blog/?q={search_term_string}`,
     "query-input": "required name=search_term_string"
   }
 };
+
+const organization = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${base}#organization`,
+  url: `${base}/`,
+  name: "Digissential",
+  logo: { "@type": "ImageObject", url: `${base}/favicon.svg` },
+  sameAs: [
+    "https://www.facebook.com/profile.php?id=61580005651505",
+    "https://www.instagram.com/digi.ssential/",
+    "https://x.com/Digi_ssential",
+    "https://www.youtube.com/channel/UCJGDwg2FGiwAButfLsLyNtg",
+    "https://www.tiktok.com/@digissential"
+  ]
+};
+
+const localBusiness = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${base}#localbusiness`,
+  url: `${base}/`,
+  name: "Digissential",
+  image: [`${base}/favicon.svg`],
+  telephone: "+27664256314",
+  email: "digissentialteam@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Stellenbosch",
+    addressCountry: "ZA"
+  },
+  areaServed: { "@type": "City", name: "Stellenbosch" }
+};
+
+const ld = [website, organization, localBusiness];
 ---
 <script type="application/ld+json">{JSON.stringify(ld)}</script>

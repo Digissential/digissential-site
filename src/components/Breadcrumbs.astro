@@ -1,21 +1,25 @@
 ---
 interface Crumb { href: string; label: string }
-interface Props {
-  items: Crumb[];
-  includeHome?: boolean;
-  homeLabel?: string;
-}
-const { items = [], includeHome = true, homeLabel = 'Home' } = Astro.props as Props;
+const { items = [], includeHome = true, homeLabel = 'Home' } = Astro.props as {
+  items: Crumb[]; includeHome?: boolean; homeLabel?: string;
+};
+
+const base = (Astro.site?.toString?.() || 'https://digissential.co.za').replace(/\/+$/,'');
 const crumbs: Crumb[] = includeHome ? [{ href: '/', label: homeLabel }, ...items] : items;
 const lastIndex = Math.max(0, crumbs.length - 1);
 
-// JSON-LD for BreadcrumbList
-const itemList = crumbs.map((c, i) => ({
+const itemListElement = crumbs.map((c, i) => ({
   '@type': 'ListItem',
   position: i + 1,
   name: c.label,
-  item: new URL(c.href, Astro.site ?? 'https://www.digissential.co.za').toString(),
+  item: new URL(c.href, base + '/').toString(),
 }));
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement,
+};
 ---
 
 <nav aria-label="Breadcrumb" class="text-sm">
@@ -23,15 +27,11 @@ const itemList = crumbs.map((c, i) => ({
     {crumbs.map((c, i) => (
       <li class="inline-flex items-center gap-2">
         {i > 0 && <span class="opacity-50">/</span>}
-        {i === lastIndex ? (
-          <span class="font-medium text-white" aria-current="page">{c.label}</span>
-        ) : (
-          <a href={c.href} class="hover:text-white underline decoration-white/20 hover:decoration-white">{c.label}</a>
-        )}
+        {i === lastIndex
+          ? <span class="font-medium text-white" aria-current="page">{c.label}</span>
+          : <a href={c.href} class="hover:text-white underline decoration-white/20 hover:decoration-white">{c.label}</a>}
       </li>
     ))}
   </ol>
-  <script type="application/ld+json">
-    {JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: itemList })}
-  </script>
+  <script type="application/ld+json">{JSON.stringify(breadcrumbLd)}</script>
 </nav>

@@ -45,6 +45,12 @@
   status = 301
   force = true
 
+[[redirects]]
+ from = "/sitemap-0.xml"
+ to   = "/sitemap.xml"
+ status = 301
+ force  = true
+
 #############
 # Security headers
 #############
