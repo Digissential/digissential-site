@@ -1,0 +1,120 @@
+---
+// src/layouts/ResourcePost.astro
+import Seo from "../components/Seo.astro";
+import PostCta from "../components/PostCta.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+type Res = CollectionEntry<"resources">["data"];
+
+// We expect to receive the collection entry as `content` prop from [slug].astro
+const { content } = Astro.props as { content: CollectionEntry<"resources"> };
+
+// Render markdown to a component we can place in the template:
+const { Content: MDContent, headings } = await content.render();
+
+const frontmatter = content.data as Res;
+
+const {
+  title, description, pubDate, updatedDate, tags, hero, canonical, ogImage, noindex,
+  faq, howTo, video, outbound = [], internal = []
+} = frontmatter;
+
+const all = await getCollection("resources");
+const related = all
+  .filter((p) => p.slug !== content.slug && p.data.tags?.some((t: string) => (tags || []).includes(t)))
+  .slice(0, 3);
+
+const fmt = (d: Date | string) =>
+  new Date(d).toLocaleDateString("en-ZA", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<html lang="en">
+  <head>
+    <Seo
+      title={title}
+      description={description}
+      pubDate={pubDate}
+      updatedDate={updatedDate}
+      tags={tags}
+      hero={hero}
+      canonical={canonical}
+      ogImage={ogImage}
+      noindex={noindex}
+      faq={faq}
+      howTo={howTo}
+      video={video}
+    />
+  </head>
+  <body class="min-h-screen bg-white text-slate-900 antialiased">
+    <article class="mx-auto max-w-6xl px-4 py-10 grid gap-8 lg:grid-cols-[1fr_300px]">
+      <div class="prose prose-slate max-w-none">
+        <header class="mb-6">
+          <p class="text-sm text-slate-500">
+            Published {fmt(pubDate)} · Updated {fmt(updatedDate ?? pubDate)}
+          </p>
+          <h1 class="mb-3">{title}</h1>
+          <p class="mt-0 text-slate-600">{description}</p>
+          {tags?.length ? (
+            <ul class="mt-4 flex flex-wrap gap-2">
+              {tags.map((t) => <li class="rounded-full bg-slate-100 px-3 py-1 text-xs">{t}</li>)}
+            </ul>
+          ) : null}
+        </header>
+
+        {hero?.src && (
+          <figure class="my-8">
+            <img src={hero.src} alt={hero.alt ?? ""} class="w-full rounded-xl" loading="eager" />
+            {hero.caption && <figcaption class="mt-2 text-sm text-slate-500">{hero.caption}</figcaption>}
+          </figure>
+        )}
+
+        <!-- Rendered markdown content -->
+        <MDContent />
+
+        <!-- Official sources / outbound -->
+        {outbound.length ? (
+          <section class="mt-8">
+            <h2>Sources &amp; official links</h2>
+            <ul>
+              {outbound.map((o) => (
+                <li>
+                  <a href={o.url} rel="nofollow noopener" target="_blank" class="hover:underline">{o.label}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        <!-- Internal guidance / funnels -->
+        {internal.length ? (
+          <section class="mt-8">
+            <h2>Related Digissential help</h2>
+            <ul>
+              {internal.map((i) => (
+                <li><a href={i.href} class="hover:underline">{i.label}</a></li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        <!-- Related -->
+        {related?.length ? (
+          <section class="mt-8">
+            <h2>Related resources</h2>
+            <ul class="space-y-1">
+              {related.map((r) => (
+                <li><a href={`/resources/${r.slug}/`} class="hover:underline">{r.data.title}</a></li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+      </div>
+
+      <!-- Sidebar CTA (reuse the same component) -->
+      <aside class="self-start lg:sticky lg:top-24">
+        <PostCta />
+      </aside>
+    </article>
+  </body>
+</html>

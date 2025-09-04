@@ -5,7 +5,7 @@ export const prerender = true;
 const PAGES = [
   '/', '/services/', '/blog/', '/contact/',
   '/legal/', '/legal/privacy/', '/legal/warranty/', '/legal/ewaste/',
-  '/newsletter/'
+  '/newsletter/', '/resources/'
 ];
 
 function baseUrl(site?: URL | null) {

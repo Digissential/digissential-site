@@ -77,4 +77,50 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { services, blog };
+const resources = defineCollection({
+  type: "content",
+  schema: z.object({
+    // Standard post meta (kept similar to blog, for <Seo/>)
+    title: z.string().min(5),
+    description: z.string().min(40).max(160),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    tags: z.array(z.string()).min(1).max(8).default([]),
+
+    // Media + canonical + switches
+    hero: z.object({
+      src: z.string().regex(/^\/images\//, "Use a site-root path like /images/..."),
+      alt: z.string().min(5),
+      caption: z.string().optional().nullable(),
+    }).optional(),
+    ogImage: z.string().regex(/^(https?:\/\/|\/)/, "Use absolute URL or site-root path").optional(),
+    canonical: z.string().url().refine((v) => v.endsWith("/"), { message: "Canonical must end with /" }).optional(),
+    noindex: z.boolean().default(false),
+
+    // 🚀 Extreme SEO helpers
+    targetQueries: z.array(z.string()).default([]), // exact queries we want to rank for
+    keywords: z.array(z.string()).default([]),      // supporting keywords/LSI
+    outbound: z.array(z.object({                    // authoritative external links
+      label: z.string(),
+      url: z.string().url(),
+    })).default([]),
+    internal: z.array(z.object({                    // internal links to services/blog, etc.
+      label: z.string(),
+      href: z.string().regex(/^\//, "Use site-root path like /services/...")
+    })).default([]),
+
+    // Optional structured data helpers (same as blog)
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
+    howTo: z.object({ title: z.string(), steps: z.array(z.string().min(3)).min(2) }).optional(),
+    video: z.object({
+      url: z.string().url(),
+      name: z.string(),
+      description: z.string(),
+      thumbnailUrl: z.string().url(),
+      uploadDate: z.coerce.date(),
+      duration: z.string().optional(), // ISO 8601
+    }).optional(),
+  }),
+});
+
+export const collections = { services, blog, resources };

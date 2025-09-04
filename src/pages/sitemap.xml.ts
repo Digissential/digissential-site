@@ -13,6 +13,7 @@ export const GET: APIRoute = ({ site }) => {
   <sitemap><loc>${base}/sitemap-pages.xml</loc></sitemap>
   <sitemap><loc>${base}/sitemap-services.xml</loc></sitemap>
   <sitemap><loc>${base}/sitemap-blog.xml</loc></sitemap>
+  <sitemap><loc>${base}/sitemap-resources.xml</loc></sitemap>
 </sitemapindex>`;
   return new Response(xml, {
     headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=3600' }
