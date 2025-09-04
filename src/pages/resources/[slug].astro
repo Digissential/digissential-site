@@ -1,0 +1,135 @@
+---
+import Base from '@layouts/Base.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+// Build static paths (oldest → newest for prev/next)
+export async function getStaticPaths() {
+  // NOTE: change 'resources' to 'resource' if your collection id differs.
+  const items = await getCollection('resources', ({ data }) => !data.draft);
+  items.sort((a, b) => new Date(a.data.pubDate).valueOf() - new Date(b.data.pubDate).valueOf());
+
+  return items.map((entry, i) => {
+    const prev = i > 0 ? { slug: items[i - 1].slug, title: items[i - 1].data.title } : null;
+    const next = i < items.length - 1 ? { slug: items[i + 1].slug, title: items[i + 1].data.title } : null;
+    return { params: { slug: entry.slug }, props: { entry, prev, next } };
+  });
+}
+
+const { entry, prev = null, next = null } = Astro.props as {
+  entry: any;
+  prev: { slug: string; title: string } | null;
+  next: { slug: string; title: string } | null;
+};
+
+const { data } = entry;
+const { Content } = await entry.render();
+
+// Reading time (≈200 wpm)
+const words = String(entry.body ?? '').trim().split(/\s+/).filter(Boolean).length;
+const minutes = Math.max(1, Math.round(words / 200));
+
+// SEO helpers
+const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
+const url = new URL(`/resources/${entry.slug}/`, site).toString();
+const desc = data.summary ?? data.description ?? '';
+const ogImage = new URL('/social.png', site).toString();
+
+// JSON-LD
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: data.title,
+  description: desc,
+  datePublished: new Date(data.pubDate).toISOString(),
+  ...(data.updatedDate ? { dateModified: new Date(data.updatedDate).toISOString() } : {}),
+  author: { '@type': 'Organization', name: data.author || 'Digissential' },
+  mainEntityOfPage: url,
+  url
+};
+---
+
+<Base title={`${data.title} — Digissential`} description={desc} ogImage={ogImage}>
+  <main class="container-prose pt-6">
+    <Breadcrumbs items={[
+      { href: '/resources/', label: 'Resources' },
+      { href: `/resources/${entry.slug}/`, label: data.title }
+    ]} />
+
+    <article class="mt-6">
+      <!-- Branded header to match /blog -->
+      <header class="relative overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-br from-white/[0.03] to-white/[0.01] p-6 sm:p-8">
+        <svg aria-hidden="true" class="pointer-events-none absolute inset-0 h-full w-full opacity-[0.07]">
+          <defs>
+            <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+              <path d="M32 0H0V32" fill="none" stroke="currentColor" stroke-width="0.75" />
+            </pattern>
+            <radialGradient id="glow" cx="50%" cy="0%" r="80%">
+              <stop offset="0%" stop-color="rgb(56 189 248)" stop-opacity="0.25" />
+              <stop offset="100%" stop-color="transparent" />
+            </radialGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+          <rect width="120%" height="60%" x="-10%" y="-10%" fill="url(#glow)" />
+        </svg>
+
+        <div class="relative">
+          <h1 class="text-3xl sm:text-4xl font-extrabold">{data.title}</h1>
+          {desc && <p class="mt-2 text-white/70 max-w-2xl">{desc}</p>}
+          <p class="mt-3 text-white/60 text-sm">
+            <time datetime={new Date(data.pubDate).toISOString()}>
+              {new Intl.DateTimeFormat('en-ZA', { day:'2-digit', month:'short', year:'numeric' }).format(new Date(data.pubDate))}
+            </time>
+            <span aria-hidden="true" class="mx-2 opacity-60">•</span>
+            <span>{data.author || 'Digissential Team'}</span>
+            <span aria-hidden="true" class="mx-2 opacity-60">•</span>
+            <span>{minutes} min read</span>
+            {data.updatedDate && (
+              <>
+                <span aria-hidden="true" class="mx-2 opacity-60">•</span>
+                <span>
+                  Updated {new Intl.DateTimeFormat('en-ZA', { day:'2-digit', month:'short', year:'numeric' }).format(new Date(data.updatedDate))}
+                </span>
+              </>
+            )}
+          </p>
+
+          {Array.isArray(data.tags) && data.tags.length > 0 && (
+            <p class="mt-3 flex flex-wrap gap-2">
+              {data.tags.map((t: string) => {
+                const slug = t.toLowerCase();
+                return <a class="chip" href={`/resources/?tag=${encodeURIComponent(slug)}`}>{t}</a>;
+              })}
+            </p>
+          )}
+        </div>
+      </header>
+
+      <!-- Body (light card → non-inverted prose) -->
+      <div class="prose prose-slate max-w-none mt-8">
+        <Content />
+      </div>
+
+      <hr class="my-10 border-white/10" />
+
+      <nav class="flex flex-wrap gap-3 justify-between items-center">
+        <div>
+          {prev && <a class="btn btn-outline" href={`/resources/${prev.slug}/`} rel="prev">&larr; {prev.title}</a>}
+        </div>
+        <a class="link-fancy" href="/resources/">Back to all resources</a>
+        <div>
+          {next && <a class="btn btn-outline" href={`/resources/${next.slug}/`} rel="next">{next.title} &rarr;</a>}
+        </div>
+      </nav>
+
+      <script type="application/ld+json">{JSON.stringify(articleLd)}</script>
+    </article>
+  </main>
+
+  <style>
+    .chip {
+      @apply inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80 hover:text-white hover:border-white/20 transition;
+      white-space: nowrap;
+    }
+  </style>
+</Base>

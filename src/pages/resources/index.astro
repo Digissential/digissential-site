@@ -1,0 +1,233 @@
+---
+import Base from '@layouts/Base.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+// NOTE: If your collection id is "resource" (singular), change 'resources' below.
+const entries = (await getCollection('resources'))
+  .filter(e => !e.data.draft)
+  .sort((a,b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+// Tag counts → top + more
+const tagCounts = new Map<string, number>();
+for (const e of entries) for (const t of (e.data.tags ?? [])) {
+  tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
+}
+const allTags = [...tagCounts.entries()]
+  .sort((a,b) => (b[1] - a[1]) || a[0].localeCompare(b[0]))
+  .map(([slug, count]) => ({ slug, label: slug.replace(/-/g,' '), count }));
+const MAX_INLINE_TAGS = 8;
+const topTags  = allTags.slice(0, MAX_INLINE_TAGS);
+const moreTags = allTags.slice(MAX_INLINE_TAGS);
+
+const site = (Astro.site ?? new URL('https://www.digissential.co.za')).toString();
+const itemListLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: entries.map((e, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: new URL(`/resources/${e.slug}/`, site).toString(),
+    name: e.data.title
+  }))
+};
+
+const fmtDate = (d: Date) =>
+  new Intl.DateTimeFormat('en-ZA', { year: 'numeric', month: 'short', day: '2-digit' }).format(d);
+---
+
+<Base title="Resources — Digissential" description="Deep, citation-first guides that funnel you to the right service—BitLocker, Windows recovery, e-waste, and more.">
+  <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
+
+  <main class="container-prose pt-4">
+    <Breadcrumbs items={[ { href: '/resources/', label: 'Resources' } ]} />
+
+    <!-- Hero -->
+    <section class="mt-4 card p-5 md:p-6 hero-bg">
+      <h1 class="text-2xl md:text-3xl font-extrabold">Resources</h1>
+      <p class="mt-1 text-white/75 max-w-2xl">
+        Extreme-SEO, research-driven pages citing official sources. Hidden from nav; built to rank and
+        route you to the right service.
+      </p>
+
+      <div class="mt-4 flex flex-wrap gap-3 items-center">
+        <form id="res-search" class="flex-1 min-w-[240px] flex gap-2">
+          <input id="res-q" type="search" enterkeyhint="search"
+            placeholder="Search resources (e.g., bitlocker, recovery, e-waste)…"
+            class="w-full rounded-2xl bg-white/10 px-4 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
+            autocomplete="off" />
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+      </div>
+
+      {allTags.length > 0 && (
+        <div class="mt-3 space-y-2">
+          <!-- Inline (top) tags -->
+          <ul id="res-tags-inline" class="flex flex-wrap gap-2 text-xs">
+            <li><button type="button" data-tag="" aria-pressed="true"
+              class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">All</button></li>
+            {topTags.map(t => (
+              <li><button type="button" data-tag={t.slug} aria-pressed="false"
+                class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">
+                {t.label} ({t.count})
+              </button></li>
+            ))}
+            {moreTags.length > 0 && (
+              <li>
+                <button id="res-more-tags" type="button" aria-expanded="false" aria-controls="res-tags-more"
+                  class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">More tags</button>
+              </li>
+            )}
+          </ul>
+
+          <!-- Hidden panel with the rest -->
+          {moreTags.length > 0 && (
+            <div id="res-tags-more" class="hidden">
+              <ul class="flex flex-wrap gap-2 text-xs">
+                {moreTags.map(t => (
+                  <li><button type="button" data-tag={t.slug} aria-pressed="false"
+                    class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">
+                    {t.label} ({t.count})
+                  </button></li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+    </section>
+
+    <!-- Items -->
+    <p id="res-result-count" class="mt-6 text-sm text-white/60" aria-live="polite" aria-atomic="true">
+      {entries.length} resources
+    </p>
+    <section class="mt-2 grid gap-3 md:grid-cols-2">
+      {entries.map(e => {
+        const tags = e.data.tags || [];
+        const shown = tags.slice(0, 3);
+        const extra = Math.max(0, tags.length - shown.length);
+        const updated = e.data.updatedDate && e.data.updatedDate > e.data.pubDate;
+        return (
+          <article
+            class="res-card relative group card p-3 md:p-4 hover:shadow-md transition
+                   focus-within:ring-2 focus-within:ring-digi-primary/70"
+            data-title={(e.data.title || '').toLowerCase()}
+            data-desc={(e.data.description || '').toLowerCase()}
+            data-tags={tags.join(',').toLowerCase()}
+          >
+            <a href={`/resources/${e.slug}/`} class="absolute inset-0 rounded-[inherit]" aria-label={`Read: ${e.data.title}`}></a>
+            <div class="min-w-0">
+              <h2 class="text-base md:text-lg font-semibold leading-tight text-white clamp-2 group-hover:underline">
+                {e.data.title}
+              </h2>
+              <p class="mt-0.5 text-white/60 text-[11px] md:text-xs">
+                {fmtDate(e.data.pubDate)}
+                {updated && ` · Updated ${fmtDate(e.data.updatedDate as Date)}`}
+                {e.data.author ? ` · ${e.data.author}` : ''}
+              </p>
+              {e.data.description && (
+                <p class="mt-1 text-white/80 text-xs sm:text-sm clamp-2">{e.data.description}</p>
+              )}
+              {shown.length > 0 && (
+                <ul class="mt-1.5 flex flex-wrap gap-1 text-[10.5px]">
+                  {shown.map(t => <li class="px-2 py-0.5 rounded bg-white/10">{t}</li>)}
+                  {extra > 0 && <li class="px-2 py-0.5 rounded bg-white/5 text-white/60">+{extra}</li>}
+                </ul>
+              )}
+            </div>
+          </article>
+        );
+      })}
+      {entries.length === 0 && <p class="text-white/60">No resources yet.</p>}
+
+      <p id="res-no-results" class="hidden text-white/60">No resources match your search/tag.</p>
+    </section>
+  </main>
+
+  <!-- Client-side search + tag filter (scoped ids to avoid clashes with /blog) -->
+  <script>
+  (() => {
+    const $  = (s) => document.querySelector(s);
+    const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+    const searchForm = $('#res-search');
+    const q = $('#res-q');
+    const cards = $$('.res-card');
+    const countEl = $('#res-result-count');
+    const empty = $('#res-no-results');
+
+    const moreBtn  = $('#res-more-tags');
+    const moreWrap = $('#res-tags-more');
+
+    const getTagButtons = () => $$('#res-tags-inline [data-tag], #res-tags-more [data-tag]');
+    let activeTag = '';
+
+    const params  = new URLSearchParams(location.search);
+    const initQ   = (params.get('q') || '').toLowerCase();
+    const initTag = (params.get('tag') || '').toLowerCase();
+    if (q) q.value = initQ;
+    if (initTag) activeTag = initTag;
+
+    const norm = (s) => (s || '').toLowerCase().trim();
+
+    function setTagPressed(tag) {
+      getTagButtons().forEach(btn => {
+        const on = (btn.dataset.tag || '') === tag;
+        btn.classList.toggle('ring-2', on);
+        btn.classList.toggle('ring-digi-primary', on);
+        btn.setAttribute('aria-pressed', String(on));
+        if (tag === '' && btn.dataset.tag === '') {
+          btn.classList.add('ring-2','ring-digi-primary');
+          btn.setAttribute('aria-pressed','true');
+        }
+      });
+    }
+
+    function apply() {
+      const qs = norm(q?.value);
+      let shown = 0;
+
+      cards.forEach(card => {
+        const title = (card.dataset.title || '');
+        const desc  = (card.dataset.desc  || '');
+        const tags  = (card.dataset.tags  || '');
+        const okText = !qs || title.includes(qs) || desc.includes(qs);
+        const okTag  = !activeTag || tags.split(',').includes(activeTag);
+        const ok = okText && okTag;
+        card.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+      });
+
+      if (empty) empty.classList.toggle('hidden', shown !== 0);
+      if (countEl) countEl.textContent = `${shown} ${shown === 1 ? 'resource' : 'resources'}`;
+
+      const next = new URL(location.href);
+      if (qs) next.searchParams.set('q', qs); else next.searchParams.delete('q');
+      if (activeTag) next.searchParams.set('tag', activeTag); else next.searchParams.delete('tag');
+      history.replaceState(null, '', next);
+    }
+
+    searchForm?.addEventListener('submit', (e) => { e.preventDefault(); apply(); });
+    q?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); apply(); } });
+    q?.addEventListener('search', () => apply());
+    q?.addEventListener('input', () => { clearTimeout(q._t); q._t = setTimeout(apply, 120); });
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-tag]');
+      if (!btn) return;
+      activeTag = (btn.dataset.tag || '');
+      setTagPressed(activeTag);
+      apply();
+    });
+
+    moreBtn?.addEventListener('click', () => {
+      const open = moreWrap?.classList.toggle('hidden') === false;
+      moreBtn.setAttribute('aria-expanded', String(open));
+      moreBtn.textContent = open ? 'Fewer tags' : 'More tags';
+    });
+
+    setTagPressed(activeTag || '');
+    apply();
+  })();
+  </script>
+</Base>
