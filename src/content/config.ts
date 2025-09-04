@@ -77,4 +77,42 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { services, blog };
+const resources = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string().min(40).max(160),
+    pubDate: z.coerce.date(),                 // ← coerce to Date
+    updatedDate: z.coerce.date().optional(),  // ← coerce to Date
+    tags: z.array(z.string()).default([]),
+
+    // Optional hero/OG, same style as blog
+    hero: z.object({
+      src: z.string().regex(/^\/images\//, "Use a site-root path like /images/..."),
+      alt: z.string().min(5).optional(),
+      caption: z.string().optional().nullable(),
+    }).optional(),
+    ogImage: z.string().regex(/^(https?:\/\/|\/)/, "Use absolute URL or site-root path").optional(),
+    canonical: z.string().url().refine((v) => v.endsWith("/"), { message: "Canonical must end with /" }).optional(),
+
+    draft: z.boolean().default(false),
+    noindex: z.boolean().default(false),
+
+    // Optional structured data helpers (match blog)
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
+    howTo: z.object({
+      title: z.string(),
+      steps: z.array(z.string().min(3)).min(2),
+    }).optional(),
+    video: z.object({
+      url: z.string().url(),
+      name: z.string(),
+      description: z.string(),
+      thumbnailUrl: z.string().url(),
+      uploadDate: z.coerce.date(),
+      duration: z.string().optional(),
+    }).optional(),
+  }),
+});
+
+export const collections = { services, blog, resources };

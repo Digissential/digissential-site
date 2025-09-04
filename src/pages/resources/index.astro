@@ -6,7 +6,10 @@ import { getCollection } from 'astro:content';
 // NOTE: If your collection id is "resource" (singular), change 'resources' below.
 const entries = (await getCollection('resources'))
   .filter(e => !e.data.draft)
-  .sort((a,b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+  .sort((a, b) =>
+    new Date(b.data.updatedDate ?? b.data.pubDate).getTime()
+    - new Date(a.data.updatedDate ?? a.data.pubDate).getTime()
+  );
 
 // Tag counts → top + more
 const tagCounts = new Map<string, number>();
@@ -20,20 +23,21 @@ const MAX_INLINE_TAGS = 8;
 const topTags  = allTags.slice(0, MAX_INLINE_TAGS);
 const moreTags = allTags.slice(MAX_INLINE_TAGS);
 
-const site = (Astro.site ?? new URL('https://www.digissential.co.za')).toString();
+const site = (Astro.site ?? new URL('https://digissential.co.za')).toString();
 const itemListLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   itemListElement: entries.map((e, i) => ({
-    '@type': 'ListItem',
-    position: i + 1,
-    url: new URL(`/resources/${e.slug}/`, site).toString(),
-    name: e.data.title
-  }))
+  '@type': 'ListItem',
+  position: i + 1,
+  name: e.data.title,
+  item: new URL(`/resources/${e.slug}/`, site).toString(), // ← item, not url
+}))
 };
 
-const fmtDate = (d: Date) =>
-  new Intl.DateTimeFormat('en-ZA', { year: 'numeric', month: 'short', day: '2-digit' }).format(d);
+const fmtDate = (d: Date | string) =>
+  new Intl.DateTimeFormat('en-ZA', { year: 'numeric', month: 'short', day: '2-digit' })
+    .format(new Date(d));
 ---
 
 <Base title="Resources — Digissential" description="Deep, citation-first guides that funnel you to the right service—BitLocker, Windows recovery, e-waste, and more.">
