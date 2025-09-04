@@ -1,24 +1,27 @@
 ---
-const site = (Astro.site ?? new URL('https://www.digissential.co.za')).toString();
+// Strip trailing slash from site, then add paths yourself
+const base = (Astro.site?.toString?.() || 'https://digissential.co.za').replace(/\/+$/, '');
+
 const ld = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness","ProfessionalService"],
-  "@id": `${site}#localbusiness`,
+  "@id": `${base}#localbusiness`,
   "name": "Digissential",
-  "url": site,
-  "telephone": "+27 66 425 6314",
+  "url": `${base}/`,
+  "telephone": "+27664256314",
   "email": "digissentialteam@gmail.com",
-  "image": `${site}/assets/logo.svg`,
-  "logo": `${site}/assets/logo.svg`,
+  // use your new hero/logo or keep SVG – both are valid
+  "image": [`${base}/images/logo-1200.png`],
+  "logo": `${base}/images/logo-1200.png`,
   "description": "Computer repair & IT support in Stellenbosch: Windows installs, data recovery, malware removal, upgrades, and remote help.",
   "priceRange": "R",
   "contactPoint": [{
     "@type": "ContactPoint",
-    "telephone": "+27 66 425 6314",
+    "telephone": "+27664256314",
     "contactType": "customer support",
     "areaServed": "ZA",
-    "availableLanguage": ["en", "af"],
-    "url": `${site}contact/`
+    "availableLanguage": ["en","af"],
+    "url": `${base}/contact/`
   }],
   "address": {
     "@type": "PostalAddress",
@@ -29,15 +32,19 @@ const ld = {
     "addressCountry": "ZA"
   },
   "areaServed": { "@type": "City", "name": "Stellenbosch" },
-  "openingHoursSpecification": [ 
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      "opens": "09:00",
-      "closes": "18:00"
-    }
-  ],
-  // "sameAs": ["https://www.facebook.com/profile.php?id=61580005651505","https://www.instagram.com/digi.ssential/", "https://x.com/Digi_ssential", "https://www.youtube.com/channel/UCJGDwg2FGiwAButfLsLyNtg", "https://www.tiktok.com/@digissential"]
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    "opens": "09:00",
+    "closes": "18:00"
+  }],
+  "sameAs": [
+    "https://www.facebook.com/profile.php?id=61580005651505",
+    "https://www.instagram.com/digi.ssential/",
+    "https://x.com/Digi_ssential",
+    "https://www.youtube.com/channel/UCJGDwg2FGiwAButfLsLyNtg",
+    "https://www.tiktok.com/@digissential"
+  ]
 };
 ---
 <script type="application/ld+json" set:html={JSON.stringify(ld)} />
