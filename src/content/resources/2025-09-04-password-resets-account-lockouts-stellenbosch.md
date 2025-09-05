@@ -94,9 +94,9 @@ A: Not usually. We aim to preserve files, but in some cases (e.g., encryption, c
 ---
 
 **Compliance & trust:**  
-- [POPIA Privacy Notice – Annex B](/legal/privacy-popia-processing-notice/)  
+- [POPIA Privacy Notice](/legal/privacy-popia-processing-notice/)  
 - [Client Intake Agreement](/legal/client-intake-agreement/)  
-- [Warranty & Returns – Annex C](/legal/warranty-returns/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
 - [Microsoft – Reset your Windows password](https://support.microsoft.com/en-us/help/4026971)  

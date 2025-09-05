@@ -74,7 +74,7 @@ These point to deeper hardware faults — time for pro diagnostics.
 - **Remote display troubleshooting:** R350/hr (min 30 min).  
 - **Component replacement (GPU/port):** from R400 labour + parts.  
 
-See [Annex A – Standard Fees](/legal/standard-fees/) for full details.  
+See [Standard Fees](/legal/standard-fees/) for full details.  
 
 ---
 
@@ -107,9 +107,9 @@ A: Yes. We assist with driver updates, display settings, and testing remotely. H
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
 - [Microsoft – Fix external monitor issues](https://support.microsoft.com/en-us/windows/troubleshoot-external-monitor-connections-in-windows?utm_source=chatgpt.com)  

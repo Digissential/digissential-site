@@ -65,9 +65,9 @@ Every option here has its role:
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
 - [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  

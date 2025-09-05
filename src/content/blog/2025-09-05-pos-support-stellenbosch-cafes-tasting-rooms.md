@@ -23,7 +23,7 @@ faq:
   - q: "Can POS problems be fixed remotely?"
     a: "Some can (driver reinstalls, Wi-Fi tests), but faulty cabling, routers, or printers usually need on-site help."
   - q: "Do you charge extra for on-site café visits?"
-    a: "Yes. An on-site surcharge applies (see Annex A), but many fixes are same-day in Stellenbosch."
+    a: "Yes. An on-site surcharge applies, but many fixes are same-day in Stellenbosch."
   - q: "How do I avoid POS downtime?"
     a: "Keep drivers updated, test Wi-Fi coverage, and maintain backup paper/chargers. Digissential can also install mesh Wi-Fi for coverage."
 ---
@@ -68,7 +68,7 @@ Digissential offers both, with transparent [Remote Support](/services/remote-sup
 - **Wi-Fi/Network Setup:** from R350.  
 - **On-site surcharge (within 20km):** R300 + R8/km thereafter.  
 
-See [Annex A – Standard Fees](/legal/standard-fees/) for full rates.  
+See [Standard Fees](/legal/standard-fees/) for full rates.  
 
 ---
 
@@ -94,7 +94,7 @@ A: POS card readers often fail if Wi-Fi is unstable. Test with mobile data — i
 A: Some can (driver reinstalls, Wi-Fi tests), but faulty cabling, routers, or printers usually need on-site help.
 
 **Q: Do you charge extra for on-site café visits?**  
-A: Yes. An on-site surcharge applies (see Annex A), but many fixes are same-day in Stellenbosch.
+A: Yes. An on-site surcharge applies, but many fixes are same-day in Stellenbosch.
 
 **Q: How do I avoid POS downtime?**  
 A: Keep drivers updated, test Wi-Fi coverage, and maintain backup paper/chargers. Digissential can also install mesh Wi-Fi for coverage.
@@ -102,9 +102,9 @@ A: Keep drivers updated, test Wi-Fi coverage, and maintain backup paper/chargers
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
 - [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  

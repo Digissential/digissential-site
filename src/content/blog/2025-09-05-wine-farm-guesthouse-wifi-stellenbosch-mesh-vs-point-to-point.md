@@ -106,9 +106,9 @@ A: Mesh kits: R3,000–R6,000. Point-to-point links: R4,500–R9,000. On-site su
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
 - [MWeb Fibre Stellenbosch](https://www.mweb.co.za/?utm_source=chatgpt.com)  

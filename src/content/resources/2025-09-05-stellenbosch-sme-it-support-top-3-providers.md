@@ -64,9 +64,9 @@ From law firms to startups, Stellenbosch’s SME hub (especially **Technopark**)
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex B – Privacy & POPIA](/legal/privacy-popia-processing-notice/)  
-- [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Privacy & POPIA](/legal/privacy-popia-processing-notice/)  
+- [AOn-Site Safety Checklist](/legal/on-site-safety-checklist/)  
 
 External references:  
 - [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  

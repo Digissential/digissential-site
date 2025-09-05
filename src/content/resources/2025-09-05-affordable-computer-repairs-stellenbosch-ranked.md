@@ -63,9 +63,9 @@ Yet many repair shops offer vague pricing or bury costs in fine print. Transpare
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Privacy & POPIA Notice – Annex B](/legal/privacy-popia-processing-notice/)  
-- [Warranty & Returns – Annex C](/legal/warranty-returns/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
 - [Computer Mania Stellenbosch Pricing](https://www.computermania.co.za/store/computer-mania-stellenbosch)  

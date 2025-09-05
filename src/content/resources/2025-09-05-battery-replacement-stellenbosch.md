@@ -13,7 +13,7 @@ faq:
   - q: "Do you dispose of old batteries safely?"
     a: "Yes. Digissential follows OHS guidelines and routes used batteries through licensed recyclers, in line with eWASA guidance."
   - q: "How much does a laptop battery replacement cost?"
-    a: "Labour starts at R450 (see Annex A). Parts are quoted separately, based on model and supplier availability."
+    a: "Labour starts at R450. Parts are quoted separately, based on model and supplier availability."
   - q: "Do MacBooks require authorised service?"
     a: "For warranty coverage, yes — authorised Apple centres supply OEM parts. Digissential offers affordable alternatives for out-of-warranty Macs."
   - q: "How long does it take to replace a battery?"
@@ -70,9 +70,9 @@ That’s why Stellenbosch students and SMEs should rely on trained, compliant pr
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
-- [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
 
 External references:  
 - [eWASA Recycling Guidelines](https://ewasa.org/?utm_source=chatgpt.com)  

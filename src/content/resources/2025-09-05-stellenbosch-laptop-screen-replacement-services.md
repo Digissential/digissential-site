@@ -62,9 +62,9 @@ No matter the cause, **screen replacement is one of Stellenbosch’s most-reques
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Warranty & Returns – Annex C](/legal/warranty-returns/)  
-- [Privacy & POPIA Notice – Annex B](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
 - [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  

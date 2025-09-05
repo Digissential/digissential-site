@@ -30,7 +30,7 @@ faq:
 - Home offices with video-call reliability issues.
 
 ### Hardware & pricing
-We’ll propose hardware that suits your space and budget. Parts are billed separately; labour **TBD**—to be set in Annex A.
+We’ll propose hardware that suits your space and budget. Parts are billed separately; labour **TBD**—to be set in.
 
 ### Turnaround
 Usually **same day** for 2–3 nodes; larger installs may need half-day.

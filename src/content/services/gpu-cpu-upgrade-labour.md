@@ -11,7 +11,7 @@ bullets:
   - Brief stress/thermals validation
 faq:
   - q: "What if I need a clean driver pass?"
-    a: "We can run a DDU clean and re-install drivers. With extended stress test, the labour is R550 (per Annex A)."
+    a: "We can run a DDU clean and re-install drivers. With extended stress test, the labour is R550."
   - q: "Will my PSU be enough?"
     a: "We check rails and vendor guidance. If it’s marginal, we’ll recommend a safe model before install."
 ---

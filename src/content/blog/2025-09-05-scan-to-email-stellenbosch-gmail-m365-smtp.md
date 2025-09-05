@@ -111,9 +111,9 @@ A: Canon, HP, and Kyocera MFPs dominate. All support SMTP, but firmware updates 
 ---
 
 **Compliance & trust:**  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
 - [Gmail SMTP settings](https://support.google.com/mail/answer/7126229?utm_source=chatgpt.com)  

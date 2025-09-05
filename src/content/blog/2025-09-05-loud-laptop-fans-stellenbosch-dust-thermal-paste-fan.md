@@ -103,9 +103,9 @@ A: Same-day for cleaning; 1–2 days for repaste or fan replacement if parts are
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
 - [Intel – Causes of Overheating](https://www.intel.com/content/www/us/en/gaming/resources/cpu-overheating.html?utm_source=chatgpt.com)  

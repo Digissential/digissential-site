@@ -44,7 +44,7 @@ faq:
 | Swollen/damaged lithium packs | ✅ | No charging or compression; isolated and contained for hand-off |
 | CRT/large appliances | ❌ | Refer to specialist municipal/recycler channels (ask us) |
 
-**Policy & safety:** see **[Annex D – E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)** and **[Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)**.
+**Policy & safety:** see **[E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)** and **[On-Site Safety Checklist](/legal/on-site-safety-checklist/)**.
 
 ---
 
@@ -76,14 +76,14 @@ Need destruction only? → **[Data Destruction service (CoDD)](/services/certifi
 - **Safe handling:** terminals taped, isolation for damaged cells, compliant transport.  
 - **Traceable wipe:** method, verifier, date/time, technician.  
 - **Proof you can file:** **CoDD** for audits/landlords/clients.  
-- **Transparent annexes:** policy and safety procedures published.
+- **Transparency:** policy and safety procedures published.
 
 ---
 
 ## Ready to dispose the right way?
 
-- Policy → **[Annex D – E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)**  
-- Safety → **[Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)**  
+- Policy → **[E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)**  
+- Safety → **[On-Site Safety Checklist](/legal/on-site-safety-checklist/)**  
 - Certificates → **[Data Destruction service (CoDD)](/services/certificate-of-data-destruction/)**
 
 *Updated on 2025-09-04.*

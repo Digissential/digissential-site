@@ -72,7 +72,7 @@ Need a clean start? → **[New Mac setup & migration](/services/new-pc-laptop-se
 ### Book help (local to Stellenbosch)
 
 - **Consent & authorisation** → [Data Recovery Consent & Waiver](/legal/data-recovery-consent-waiver/)  
-- **Privacy & POPIA** → [Annex B – Privacy & POPIA Processing Notice](/privacy/)  
+- **Privacy & POPIA** → [Privacy & POPIA Processing Notice](/privacy/)  
 - **Fresh start + migration** → [New Mac setup & migration](/services/new-pc-laptop-setup/)
 
 *Updated on 2025-09-04.*

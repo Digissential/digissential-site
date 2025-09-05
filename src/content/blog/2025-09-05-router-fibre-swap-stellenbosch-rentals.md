@@ -109,8 +109,8 @@ A: Yes. We guide ISP setup, router config, and Wi-Fi optimisation via [Remote Su
 ---
 
 **Compliance & trust:**  
-- [Annex D – E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
 - [Microsoft Quick Assist](https://support.microsoft.com/en-us/windows/get-help-with-quick-assist?utm_source=chatgpt.com)  

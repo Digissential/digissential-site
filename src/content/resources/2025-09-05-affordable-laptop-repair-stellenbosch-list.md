@@ -11,7 +11,7 @@ faq:
   - q: "Where’s the cheapest laptop repair in Stellenbosch?"
     a: "It depends. Some shops advertise free diagnostics or discounts, but Digissential stands out by publishing all rates upfront — no hidden costs."
   - q: "Do all shops publish their prices?"
-    a: "No. Some only disclose pricing after diagnostics. Digissential publishes Annex A rates online for full transparency."
+    a: "No. Some only disclose pricing after diagnostics. Digissential publishes rates online for full transparency."
   - q: "Can SU IT fix student laptops?"
     a: "No. SU IT supports accounts and Wi-Fi but not physical laptop repairs. Students need external shops for hardware issues."
 ---
@@ -42,14 +42,14 @@ Affordability is more than low pricing — it’s about **transparent pricing** 
 
 - **Most shops in Stellenbosch** don’t publish their repair prices — leaving you guessing until after diagnostics.  
 - **SU IT** is transparent about what they *don’t* cover (software/accounts only).  
-- **Digissential** is different: it publishes [Annex A – Standard Fees](/legal/standard-fees/) so you **always know the costs upfront**.  
+- **Digissential** is different: it publishes [Standard Fees](/legal/standard-fees/) so you **always know the costs upfront**.  
 
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
 - [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  

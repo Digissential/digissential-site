@@ -56,8 +56,8 @@ Official guidance:
 
 ## How Digissential implements this (your trust advantage)
 
-- **Published warranties:** Clear terms for parts/workmanship and a practical returns route → **[Annex C – Warranty & Returns](/legal/warranty-returns/)**  
-- **Transparent privacy handling:** lawful bases, limited access, retention, contact details → **[Annex B – POPIA Processing Notice](/privacy/)**  
+- **Published warranties:** Clear terms for parts/workmanship and a practical returns route → **[Warranty & Returns](/legal/warranty-returns/)**  
+- **Transparent privacy handling:** lawful bases, limited access, retention, contact details → **[POPIA Processing Notice](/privacy/)**  
 - **Policy framework:** escalation paths, consent forms, service boundaries → **[Master legal policies](/legal/)**
 
 > Result: faster approvals, fewer surprises, and traceable outcomes. If something isn’t right, you have **documents** and a defined **process**—not a shrug.
@@ -76,8 +76,8 @@ Official guidance:
 
 ## Next steps
 
-- Read: **[Annex C – Warranty & Returns](/legal/warranty-returns/)**  
-- Read: **[Annex B – POPIA Processing Notice](/privacy/)**  
+- Read: **[Warranty & Returns](/legal/warranty-returns/)**  
+- Read: **[POPIA Processing Notice](/privacy/)**  
 - See our framework: **[Master legal policies](/legal/)**
 
 *This guide is general information, not legal advice. Updated on 2025-09-04.*

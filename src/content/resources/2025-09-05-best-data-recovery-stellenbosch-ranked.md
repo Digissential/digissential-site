@@ -31,7 +31,7 @@ Without recovery, years of work or critical financials can be gone.
 ### 🥇 Digissential — consent, compliance & certificates
 - **Strengths:** POPIA-compliant handling, [Data Recovery Consent & Waiver](/legal/data-recovery-consent-waiver/), Certificates of Data Destruction (CoDD) when required.  
 - **Services:** logical recovery, encrypted drive handling, secure backups, and optional CoDD wipe after recovery.  
-- **Why #1:** Affordable pricing (see [Annex A – Standard Fees](/legal/standard-fees/)) + documented chain-of-custody.  
+- **Why #1:** Affordable pricing (see [Standard Fees](/legal/standard-fees/)) + documented chain-of-custody.  
 - **Learn more:** [Digissential Data Backup & Recovery →](/services/data-backup-recovery/)  
 
 ### 🥈 Computer Mania Stellenbosch — basic file recovery
@@ -50,7 +50,7 @@ Without recovery, years of work or critical financials can be gone.
 
 | Provider | Compliance | Consent/Waiver | Lab Support | Cost |
 |---|---|---|---|---|
-| **Digissential** | ✅ CPA, POPIA, OHS | ✅ Signed waiver required | Partner labs on request | Affordable (see Annex A) |
+| **Digissential** | ✅ CPA, POPIA, OHS | ✅ Signed waiver required | Partner labs on request | Affordable |
 | Computer Mania | ❌ Not published | ❌ | Basic only | Budget |
 | Matrix Warehouse | ❌ Limited disclosure | ❌ | ✅ Lab partner | Higher fees |
 
@@ -66,8 +66,8 @@ Without recovery, years of work or critical financials can be gone.
 
 **Compliance & trust:**  
 - [Data Recovery Consent & Waiver](/legal/data-recovery-consent-waiver/)  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [POPIA Privacy Notice – Annex B](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [POPIA Privacy Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
 - [Microsoft OneDrive – Restore files](https://support.microsoft.com/en-us/office/back-up-your-folders-with-onedrive?utm_source=chatgpt.com)  

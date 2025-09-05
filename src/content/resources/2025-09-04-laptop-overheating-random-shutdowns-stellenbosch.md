@@ -95,9 +95,9 @@ A: That often means clogged heatsinks or dried thermal paste — time for a prof
 ---
 
 **Compliance & trust:**  
-- [On-Site Safety Checklist – Annex E](/legal/on-site-safety-checklist/)  
-- [Warranty & Returns – Annex C](/legal/warranty-returns/)  
-- [Privacy & POPIA – Annex B](/legal/privacy-popia-processing-notice/)  
+- [On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [Privacy & POPIA](/legal/privacy-popia-processing-notice/)  
 
 External references:  
 - [Intel – Overheating Causes & Solutions](https://www.intel.com/content/www/us/en/gaming/resources/cpu-overheating.html)  

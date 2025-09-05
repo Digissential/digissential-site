@@ -64,7 +64,7 @@ Cons:
 | Provider | Warranty-Safe | Pricing | Compliance | Best For |
 |---|---|---|---|---|
 | **iStore Stellenbosch** | ✅ AppleCare | Premium | ✅ OEM | Under-warranty Macs |
-| **Digissential** | ❌ Out-of-warranty only | Affordable (Annex A rates) | ✅ CPA, POPIA, OHS | Everyday student/SME Macs |
+| **Digissential** | ❌ Out-of-warranty only | Affordable | ✅ CPA, POPIA, OHS | Everyday student/SME Macs |
 | Computer Mania | ❌ | Budget | ❌ Not disclosed | Quick student fixes |
 | Matrix Warehouse | ❌ | Mid-range | ❌ Not disclosed | Gaming/upgrade-heavy users |
 
@@ -79,9 +79,9 @@ Cons:
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
-- [Annex D – E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
 
 External references:  
 - [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  

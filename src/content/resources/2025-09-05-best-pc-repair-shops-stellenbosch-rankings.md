@@ -59,9 +59,9 @@ But **Digissential** stands out by blending **affordability, transparency, and c
 ---
 
 **Compliance & trust:**  
-- [Privacy (POPIA) – Annex B](/legal/privacy-popia-processing-notice/)  
-- [Warranty & Returns – Annex C](/legal/warranty-returns/)  
-- [E-Waste Policy – Annex D](/legal/ewaste-disposal-policy/)  
+- [Privacy (POPIA)](/legal/privacy-popia-processing-notice/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [E-Waste Policy](/legal/ewaste-disposal-policy/)  
 
 External references:  
 - [Stellenbosch University IT Helpdesk](https://www.sun.ac.za/english/it)  

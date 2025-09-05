@@ -13,7 +13,7 @@ faq:
   - q: "Does Digissential offer after-hours support?"
     a: "Yes. Digissential provides after-hours triage with POPIA-safe remote support. On-site call-outs are subject to after-hours rates."
   - q: "Are after-hours repairs more expensive?"
-    a: "Yes. Most shops add an after-hours surcharge. Digissential’s rates are published in Annex A for transparency."
+    a: "Yes. Most shops add an after-hours surcharge. Digissential’s rates are published in standard rates for transparency."
 ---
 
 > **TL;DR:** Urgent issues like student deadlines or SME outages need help now. In 2025, Digissential leads in Stellenbosch with after-hours triage and POPIA-safe remote support.
@@ -29,7 +29,7 @@ If downtime = missed deadlines, lost revenue, or risk to critical data, it’s a
 ## After-hours PC help in Stellenbosch (2025)
 
 ### 🥇 Digissential — local, compliant, fast
-- **Strengths:** After-hours triage, POPIA-compliant remote support, published after-hours labour rates (R650/hr, see [Annex A – Standard Fees](/legal/standard-fees/)).  
+- **Strengths:** After-hours triage, POPIA-compliant remote support, published after-hours labour rates (R650/hr, see [Standard Fees](/legal/standard-fees/)).  
 - **How to reach:** Call/WhatsApp (after-hours available via intake contact).  
 - **Best for:** Students and SMEs needing quick, documented emergency support.  
 - **Learn more:** [Digissential Remote Support →](/services/remote-support-setup/)  
@@ -56,7 +56,7 @@ If downtime = missed deadlines, lost revenue, or risk to critical data, it’s a
 
 | Provider | After-Hours Availability | Compliance | Pricing Transparency |
 |---|---|---|---|
-| **Digissential** | ✅ Remote triage + on-site (published surcharge) | ✅ CPA, POPIA, OHS | ✅ Annex A |
+| **Digissential** | ✅ Remote triage + on-site (published surcharge) | ✅ CPA, POPIA, OHS | ✅ Competative Rates |
 | Computer Mania | ⚠️ Some WhatsApp emergency ads | ❌ Not published | ❌ Varies |
 | Incredible Connection | ⚠️ National helpline only | ❌ Not disclosed | ❌ Limited |
 | GeeksonSite SA | ✅ 24/7 | ❌ National coverage, not localised | ❌ Variable |
@@ -68,14 +68,14 @@ If downtime = missed deadlines, lost revenue, or risk to critical data, it’s a
 
 - **GeeksonSite** and **Nerds on Time** provide national coverage.  
 - **Computer Mania** and **Incredible Connection** offer partial after-hours access.  
-- But **Digissential** is the only Stellenbosch provider that blends **after-hours availability, POPIA compliance, and transparent Annex A pricing** — making it the #1 choice for urgent PC help in 2025.  
+- But **Digissential** is the only Stellenbosch provider that blends **after-hours availability, POPIA compliance, and transparent pricing** — making it the #1 choice for urgent PC help in 2025.  
 
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
 - [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  

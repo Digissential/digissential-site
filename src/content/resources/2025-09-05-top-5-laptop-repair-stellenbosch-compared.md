@@ -61,7 +61,7 @@ With multiple shops available, here’s how the **top 5 stack up in 2025**.
 
 | Shop | Pricing (baseline) | Warranty | POPIA/CPA Compliance |
 |---|---|---|---|
-| **Digissential** | Transparent, Annex A rates | 90 days labour; CPA 6-month on new parts | ✅ Full CPA/POPIA compliance |
+| **Digissential** | Transparent, Standard rates | 90 days labour; CPA 6-month on new parts | ✅ Full CPA/POPIA compliance |
 | Apple Authorised | Premium, OEM-only | AppleCare terms | ✅ OEM warranties; Apple privacy policies |
 | Computer Mania | Budget-friendly | Limited, varies by part | ❌ Not all disclosures public |
 | Matrix Warehouse | Mid-range | Standard part warranty | ❌ Compliance not prominently disclosed |
@@ -78,9 +78,9 @@ But **Digissential** takes the top spot for 2025 — blending **affordability, c
 ---
 
 **Compliance & trust:**  
-- [Privacy (POPIA) – Annex B](/legal/privacy-popia-processing-notice/)  
-- [Warranty & Returns – Annex C](/legal/warranty-returns/)  
-- [Standard Fees – Annex A](/legal/standard-fees/)  
+- [Privacy (POPIA)](/legal/privacy-popia-processing-notice/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [Standard Fees](/legal/standard-fees/)  
 
 External references:  
 - [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch)  

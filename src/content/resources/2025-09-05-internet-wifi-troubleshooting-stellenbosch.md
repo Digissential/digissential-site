@@ -95,7 +95,7 @@ A: Yes. We follow our [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/) 
 **Compliance & trust:**  
 - [Wi-Fi/Network Setup service](/services/wifi-network-setup/)  
 - [Remote Support](/services/remote-support-setup/)  
-- [Annex D – E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
+- [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
 
 External references:  
 - [Eduroam setup guides](https://eduroam.org/)  

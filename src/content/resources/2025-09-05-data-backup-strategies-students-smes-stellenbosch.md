@@ -68,7 +68,7 @@ A backup isn’t about convenience—it’s survival.
 - **Cloud backup setup:** R250 per device (+R80 per extra account).  
 - **Turnaround:** same-day setup for most student/SME devices.  
 
-(See [Annex A – Standard Fees](/legal/standard-fees/) for details.)  
+(See [Standard Fees](/legal/standard-fees/) for details.)  
 
 ## When to stop DIY
 
@@ -101,9 +101,9 @@ A: Yes—we configure cloud syncs, system images, and recovery tests. See our Da
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
+- [Standard Fees](/legal/standard-fees/)  
 - [Master Data Recovery Consent & Waiver](/legal/data-recovery-consent-waiver/)  
-- [Privacy & POPIA – Annex B](/legal/privacy-popia-processing-notice/)  
+- [Privacy & POPIA](/legal/privacy-popia-processing-notice/)  
 
 External references:  
 - [Google Drive – Restore files](https://support.google.com/drive/answer/1716222)  

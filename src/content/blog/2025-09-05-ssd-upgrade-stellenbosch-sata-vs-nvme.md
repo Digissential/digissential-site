@@ -121,9 +121,9 @@ A: We can reinstall the OS, restore from backup, or recover data separately befo
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
 - [Microsoft – How to install a new SSD](https://support.microsoft.com/en-us/windows/installing-an-ssd?utm_source=chatgpt.com)  

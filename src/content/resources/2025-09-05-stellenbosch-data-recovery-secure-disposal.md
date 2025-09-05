@@ -76,8 +76,8 @@ Recovery saves what matters. Disposal ensures no one else can ever access it.
 ---
 
 **Compliance & trust:**  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex D – E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
 - [Data Recovery Consent & Waiver](/legal/data-recovery-consent-waiver/)  
 
 External references:  

@@ -101,9 +101,9 @@ A: Yes. We set up SU email, Wi-Fi, printing, backups, and cybersecurity via remo
 ---
 
 **Compliance & trust:**  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Warranty & Returns – Annex C](/legal/warranty-returns/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
 - [Eduroam Official](https://eduroam.org/?utm_source=chatgpt.com)  

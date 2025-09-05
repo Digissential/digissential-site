@@ -62,9 +62,9 @@ Tech support is a must-have — but which options are best in 2025?
 ---
 
 **Compliance & trust:**  
-- [Privacy (POPIA) – Annex B](/legal/privacy-popia-processing-notice/)  
-- [Standard Fees – Annex A](/legal/standard-fees/)  
-- [Warranty & Returns – Annex C](/legal/warranty-returns/)  
+- [Privacy (POPIA)](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
 - [SU IT Helpdesk](https://www.sun.ac.za/english/it)  

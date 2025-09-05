@@ -103,9 +103,9 @@ A: Yes. We set up UPS units, optimise Wi-Fi, and offer remote/device health chec
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
 - [eWASA – E-Waste Association of SA](https://ewasa.org/?utm_source=chatgpt.com)  

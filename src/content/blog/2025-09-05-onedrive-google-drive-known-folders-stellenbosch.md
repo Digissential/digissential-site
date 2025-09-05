@@ -102,9 +102,9 @@ A: Yes, provided access is secured with MFA and sensitive SME data is only share
 ---
 
 **Compliance & trust:**  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Warranty & Returns – Annex C](/legal/warranty-returns/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
 - [OneDrive – Back up PC folders](https://support.microsoft.com/en-us/office/back-up-your-folders-with-onedrive?utm_source=chatgpt.com)  

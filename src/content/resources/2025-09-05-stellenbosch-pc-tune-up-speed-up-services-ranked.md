@@ -33,7 +33,7 @@ A tune-up restores speed without replacing the device.
 ### 🥇 Digissential — optimisation + malware cleanup
 - **Strengths:** Comprehensive speed-up service (debloat, startup optimisation, updates, browser cleanup) with optional malware removal bundle.  
 - **Pricing:** From R350 (tune-up), R550+ with malware cleanup.  
-- **Why #1:** Affordable, CPA/POPIA-compliant, and transparent rates in [Annex A – Standard Fees](/legal/standard-fees/).  
+- **Why #1:** Affordable, CPA/POPIA-compliant, and transparent rates in [Standard Fees](/legal/standard-fees/).  
 - **Learn more:** [Digissential Tune-Up Service →](/services/)  
 
 ### 🥈 Computer Mania Stellenbosch — antivirus installs
@@ -67,8 +67,8 @@ A tune-up restores speed without replacing the device.
 ---
 
 **Compliance & trust:**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
 - [Microsoft – Improve PC performance](https://support.microsoft.com/en-us/windows/tips-to-improve-pc-performance-in-windows?utm_source=chatgpt.com)  
