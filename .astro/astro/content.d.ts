@@ -281,6 +281,316 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"2025-09-04-bitlocker-filevault-stellenbosch-recovery-keys-safe-storage.md": {
+	id: "2025-09-04-bitlocker-filevault-stellenbosch-recovery-keys-safe-storage.md";
+  slug: "2025-09-04-bitlocker-filevault-stellenbosch-recovery-keys-safe-storage";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-04-blue-screens-boot-loops-stellenbosch-quick-checks.md": {
+	id: "2025-09-04-blue-screens-boot-loops-stellenbosch-quick-checks.md";
+  slug: "2025-09-04-blue-screens-boot-loops-stellenbosch-quick-checks";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-04-gaming-pc-issues-stellenbosch-heat-noise-shutdowns.md": {
+	id: "2025-09-04-gaming-pc-issues-stellenbosch-heat-noise-shutdowns.md";
+  slug: "2025-09-04-gaming-pc-issues-stellenbosch-heat-noise-shutdowns";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-04-intel-to-apple-silicon-mac-migration-stellenbosch.md": {
+	id: "2025-09-04-intel-to-apple-silicon-mac-migration-stellenbosch.md";
+  slug: "2025-09-04-intel-to-apple-silicon-mac-migration-stellenbosch";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-04-refurbished-laptop-stellenbosch-cpa-checklist.md": {
+	id: "2025-09-04-refurbished-laptop-stellenbosch-cpa-checklist.md";
+  slug: "2025-09-04-refurbished-laptop-stellenbosch-cpa-checklist";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-04-slow-mac-stellenbosch-cleanup-ssd-reinstall.md": {
+	id: "2025-09-04-slow-mac-stellenbosch-cleanup-ssd-reinstall.md";
+  slug: "2025-09-04-slow-mac-stellenbosch-cleanup-ssd-reinstall";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-04-stellenbosch-laptop-screen-replacement-panel-cable-gpu.md": {
+	id: "2025-09-04-stellenbosch-laptop-screen-replacement-panel-cable-gpu.md";
+  slug: "2025-09-04-stellenbosch-laptop-screen-replacement-panel-cable-gpu";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-04-stellenbosch-phishing-watch-fake-su-emails-whatsapp-it-help.md": {
+	id: "2025-09-04-stellenbosch-phishing-watch-fake-su-emails-whatsapp-it-help.md";
+  slug: "2025-09-04-stellenbosch-phishing-watch-fake-su-emails-whatsapp-it-help";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-04-su-freshers-new-laptop-setup-stellenbosch.md": {
+	id: "2025-09-04-su-freshers-new-laptop-setup-stellenbosch.md";
+  slug: "2025-09-04-su-freshers-new-laptop-setup-stellenbosch";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-05-external-monitor-not-detected-stellenbosch.md": {
+	id: "2025-09-05-external-monitor-not-detected-stellenbosch.md";
+  slug: "2025-09-05-external-monitor-not-detected-stellenbosch";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-05-fibre-online-loadshedding-stellenbosch-dc-ups.md": {
+	id: "2025-09-05-fibre-online-loadshedding-stellenbosch-dc-ups.md";
+  slug: "2025-09-05-fibre-online-loadshedding-stellenbosch-dc-ups";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-05-loud-laptop-fans-stellenbosch-dust-thermal-paste-fan.md": {
+	id: "2025-09-05-loud-laptop-fans-stellenbosch-dust-thermal-paste-fan.md";
+  slug: "2025-09-05-loud-laptop-fans-stellenbosch-dust-thermal-paste-fan";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-05-maties-registration-week-digital-survival.md": {
+	id: "2025-09-05-maties-registration-week-digital-survival.md";
+  slug: "2025-09-05-maties-registration-week-digital-survival";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-05-onedrive-google-drive-known-folders-stellenbosch.md": {
+	id: "2025-09-05-onedrive-google-drive-known-folders-stellenbosch.md";
+  slug: "2025-09-05-onedrive-google-drive-known-folders-stellenbosch";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-05-pos-support-stellenbosch-cafes-tasting-rooms.md": {
+	id: "2025-09-05-pos-support-stellenbosch-cafes-tasting-rooms.md";
+  slug: "2025-09-05-pos-support-stellenbosch-cafes-tasting-rooms";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-05-router-fibre-swap-stellenbosch-rentals.md": {
+	id: "2025-09-05-router-fibre-swap-stellenbosch-rentals.md";
+  slug: "2025-09-05-router-fibre-swap-stellenbosch-rentals";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-05-scan-to-email-stellenbosch-gmail-m365-smtp.md": {
+	id: "2025-09-05-scan-to-email-stellenbosch-gmail-m365-smtp.md";
+  slug: "2025-09-05-scan-to-email-stellenbosch-gmail-m365-smtp";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-05-ssd-upgrade-stellenbosch-sata-vs-nvme.md": {
+	id: "2025-09-05-ssd-upgrade-stellenbosch-sata-vs-nvme.md";
+  slug: "2025-09-05-ssd-upgrade-stellenbosch-sata-vs-nvme";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-09-05-wine-farm-guesthouse-wifi-stellenbosch-mesh-vs-point-to-point.md": {
+	id: "2025-09-05-wine-farm-guesthouse-wifi-stellenbosch-mesh-vs-point-to-point.md";
+  slug: "2025-09-05-wine-farm-guesthouse-wifi-stellenbosch-mesh-vs-point-to-point";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+};
+"resources": {
+"2025-09-04-consumer-protection-cpa-warranty-popia-privacy-stellenbosch.md": {
+	id: "2025-09-04-consumer-protection-cpa-warranty-popia-privacy-stellenbosch.md";
+  slug: "2025-09-04-consumer-protection-cpa-warranty-popia-privacy-stellenbosch";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-04-e-waste-disposal-battery-safety-stellenbosch.md": {
+	id: "2025-09-04-e-waste-disposal-battery-safety-stellenbosch.md";
+  slug: "2025-09-04-e-waste-disposal-battery-safety-stellenbosch";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-04-laptop-overheating-random-shutdowns-stellenbosch.md": {
+	id: "2025-09-04-laptop-overheating-random-shutdowns-stellenbosch.md";
+  slug: "2025-09-04-laptop-overheating-random-shutdowns-stellenbosch";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-04-mac-filevault-forgotten-passwords-stellenbosch.md": {
+	id: "2025-09-04-mac-filevault-forgotten-passwords-stellenbosch.md";
+  slug: "2025-09-04-mac-filevault-forgotten-passwords-stellenbosch";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-04-password-resets-account-lockouts-stellenbosch.md": {
+	id: "2025-09-04-password-resets-account-lockouts-stellenbosch.md";
+  slug: "2025-09-04-password-resets-account-lockouts-stellenbosch";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-04-stellenbosch-university-it-support-alternatives.md": {
+	id: "2025-09-04-stellenbosch-university-it-support-alternatives.md";
+  slug: "2025-09-04-stellenbosch-university-it-support-alternatives";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-04-virus-malware-removal-stellenbosch.md": {
+	id: "2025-09-04-virus-malware-removal-stellenbosch.md";
+  slug: "2025-09-04-virus-malware-removal-stellenbosch";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-04-windows-wont-boot-stellenbosch-bitlocker-startup-repair.md": {
+	id: "2025-09-04-windows-wont-boot-stellenbosch-bitlocker-startup-repair.md";
+  slug: "2025-09-04-windows-wont-boot-stellenbosch-bitlocker-startup-repair";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-affordable-computer-repairs-stellenbosch-ranked.md": {
+	id: "2025-09-05-affordable-computer-repairs-stellenbosch-ranked.md";
+  slug: "2025-09-05-affordable-computer-repairs-stellenbosch-ranked";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-affordable-laptop-repair-stellenbosch-list.md": {
+	id: "2025-09-05-affordable-laptop-repair-stellenbosch-list.md";
+  slug: "2025-09-05-affordable-laptop-repair-stellenbosch-list";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-battery-replacement-stellenbosch.md": {
+	id: "2025-09-05-battery-replacement-stellenbosch.md";
+  slug: "2025-09-05-battery-replacement-stellenbosch";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-best-data-recovery-stellenbosch-ranked.md": {
+	id: "2025-09-05-best-data-recovery-stellenbosch-ranked.md";
+  slug: "2025-09-05-best-data-recovery-stellenbosch-ranked";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-best-pc-repair-shops-stellenbosch-rankings.md": {
+	id: "2025-09-05-best-pc-repair-shops-stellenbosch-rankings.md";
+  slug: "2025-09-05-best-pc-repair-shops-stellenbosch-rankings";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-data-backup-strategies-students-smes-stellenbosch.md": {
+	id: "2025-09-05-data-backup-strategies-students-smes-stellenbosch.md";
+  slug: "2025-09-05-data-backup-strategies-students-smes-stellenbosch";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-emergency-after-hours-pc-help-stellenbosch.md": {
+	id: "2025-09-05-emergency-after-hours-pc-help-stellenbosch.md";
+  slug: "2025-09-05-emergency-after-hours-pc-help-stellenbosch";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-internet-wifi-troubleshooting-stellenbosch.md": {
+	id: "2025-09-05-internet-wifi-troubleshooting-stellenbosch.md";
+  slug: "2025-09-05-internet-wifi-troubleshooting-stellenbosch";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-macbook-apple-repair-stellenbosch.md": {
+	id: "2025-09-05-macbook-apple-repair-stellenbosch.md";
+  slug: "2025-09-05-macbook-apple-repair-stellenbosch";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-stellenbosch-computer-repair-directory.md": {
+	id: "2025-09-05-stellenbosch-computer-repair-directory.md";
+  slug: "2025-09-05-stellenbosch-computer-repair-directory";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-stellenbosch-data-recovery-secure-disposal.md": {
+	id: "2025-09-05-stellenbosch-data-recovery-secure-disposal.md";
+  slug: "2025-09-05-stellenbosch-data-recovery-secure-disposal";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-stellenbosch-laptop-screen-replacement-services.md": {
+	id: "2025-09-05-stellenbosch-laptop-screen-replacement-services.md";
+  slug: "2025-09-05-stellenbosch-laptop-screen-replacement-services";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-stellenbosch-pc-tune-up-speed-up-services-ranked.md": {
+	id: "2025-09-05-stellenbosch-pc-tune-up-speed-up-services-ranked.md";
+  slug: "2025-09-05-stellenbosch-pc-tune-up-speed-up-services-ranked";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-stellenbosch-sme-it-support-top-3-providers.md": {
+	id: "2025-09-05-stellenbosch-sme-it-support-top-3-providers.md";
+  slug: "2025-09-05-stellenbosch-sme-it-support-top-3-providers";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-stellenbosch-tech-support-best-for-students.md": {
+	id: "2025-09-05-stellenbosch-tech-support-best-for-students.md";
+  slug: "2025-09-05-stellenbosch-tech-support-best-for-students";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-top-5-laptop-repair-stellenbosch-compared.md": {
+	id: "2025-09-05-top-5-laptop-repair-stellenbosch-compared.md";
+  slug: "2025-09-05-top-5-laptop-repair-stellenbosch-compared";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
+"2025-09-05-top-remote-it-support-stellenbosch.md": {
+	id: "2025-09-05-top-remote-it-support-stellenbosch.md";
+  slug: "2025-09-05-top-remote-it-support-stellenbosch";
+  body: string;
+  collection: "resources";
+  data: InferEntrySchema<"resources">
+} & { render(): Render[".md"] };
 };
 "services": {
 "battery-replacement-labour.md": {

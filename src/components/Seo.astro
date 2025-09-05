@@ -21,7 +21,7 @@ const props = Astro.props as Props;
 
 // 0) Site base + defaults
 const base = (Astro.site?.toString?.() || 'https://digissential.co.za').replace(/\/+$/,'');
-const DEFAULT_OG = '/images/social/default-og.jpg'; // 1200x630 JPG/PNG you add
+const DEFAULT_OG = '/images/brand-cover-1200x630.jpg'; // 1200x630 JPG/PNG you add
 
 // 1) Canonical with trailing slash
 const pathWithSlash = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : Astro.url.pathname + '/';

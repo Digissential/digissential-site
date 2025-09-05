@@ -52,6 +52,21 @@ const ogAbs = new URL(ogImage, site).toString();   // <-- single declaration
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogAbs} />
 
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="48x48"  href="/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- PWA/manifest (helps Chrome & Android pick the icon) -->
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Makes address bar & some UI match your brand -->
+    <meta name="theme-color" content="#0b1220">
+
+    <!-- Encourage Google to use large preview images when eligible -->
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
     {noindex && <meta name="robots" content="noindex,nofollow" />}
     {altHref && (
       <>

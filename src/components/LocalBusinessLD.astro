@@ -10,11 +10,22 @@ const ld = {
   "url": `${base}/`,
   "telephone": "+27664256314",
   "email": "digissentialteam@gmail.com",
-  // use your new hero/logo or keep SVG – both are valid
-  "image": [`${base}/images/logo-1200.png`],
-  "logo": `${base}/images/logo-1200.png`,
+
+  // Use BOTH: logo (square, ImageObject) + image (array)
+  "logo": {
+    "@type": "ImageObject",
+    "url": `${base}/images/logo-1200.png`,
+    "width": 1200,
+    "height": 1200
+  },
+  "image": [
+    `${base}/images/logo-1200.png`,
+    `${base}/images/brand-cover-1200x630.jpg`
+  ],
+
   "description": "Computer repair & IT support in Stellenbosch: Windows installs, data recovery, malware removal, upgrades, and remote help.",
   "priceRange": "R",
+
   "contactPoint": [{
     "@type": "ContactPoint",
     "telephone": "+27664256314",
@@ -23,6 +34,7 @@ const ld = {
     "availableLanguage": ["en","af"],
     "url": `${base}/contact/`
   }],
+
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Berg-en-Dal, La Colline",
@@ -31,13 +43,16 @@ const ld = {
     "postalCode": "7600",
     "addressCountry": "ZA"
   },
+
   "areaServed": { "@type": "City", "name": "Stellenbosch" },
+
   "openingHoursSpecification": [{
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
     "opens": "09:00",
     "closes": "18:00"
   }],
+
   "sameAs": [
     "https://www.facebook.com/profile.php?id=61580005651505",
     "https://www.instagram.com/digi.ssential/",

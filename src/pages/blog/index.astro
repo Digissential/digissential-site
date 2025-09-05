@@ -22,14 +22,14 @@ const MAX_INLINE_TAGS = 8;
 const topTags  = allTags.slice(0, MAX_INLINE_TAGS);
 const moreTags = allTags.slice(MAX_INLINE_TAGS);
 
-const site = (Astro.site ?? new URL('https://www.digissential.co.za')).toString();
+const base = (Astro.site?.toString?.() || 'https://digissential.co.za').replace(/\/+$/, '');
 const itemListLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   itemListElement: posts.map((e, i) => ({
     '@type': 'ListItem',
     position: i + 1,
-    url: new URL(`/blog/${e.slug}/`, site).toString(),
+    url: `${base}/blog/${e.slug}/`,
     name: e.data.title
   }))
 };
@@ -48,8 +48,12 @@ const hasPublicFile = (p?: string) => {
 };
 ---
 
-<Base title="Blog — Digissential" description="Short, practical posts to keep your devices healthy — repair tips, malware hygiene, backup basics, and more.">
-  <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
+<Base title="Blog — Digissential" 
+  escription="Short, practical posts to keep your devices healthy — repair tips, malware hygiene, backup basics, and more."
+    ogImage="/images/brand-cover-1200x630.jpg"
+  />
+
+  <script type="application/ld+json" set:html={JSON.stringify(itemListLd)} />
 
   <main class="container-prose pt-4">
     <Breadcrumbs items={[ { href: '/blog/', label: 'Blog' } ]} />
