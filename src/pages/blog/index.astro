@@ -48,10 +48,12 @@ const hasPublicFile = (p?: string) => {
 };
 ---
 
-<Base title="Blog — Digissential" 
-  escription="Short, practical posts to keep your devices healthy — repair tips, malware hygiene, backup basics, and more."
-    ogImage="/images/brand-cover-1200x630.jpg"
-  />
+<Base
+  title="Blog — Digissential"
+  description="Short, practical posts to keep your devices healthy — repair tips, malware hygiene, backup basics, and more."
+  ogImage="/images/brand-cover-1200x630.jpg"
+>
+
 
   <script type="application/ld+json" set:html={JSON.stringify(itemListLd)} />
 
@@ -74,6 +76,9 @@ const hasPublicFile = (p?: string) => {
           <button class="btn btn-primary" type="submit">Search</button>
         </form>
         <a href={subscribeHref} class="btn btn-outline">Subscribe</a>
+        <p class="mt-2 text-sm text-white/70">
+          Prefer deep, citation-first guides? <a href="/resources/" class="link-fancy">Browse Resources →</a>
+        </p>
       </div>
 
       {allTags.length > 0 && (
@@ -172,6 +177,9 @@ const hasPublicFile = (p?: string) => {
 
       <p id="no-results" class="hidden text-white/60">No posts match your search/tag.</p>
     </section>
+    <p class="mt-8 text-center text-sm text-white/70">
+      Looking for in-depth “how-to” pages? <a href="/resources/" class="link-fancy">See Resources →</a>
+    </p>
   </main>
 
   <!-- Client-side search + tag filter -->
