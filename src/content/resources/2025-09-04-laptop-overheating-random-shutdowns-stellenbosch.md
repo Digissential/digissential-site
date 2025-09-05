@@ -72,8 +72,8 @@ Cape Town’s summer heat and local dust build-up make overheating a common issu
 
 ## Book help (fast)
 
-- **Thermal Paste & Deep Clean** → `/services/thermal-paste-deep-clean/`  
-- **GPU/CPU Upgrade service** → `/services/gpu-cpu-upgrade/`  
+- **Thermal Paste & Deep Clean** → [Thermal Paste & Deep Clean](/services/thermal-paste-deep-clean/)  
+- **GPU/CPU Upgrade service** → [GPU/CPU Upgrade](/services/gpu-cpu-upgrade/)  
 
 ## FAQs
 

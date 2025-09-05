@@ -71,8 +71,8 @@ These are stressful, but solvable — provided resets are done legally and safel
 
 ## Book help (fast)
 
-- **Password Reset service** → `/services/password-reset/`  
-- **Client Intake Agreement** → `/legal/client-intake-agreement/`  
+- **Password Reset service** → [Password Reset](/services/password-reset/)  
+- **Client Intake Agreement** → [Intake Form](/legal/client-intake-agreement/)  
 
 ## FAQs
 
