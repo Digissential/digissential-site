@@ -41,7 +41,7 @@ const fmtDate = (d: Date | string) =>
 ---
 
 <Base title="Resources — Digissential" description="Deep, citation-first guides that funnel you to the right service—BitLocker, Windows recovery, e-waste, and more.">
-  <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
+  <script type="application/ld+json" set:html={JSON.stringify(itemListLd)} />
 
   <main class="container-prose pt-4">
     <Breadcrumbs items={[ { href: '/resources/', label: 'Resources' } ]} />

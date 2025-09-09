@@ -72,7 +72,7 @@ const fmtPrice = (p: unknown) => {
 };
 ---
 
-<script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
+<script type="application/ld+json" set:html={JSON.stringify(itemListLd)} />
 
 <Base title="Services — Digissential" description="Our full list of computer repair & IT support services in Stellenbosch.">
   <main class="container-prose pt-6">
