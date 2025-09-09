@@ -33,5 +33,9 @@
     "postcss": "^8.4.41",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.10"
+  },
+  "overrides": {
+    "devalue": "^5.3.2",
+    "esbuild": "^0.24.4"
   }
 }
