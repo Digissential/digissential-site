@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "postbuild": "node scripts/preview-headers.js",
     "preview": "astro preview",
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.ts,.astro",
