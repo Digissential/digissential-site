@@ -1,60 +1,46 @@
+# netlify.toml
+
 [build]
   command = "npm run build"
   publish = "dist"
 
-# Recommended: lock Node and set your canonical site URL
 [build.environment]
   NODE_VERSION = "20"
-  # Set this in Netlify UI instead of here if you prefer:
-  # PUBLIC_SITE_URL = "https://digissential.co.za"
+  # Safe default for local/CI. Netlify will override per-context below.
+  PUBLIC_SITE_URL = "https://digissential.co.za"
 
 [dev]
-  command = "npm run dev"
-  port = 8888
+  command   = "npm run dev"
+  port      = 8888
   targetPort = 4321
 
 ##########
 # Redirects
 ##########
 
-# Pick ONE of these host-canonical rules:
-
-# 1) Apex as canonical (digissential.co.za) — send www -> apex
+# Apex is canonical → send www → apex
 [[redirects]]
   from = "https://www.digissential.co.za/*"
   to   = "https://digissential.co.za/:splat"
   status = 301
   force  = true
 
-# 2) WWW as canonical — send apex -> www  (UNCOMMENT if you prefer www)
-# [[redirects]]
-#   from = "https://digissential.co.za/*"
-#   to   = "https://www.digissential.co.za/:splat"
-#   status = 301
-#   force  = true
-
-# Optional: custom 404 for unknown routes (Astro builds 404.html)
-# [[redirects]]
-#   from = "/*"
-#   to   = "/404.html"
-#   status = 404
-
 [[redirects]]
-  from = "/sitemap-index.xml"
-  to   = "/sitemap.xml"
+  from = "http://digissential.co.za/*"
+  to   = "https://digissential.co.za/:splat"
   status = 301
-  force = true
+  force  = true
 
 [[redirects]]
- from = "/sitemap-0.xml"
- to   = "/sitemap.xml"
- status = 301
- force  = true
+  from = "http://www.digissential.co.za/*"
+  to   = "https://digissential.co.za/:splat"
+  status = 301
+  force  = true
+
 
 #############
-# Security headers
+# Security headers (production defaults)
 #############
-
 [[headers]]
   for = "/*"
   [headers.values]
@@ -69,37 +55,86 @@
 # Caching (performance)
 #########################
 
-# Never cache HTML (lets you update content instantly)
+# Never cache HTML
 [[headers]]
   for = "/*.html"
   [headers.values]
     Cache-Control = "no-store, no-cache, must-revalidate, max-age=0"
 
-# Astro build assets (hashed) — cache forever
+# Hashed build assets
 [[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Images (adjust if you use a transformer/CDN)
+# Images
 [[headers]]
   for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=2592000"
 
-# Fonts (long cache)
+# Fonts
 [[headers]]
   for = "/fonts/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Icons
 [[headers]]
   for = "/favicon*"
   [headers.values]
-  Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/apple-touch-icon.png"
   [headers.values]
-  Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=31536000, immutable"
 
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Sitemaps (keep fresh)
+[[headers]]
+  for = "/sitemap*.xml"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+#####################################
+# Context: production (main → live)
+#####################################
+[context.production.environment]
+  PUBLIC_SITE_URL = "https://digissential.co.za"
+  NODE_ENV = "production"
+
+#####################################
+# Context: Deploy Previews (PRs)
+#####################################
+[context.deploy-preview.environment]
+  # Netlify injects the preview URL — use it for canonicals/LD-JSON
+  PUBLIC_SITE_URL = "$DEPLOY_PRIME_URL"
+
+# Make *every* preview non-indexable
+[context.deploy-preview]
+  [[context.deploy-preview.headers]]
+    for = "/*"
+    [context.deploy-preview.headers.values]
+      X-Robots-Tag = "noindex, nofollow"
+
+#####################################
+# Context: Branch Deploys (e.g. staging)
+#####################################
+[context.branch-deploy.environment]
+  PUBLIC_SITE_URL = "$DEPLOY_URL"
+
+[context.branch-deploy]
+  [[context.branch-deploy.headers]]
+    for = "/*"
+    [context.branch-deploy.headers.values]
+      X-Robots-Tag = "noindex, nofollow"
