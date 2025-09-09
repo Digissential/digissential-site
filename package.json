@@ -23,7 +23,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@astrojs/netlify": "^6.5.10",
     "@tailwindcss/typography": "^0.5.16",
     "@typescript-eslint/eslint-plugin": "^8.40.0",
     "@typescript-eslint/parser": "^8.40.0",
