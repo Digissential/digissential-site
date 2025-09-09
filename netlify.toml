@@ -111,7 +111,6 @@
 #####################################
 [context.production.environment]
   PUBLIC_SITE_URL = "https://digissential.co.za"
-  NODE_ENV = "production"
 
 #####################################
 # Context: Deploy Previews (PRs)
