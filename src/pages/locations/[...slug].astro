@@ -1,0 +1,192 @@
+---
+// src/pages/locations/[...slug].astro
+export const prerender = true;
+
+import Base from "@layouts/Base.astro";
+import { getCollection } from "astro:content";
+import ServiceCards from "@components/ServiceCards.astro";
+
+/** Build-time paths for every location entry (string param is required). */
+export async function getStaticPaths() {
+  const entries = await getCollection("locations", ({ data }) => !data?.draft);
+  return entries.map((e) => ({
+    params: { slug: e.slug }, // STRING for [...slug]
+  }));
+}
+
+/* ----- Page data ----- */
+
+// Route param is a string like "stellenbosch" or "stellenbosch/die-boord"
+const slugPath = (Astro.params.slug ?? "").replace(/^\/|\/$/g, "");
+
+// Find the matching entry
+const all = await getCollection("locations");
+const entry = all.find((e) => e.slug === slugPath);
+if (!entry) return Astro.redirect("/locations/");
+
+const data = entry.data;
+const { Content } = await entry.render();
+
+// Site base (no trailing slash)
+const site = (Astro.site ?? new URL("https://digissential.co.za")).toString().replace(/\/+$/, "");
+
+// Canonical + OG
+const canonical = `${site}/locations/${entry.slug}/`;
+// Always use brand cover for OG
+const ogAbs = `${site}/images/brand-cover-1200x630.jpg`;
+
+// Meta description (clamp to ~160 chars)
+const descRaw = (data as any).description ?? data.intro ?? "";
+const description =
+  descRaw.length > 170 ? descRaw.slice(0, 155).replace(/\s+\S*$/, "") + "…" : descRaw;
+
+// Breadcrumbs
+const parts = entry.slug.split("/");
+const crumbs = [
+  { name: "Home", url: `${site}/` },
+  { name: "Locations", url: `${site}/locations/` },
+  ...parts.map((seg, i) => ({
+    name: seg.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+    url: `${site}/locations/${parts.slice(0, i + 1).join("/")}/`,
+  })),
+];
+
+// JSON-LD
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: crumbs.map((c, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: c.name,
+    item: c.url,
+  })),
+};
+
+const localBusinessLd = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": `${site}#localbusiness`,
+  name: "Digissential",
+  url: `${site}/`,
+  telephone: "+27664256314",
+  email: "digissentialteam@gmail.com",
+  areaServed: { "@type": data.kind === "neighbourhood" ? "Neighborhood" : "City", name: data.title },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Stellenbosch",
+    addressRegion: "WC",
+    postalCode: "7600",
+    addressCountry: "ZA",
+  },
+  image: [`${site}/images/logo-1200.png`],
+  logo: { "@type": "ImageObject", url: `${site}/images/logo-1200.png`, width: 1200, height: 1200 },
+};
+
+const itemListLd = data.children?.length
+  ? {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      itemListElement: data.children.map((c: any, i: number) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: c.title,
+        url: `${site}/locations/${c.slug.replace(/^\/?/, "")}/`,
+      })),
+    }
+  : null;
+
+const faqLd =
+  (data.faqs?.length ?? 0) >= 2
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: data.faqs!.map((f: any) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }
+    : null;
+
+const backToHub = entry.slug !== "stellenbosch";
+
+// Normalise services: ["string"] or [{label, href}]
+const services = (data.services ?? []).map((s: any) =>
+  typeof s === "string" ? { label: s, href: null } : s
+);
+---
+
+<Base title={`${data.title} — Digissential`} description={description} ogImage={ogAbs}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessLd)} />
+  {itemListLd && <script type="application/ld+json" set:html={JSON.stringify(itemListLd)} />}
+  {faqLd && <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />}
+
+  <main class="container-prose pt-4">
+    <nav aria-label="Breadcrumb" class="text-sm text-white/70">
+      <ol class="flex flex-wrap gap-2">
+        {crumbs.map((c, i) => (
+          <li class="inline-flex items-center gap-2">
+            {i > 0 && <span class="opacity-50">/</span>}
+            <a href={new URL(c.url).pathname} class="hover:underline">{c.name}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    <section class="mt-4 card p-5 md:p-6 hero-bg">
+      <h1 class="text-2xl md:text-3xl font-extrabold">{data.title}</h1>
+      {backToHub && (
+        <p class="mt-1 text-white/75">
+          Nearest full-service hub: <a class="link-fancy" href="/locations/stellenbosch/">Stellenbosch</a>
+        </p>
+      )}
+      <p class="mt-2 text-white/75 max-w-2xl">{data.intro}</p>
+    </section>
+
+    <article class="prose prose-invert max-w-none mt-6">
+      <Content />
+    </article>
+
+    {/* Image-driven, SEO-friendly service grid */}
+    <ServiceCards title={`Popular services in ${data.title}`} />
+
+    {data.children?.length > 0 && (
+      <section class="mt-8">
+        <h2 class="text-xl font-bold">Neighbourhoods in {data.title}</h2>
+        <ul class="grid md:grid-cols-2 gap-2 mt-2">
+          {data.children.map((c) => (
+            <li class="card p-3">
+              <a class="hover:underline font-semibold" href={`/locations/${c.slug}/`}>{c.title}</a>
+              <p class="text-sm opacity-80 mt-1">{c.blurb}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {data.faqs?.length > 0 && (
+      <section class="mt-8">
+        <h2 class="text-xl font-bold">FAQs for {data.title}</h2>
+        <dl class="mt-2 space-y-3">
+          {data.faqs.map((f) => (
+            <div>
+              <dt class="font-semibold">{f.q}</dt>
+              <dd class="text-white/80">{f.a}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    )}
+
+    <section class="mt-10 card p-4 md:p-5">
+      <h2 class="text-lg font-semibold">Need help today?</h2>
+      <p class="text-white/80 mt-1">Same-day diagnostics from our Stellenbosch hub. Pick-ups by arrangement.</p>
+      <div class="mt-3 flex gap-2">
+        <a class="btn btn-primary" href="tel:+27664256314">Call 066 425 6314</a>
+        <a class="btn btn-secondary" href="/contact/">Book a pick-up</a>
+      </div>
+    </section>
+  </main>
+</Base>

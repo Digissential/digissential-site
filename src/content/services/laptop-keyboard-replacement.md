@@ -1,5 +1,5 @@
 ---
-title: "Laptop Keyboard Replacement"
+title: "Laptop Keyboard Replacement (Labour)"
 summary: "Sticky or dead keys? We replace the keyboard (or top-case assembly) and verify every key and backlight."
 price: "R450"
 category: "Hardware"

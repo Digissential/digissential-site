@@ -1,5 +1,5 @@
 ---
-title: "Laptop Screen Replacement"
+title: "Laptop Screen Replacement (Labour)"
 summary: "Cracked, dim, or flickering display? We source a compatible panel and fit it neatly, then test brightness, colours and webcam."
 price: "R650"
 category: "Hardware"
