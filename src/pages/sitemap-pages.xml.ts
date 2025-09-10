@@ -4,7 +4,7 @@ export const prerender = true;
 
 const PAGES = [
   '/', '/services/', '/blog/', '/contact/',
-  '/legal/', '/legal/privacy/', '/legal/warranty/', '/legal/ewaste/',
+  '/legal/', '/legal/privacy/', '/legal/warranty/', '/legal/ewaste/', '/locations/',
   '/newsletter/'
 ];
 
