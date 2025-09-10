@@ -1,0 +1,277 @@
+---
+import Base from '@layouts/Base.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+const site = (Astro.site?.toString?.() || 'https://digissential.co.za').replace(/\/+$/, '');
+
+// Load all non-draft locations (keeps parity with getStaticPaths)
+const all = await getCollection('locations', ({ data }) => !data?.draft);
+
+// Canonical slug map: lowercased key -> exact slug from collection
+const slugMap = new Map(all.map(e => [e.slug.toLowerCase(), e.slug]));
+
+// Normaliser for parent/slug refs
+const norm = (s = '') =>
+  String(s)
+    .trim()
+    .replace(/^\/?locations\//, '')
+    .replace(/^\/|\/$/g, '')
+    .toLowerCase();
+
+// Buckets
+const hubs = all
+  .filter(e => e.data.kind === 'hub')
+  .sort((a,b) => a.slug.localeCompare(b.slug));
+
+const townsNearby = all
+  .filter(e => e.data.kind === 'city' && (e.data.distanceFromStbKm ?? 999) <= 20)
+  .sort((a,b) => (a.data.distanceFromStbKm ?? 999) - (b.data.distanceFromStbKm ?? 999));
+
+// Find the Stellenbosch hub (by slug)
+const stbHub = all.find(e => norm(e.slug) === 'stellenbosch');
+
+// Curated children from hub front-matter
+const curatedChildren = (stbHub?.data.children ?? []).map(c => {
+  const key = norm(c.slug || "");
+  const resolved = slugMap.get(key) || c.slug || key; // fall back safely
+  return {
+    title: c.title,
+    slug: resolved,             // <-- use canonical slug here
+    blurb: c.blurb ?? ""
+  };
+});
+
+// Auto children by parent reference
+const autoChildren = all
+  .filter(e => e.data.kind === 'neighbourhood' && norm(e.data.parent) === 'stellenbosch' && norm(e.slug) !== 'stellenbosch')
+  .map(e => ({
+    title: e.data.title,
+    slug: e.slug,                  // keep full entry slug for href
+    blurb: e.data.intro ?? ''
+  }));
+
+// Merge (curated first → preserves your manual order), de-dupe by slug
+const seen = new Set<string>();
+const stbNeighbourhoods = [...curatedChildren, ...autoChildren]
+  .filter(c => (c.slug && !seen.has(c.slug)) ? (seen.add(c.slug), true) : false)
+  .sort((a,b) => a.slug.localeCompare(b.slug));
+
+// Canonical + JSON-LD
+const canonical = `${site}/locations/`;
+const listsLd = [
+  { name: 'Central hub', items: hubs.map(e => ({ title: e.data.title, slug: e.slug })) },
+  { name: 'Nearby towns (≤ 20 km)', items: townsNearby.map(e => ({ title: e.data.title, slug: e.slug })) },
+  { name: 'Stellenbosch neighbourhoods', items: stbNeighbourhoods },
+].map(section => ({
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: section.name,
+  itemListElement: section.items.map((e, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: e.title,
+    url: `${site}/locations/${e.slug}/`
+  }))
+}));
+
+const totalCount = hubs.length + townsNearby.length + stbNeighbourhoods.length;
+---
+
+<Base
+  title="Locations — Digissential"
+  description="Our Stellenbosch hub and nearby towns we serve (≤ 20 km). Find your area, see popular services, and book a pick-up or remote support."
+  ogImage="/images/brand-cover-1200x630.jpg"
+>
+  {listsLd.map(ld => (
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  ))}
+
+  <main class="container-prose pt-4">
+    <Breadcrumbs items={[ { href: '/locations/', label: 'Locations' } ]} />
+
+    <!-- Hero -->
+    <section class="mt-4 card p-5 md:p-6 hero-bg">
+      <h1 class="text-2xl md:text-3xl font-extrabold">Locations we serve</h1>
+      <p class="mt-1 text-white/75 max-w-2xl">
+        Our central Stellenbosch hub plus nearby towns within 20&nbsp;km. Search your area, or filter by hub, town, or neighbourhood.
+      </p>
+
+      <div class="mt-4 flex flex-wrap gap-3 items-center">
+        <form id="loc-search" class="flex-1 min-w-[240px] flex gap-2">
+          <input id="loc-q" type="search" enterkeyhint="search"
+            placeholder="Search locations (e.g., technopark, somerset west)…"
+            class="w-full rounded-2xl bg-white/10 px-4 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
+            autocomplete="off" />
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+
+        <!-- Filter chips -->
+        <ul id="loc-filters" class="flex flex-wrap gap-2 text-xs">
+          <li><button type="button" data-filter="" aria-pressed="true"
+            class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">All</button></li>
+          <li><button type="button" data-filter="hub"
+            class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">Hub</button></li>
+          <li><button type="button" data-filter="town20"
+            class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">Nearby towns (≤ 20 km)</button></li>
+          <li><button type="button" data-filter="neighbourhood"
+            class="px-2 py-1 rounded bg-white/10 hover:bg-white/15">Stellenbosch neighbourhoods</button></li>
+        </ul>
+      </div>
+    </section>
+
+    <p id="loc-result-count" class="mt-6 text-sm text-white/60" aria-live="polite" aria-atomic="true">
+      {totalCount} {totalCount === 1 ? 'location' : 'locations'}
+    </p>
+
+    <!-- Central hub -->
+    <section class="mt-2" id="sec-hub">
+      <h2 class="text-xl font-bold">Central hub</h2>
+      <ul class="mt-2 grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+        {hubs.map(e => (
+          <li class="loc-card card p-3"
+              data-title={(e.data.title || '').toLowerCase()}
+              data-kind="hub"
+              data-distance="">
+            <a class="font-semibold hover:underline" href={`/locations/${e.slug}/`}>{e.data.title}</a>
+            {e.data.intro && <p class="text-sm text-white/80 mt-1">{e.data.intro}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Nearby towns (≤ 20 km) -->
+    <section class="mt-8" id="sec-town20">
+      <h2 class="text-xl font-bold">Nearby towns (≤ 20 km)</h2>
+      <ul class="mt-2 grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+        {townsNearby.map(e => (
+          <li class="loc-card card p-3"
+              data-title={(e.data.title || '').toLowerCase()}
+              data-kind="town20"
+              data-distance={(e.data.distanceFromStbKm ?? '').toString()}>
+            <a class="font-semibold hover:underline" href={`/locations/${e.slug}/`}>{e.data.title}</a>
+            <p class="text-xs text-white/60 mt-0.5">
+              ~{Math.round(e.data.distanceFromStbKm as number)} km from Stellenbosch
+            </p>
+            {e.data.intro && <p class="text-sm text-white/80 mt-1">{e.data.intro}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Stellenbosch neighbourhoods -->
+    <section class="mt-8" id="sec-neighbourhood">
+      <h2 class="text-xl font-bold">Stellenbosch neighbourhoods</h2>
+      <ul class="mt-2 grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+        {stbNeighbourhoods.map(e => (
+          <li class="loc-card card p-3"
+              data-title={(e.title || '').toLowerCase()}
+              data-kind="neighbourhood"
+              data-distance="">
+            <a class="font-semibold hover:underline" href={`/locations/${e.slug}/`}>{e.title}</a>
+            {e.blurb && <p class="text-sm text-white/80 mt-1">{e.blurb}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+
+    <p id="loc-no-results" class="hidden text-white/60 mt-4">No locations match your search/filter.</p>
+
+    <!-- CTA -->
+    <section class="mt-10 card p-4 md:p-5">
+      <h2 class="text-lg font-semibold">Need help today?</h2>
+      <p class="text-white/80 mt-1">Same-day diagnostics from our Stellenbosch hub. Pick-ups by arrangement.</p>
+      <div class="mt-3 flex gap-2">
+        <a class="btn btn-primary" href="tel:+27664256314">Call 066 425 6314</a>
+        <a class="btn btn-secondary" href="/contact/">Book a pick-up</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Client-side search + filter (mirrors Blog index approach) -->
+  <script>
+  (() => {
+    const $  = (s) => document.querySelector(s);
+    const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+    const form  = $('#loc-search');
+    const q     = $('#loc-q');
+    const cards = $$('.loc-card');
+    const count = $('#loc-result-count');
+    const empty = $('#loc-no-results');
+
+    const filterBtns = $$('#loc-filters [data-filter]');
+    let active = '';
+
+    // URL params → ?q= & kind=
+    const params = new URLSearchParams(location.search);
+    const initQ   = (params.get('q') || '').toLowerCase();
+    const initK   = (params.get('kind') || '').toLowerCase();
+    if (q) q.value = initQ;
+    if (initK) active = initK;
+
+    function setPressed(kind) {
+      filterBtns.forEach(btn => {
+        const on = (btn.dataset.filter || '') === kind;
+        btn.classList.toggle('ring-2', on);
+        btn.classList.toggle('ring-digi-primary', on);
+        btn.setAttribute('aria-pressed', String(on));
+        if (kind === '' && btn.dataset.filter === '') {
+          btn.classList.add('ring-2', 'ring-digi-primary');
+          btn.setAttribute('aria-pressed','true');
+        }
+      });
+    }
+
+    const norm = (s) => (s || '').toLowerCase().trim();
+
+    function apply() {
+      const qs = norm(q?.value);
+      let shown = 0;
+
+      cards.forEach(card => {
+        const title = card.dataset.title || '';
+        const kind  = card.dataset.kind || '';
+        const okText = !qs || title.includes(qs);
+        const okKind = !active || kind === active;
+        const ok = okText && okKind;
+        card.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+      });
+
+      // Hide whole sections if empty
+      ['sec-hub','sec-town20','sec-neighbourhood'].forEach(id => {
+        const sec = document.getElementById(id);
+        if (!sec) return;
+        const visible = Array.from(sec.querySelectorAll('.loc-card')).some(li => li.style.display !== 'none');
+        sec.style.display = visible ? '' : 'none';
+      });
+
+      if (count) count.textContent = `${shown} ${shown === 1 ? 'location' : 'locations'}`;
+      if (empty) empty.classList.toggle('hidden', shown !== 0);
+
+      const next = new URL(location.href);
+      if (qs) next.searchParams.set('q', qs); else next.searchParams.delete('q');
+      if (active) next.searchParams.set('kind', active); else next.searchParams.delete('kind');
+      history.replaceState(null, '', next);
+    }
+
+    form?.addEventListener('submit', (e) => { e.preventDefault(); apply(); });
+    q?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); apply(); } });
+    q?.addEventListener('search', () => apply());
+    q?.addEventListener('input', () => { clearTimeout(q._t); q._t = setTimeout(apply, 120); });
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-filter]');
+      if (!btn) return;
+      active = (btn.dataset.filter || '');
+      setPressed(active);
+      apply();
+    });
+
+    setPressed(active || '');
+    apply();
+  })();
+  </script>
+</Base>

@@ -115,4 +115,77 @@ const resources = defineCollection({
   }),
 });
 
-export const collections = { services, blog, resources };
+
+/** A service can be a plain label or a linkable CTA */
+const LocationService = z.union([
+  z.string(),
+  z.object({
+    label: z.string(),
+    // allow absolute URLs or site-root paths
+    href: z.string().regex(/^(\/|https?:\/\/)/, "Use a site-root path or absolute URL").optional(),
+  }),
+]);
+
+const locations = defineCollection({
+  type: "content",
+  schema: z
+    .object({
+      // Core
+      title: z.string().min(3),
+      kind: z.enum(["hub", "city", "neighbourhood"]),
+      /** Deprecated: rely on file-based slug (entry.slug). Keep optional for backward-compat. */
+      slug: z.string().optional(),
+      /** For neighbourhoods: parent slug like "stellenbosch" */
+      parent: z.string().optional(),
+
+      // UX copy
+      intro: z.string().min(40, "Write a short intro (≥ 40 chars)."),
+      description: z
+        .string()
+        .min(40)
+        .max(160)
+        .optional(), // meta description; falls back to intro
+
+      // SEO toggles
+      ogImage: z
+        .string()
+        .regex(/^(https?:\/\/|\/)/, "Use absolute URL or site-root path")
+        .optional(),
+      noindex: z.boolean().default(false),
+      draft: z.boolean().default(false),
+
+      // IA / ordering
+      order: z.number().int().min(0).max(999).default(500),
+
+      // Content blocks
+      services: z.array(LocationService).default([]),
+      children: z
+        .array(
+          z.object({
+            title: z.string(),
+            slug: z.string(), // relative under /locations/**
+            blurb: z.string().min(10),
+          }),
+        )
+        .default([]),
+      faqs: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+
+      // Optional: distance helper for outer towns
+      distanceFromStbKm: z.number().min(0).max(50).optional(),
+
+      // Optional tagging for filtering/reporting
+      tags: z.array(z.string()).default([]),
+    })
+    .superRefine((val, ctx) => {
+      // Enforce parent on neighbourhoods
+      if (val.kind === "neighbourhood" && !val.parent) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Neighbourhood pages must specify a parent (e.g., 'stellenbosch').",
+          path: ["parent"],
+        });
+      }
+    }),
+});
+
+export const collections = { services, blog, resources, locations };

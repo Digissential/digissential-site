@@ -1,5 +1,5 @@
 ---
-title: "Wi-Fi/Network Setup"
+title: "Wi-Fi/Network Troubleshooting"
 summary: "Configure your router or access point the right way—secure, stable, and fast in real-world use."
 price: "R350"
 category: "Network"
