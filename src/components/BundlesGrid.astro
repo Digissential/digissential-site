@@ -1,0 +1,36 @@
+---
+import { getCollection } from "astro:content";
+import BundleCard from "./BundleCard.astro";
+
+export interface Props {
+  variant?: "home" | "full";
+  limit?: number | null;
+}
+
+const { variant = "home", limit = null } = Astro.props;
+
+// Load non-draft bundles, then sort: featured first, then A–Z
+const allBundles = await getCollection("bundles", ({ data }) => !data.draft);
+let bundles = allBundles.sort(
+  (a, b) =>
+    (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0) ||
+    a.slug.localeCompare(b.slug)
+);
+
+if (limit) bundles = bundles.slice(0, limit);
+---
+<div class="grid auto-rows-fr gap-6 md:gap-7 sm:grid-cols-2 xl:grid-cols-3">
+  {bundles.map((b) => (
+    <BundleCard
+      slug={b.slug}
+      title={b.data.title}
+      price={b.data.price}
+      summary={b.data.summary}
+      bullets={b.data.bullets}
+      save={b.data.save}
+      cta_text={b.data.cta_text}
+      cta_link={b.data.cta_link}
+      variant={variant}
+    />
+  ))}
+</div>

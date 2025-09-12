@@ -1,0 +1,66 @@
+---
+import Base from "@layouts/Base.astro";
+import Section from "@components/Section.astro";
+import BundlesGrid from "@components/BundlesGrid.astro";
+import { getCollection } from "astro:content";
+
+const title = "Service Bundles";
+const description =
+  "Transparent, flat-rate packages that combine our most popular fixes. Labour included; parts quoted separately.";
+
+// Load bundles (non-draft), sort: featured first, then A–Z
+const bundles = (await getCollection("bundles", ({ data }) => !data.draft))
+  .sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0) || a.slug.localeCompare(b.slug));
+
+// Helpers
+const urlFor = (p: string) => (Astro.site ? new URL(p, Astro.site).href : p);
+const priceNum = (p?: string) => {
+  const n = Number((p || "").replace(/[^\d.]/g, ""));
+  return Number.isFinite(n) ? n : undefined;
+};
+
+// JSON-LD (Collection + ItemList) with internal bundle URLs
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Service Bundles",
+  hasPart: {
+    "@type": "ItemList",
+    itemListElement: bundles.map((b, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: urlFor(`/bundles/${b.slug}/`),
+      item: {
+        "@type": "Product",
+        name: b.data.title,
+        description: b.data.summary,
+        url: urlFor(`/bundles/${b.slug}/`),
+        ...(priceNum(b.data.price)
+          ? {
+              offers: {
+                "@type": "Offer",
+                price: String(priceNum(b.data.price)),
+                priceCurrency: "ZAR",
+                url: urlFor(`/bundles/${b.slug}/`),
+              },
+            }
+          : {}),
+      },
+    })),
+  },
+};
+---
+<Base title={`${title} — Digissential`} description={description}>
+  <Section id="bundles" eyebrow="Bundles" title="Service Bundles" description={description}>
+    <!-- Bundles at the top: full grid, no controls -->
+    <BundlesGrid variant="full" />
+
+    <p class="mt-8 text-sm text-white/70">
+      Flat rates include labour. Parts and paid licences are separate. On-site travel may apply outside our local radius.
+      Not sure which bundle is right? <a href="/contact/" class="text-digi-primary underline underline-offset-2">Message us</a>.
+    </p>
+
+    <!-- SEO: page JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+  </Section>
+</Base>

@@ -188,4 +188,22 @@ const locations = defineCollection({
     }),
 });
 
-export const collections = { services, blog, resources, locations };
+const bundles = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    price: z.string(), // e.g. "R1 450"
+    summary: z.string(),
+    bullets: z.array(z.string()).min(3),
+    ideal_for: z.string().optional(),
+    includes: z.array(z.string()).optional(), // map to services slugs
+    featured: z.boolean().optional(),
+    save: z.string().optional(), // e.g. "Save ±R200 vs separately"
+    cta_text: z.string().default("Book this bundle"),
+    cta_link: z.string().default("/contact"),
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { services, blog, resources, locations , bundles };
