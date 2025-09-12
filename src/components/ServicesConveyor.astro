@@ -160,67 +160,92 @@ const jsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
 
   <script>
-      // Popover behavior:
-      // - Desktop (hover-capable): hover opens/closes; click navigates to /services/
-      // - Touch (no hover): first tap opens; second tap navigates
-      (() => {
-        const browse = /** @type {HTMLDetailsElement} */ (document.getElementById('svc-all'));
-        if (!browse) return;
-        const link = /** @type {HTMLAnchorElement} */ (document.getElementById('browseLink'));
-        const summary = /** @type {HTMLElement} */ (browse.querySelector('summary'));
+    (() => {
+      const browse = /** @type {HTMLDetailsElement} */ (document.getElementById('svc-all'));
+      const link   = /** @type {HTMLAnchorElement}   */ (document.getElementById('browseLink'));
+      const summary= /** @type {HTMLElement}         */ (browse?.querySelector('summary'));
+      if (!browse || !link || !summary) return;
 
-        const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-        let openTimer = 0, closeTimer = 0;
+      const mql = window.matchMedia('(hover: hover) and (pointer: fine)');
+      const isDesktop = () => mql.matches;
 
-        const setOpen = (v) => {
-          clearTimeout(openTimer); clearTimeout(closeTimer);
-          if (v) {
-            openTimer = window.setTimeout(() => {
-              browse.open = true; link.setAttribute('aria-expanded', 'true');
-            }, 120);
-          } else {
-            closeTimer = window.setTimeout(() => {
-              browse.open = false; link.setAttribute('aria-expanded', 'false');
-            }, 140);
-          }
-        };
+      const open  = () => { browse.open = true;  link.setAttribute('aria-expanded','true');  };
+      const close = () => { browse.open = false; link.setAttribute('aria-expanded','false'); };
 
-        // Only prevent the native toggle when clicking the summary "chrome"
-        // (NOT the main /services/ link). This keeps links in the panel clickable.
-        summary?.addEventListener('click', (e) => {
-          if (e.target === link) return; // let the button handle navigation
-          e.preventDefault();            // don't toggle details via click
+      // Prevent native details toggle when clicking the summary chrome
+     // (never block clicks on the actual link).
+      summary.addEventListener('click', (e) => {
+        if (e.target === link) return;
+        e.preventDefault();
+      });
+
+      // Desktop: hover opens/closes; click navigates.
+      const enableDesktop = () => {
+        browse.addEventListener('mouseenter', open);
+        browse.addEventListener('mouseleave', close);
+        link.addEventListener('click', onDesktopClick);
+      };
+      const disableDesktop = () => {
+        browse.removeEventListener('mouseenter', open);
+        browse.removeEventListener('mouseleave', close);
+        link.removeEventListener('click', onDesktopClick);
+      };
+      const onDesktopClick = (e) => {
+        e.preventDefault();
+        window.location.href = link.getAttribute('href');
+      };
+
+      // Mobile: button toggles; outside tap closes.
+      const onMobileToggle = (e) => {
+        e.preventDefault();
+        browse.open ? close() : open();
+      };
+      const outsideClose = (ev) => {
+        if (!browse.open || isDesktop()) return;
+        if (!browse.contains(ev.target)) close();
+      };
+
+      const enableMobile = () => {
+        link.addEventListener('click', onMobileToggle);
+        document.addEventListener('pointerdown', outsideClose, true);
+      };
+      const disableMobile = () => {
+        link.removeEventListener('click', onMobileToggle);
+        document.removeEventListener('pointerdown', outsideClose, true);
+      };
+
+      // Service links inside panel should navigate; close immediately to avoid sticky state
+      const wirePanelLinks = () => {
+        browse.querySelectorAll('.cat-link, .cta').forEach((a) => {
+          a.addEventListener('click', () => close(), { capture: true });
         });
+      };
+      wirePanelLinks();
 
-        if (canHover) {
-          browse.addEventListener('mouseenter', () => setOpen(true));
-          browse.addEventListener('mouseleave', () => setOpen(false));
+      // Close on Escape
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 
-          // Desktop: clicking the main button navigates to /services/
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.href = link.getAttribute('href');
-          });
-        } else {
-          // Touch: first tap opens; second tap navigates
-          link.addEventListener('click', (e) => {
-            if (!browse.open) {
-              e.preventDefault();
-              browse.open = true;
-              link.setAttribute('aria-expanded', 'true');
-            } // else allow navigation
-          });
-          // Tap outside to close
-          document.addEventListener('click', (e) => {
-            if (!browse.open) return;
-            if (!browse.contains(e.target)) {
-              browse.open = false;
-              link.setAttribute('aria-expanded', 'false');
-            }
-          });
-        }
-      })();
+      // Always close on lifecycle changes / navs
+      const forceClose = () => close();
+      window.addEventListener('beforeunload', forceClose);
+      window.addEventListener('pagehide',    forceClose);
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') forceClose();
+      });
+      // bfcache restore
+      window.addEventListener('pageshow', (e) => { if (e.persisted) close(); });
+
+      // Mode init + react to input-mode changes (e.g., keyboard/mouse plugged in)
+      const applyMode = () => {
+        close();
+        if (isDesktop()) { disableMobile(); enableDesktop(); }
+        else            { disableDesktop(); enableMobile(); }
+      };
+      applyMode();
+      mql.addEventListener?.('change', applyMode);
+    })();
     </script>
+
 </section>
 
 <style>
