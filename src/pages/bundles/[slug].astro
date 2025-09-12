@@ -31,9 +31,101 @@ const {
   save = "",
 } = entry.data;
 
-// Related bundles (first 3 others, featured first, then A–Z)
-const all = await getCollection("bundles", ({ data }) => !data.draft);
-const related = all
+// --- Services index (for internal links) ---
+const allServices = await getCollection("services", ({ data }) => !data.draft);
+const svcIndex: Record<string, { title: string; href: string }> = {};
+for (const s of allServices) {
+  const t = (s.data.navTitle as string) || (s.data.title as string);
+  svcIndex[s.slug] = { title: t, href: `/services/${s.slug}/` };
+}
+const findSvc = (slug: string) => svcIndex[slug];
+
+// Curated mapping: bundle -> included service slugs
+const INCLUDED: Record<string, string[]> = {
+  "data-rescue-wipe": [
+    "data-recovery",
+    "data-migration",
+    "data-destruction-certified-wipe",
+  ],
+  "fresh-start-reinstall-backup": [
+    "windows-reinstall-and-backup",
+    "driver-installation",
+    "cybersecurity-hardening",
+  ],
+  "home-wifi-printer": [
+    "mesh-wifi-planning-install",
+    "printer-setup",
+    "wifi-network-troubleshooting",
+  ],
+  "malware-clean-protect": [
+    "virus-malware-removal",
+    "speedup-tuneup",
+    "cybersecurity-hardening",
+  ],
+  "new-pc-setup-transfer": [
+    "new-pc-laptop-setup",
+    "data-migration",
+    "email-setup",
+    "software-installation-bulk",
+  ],
+  "ssd-speed-boost": [
+    "ssd-upgrade-bundle-clone-swap",
+    "thermal-paste-deep-clean",
+    "firmware-bios-uefi-updates",
+  ],
+};
+
+// Optional extras
+const ADDONS: Record<string, string[]> = {
+  "data-rescue-wipe": ["cloud-backup-setup", "diagnostic-in-shop"],
+  "fresh-start-reinstall-backup": [
+    "data-backup-basic",
+    "password-reset-windows-local",
+  ],
+  "home-wifi-printer": ["remote-support-setup"],
+  "malware-clean-protect": ["data-backup-basic", "password-reset-windows-local"],
+  "new-pc-setup-transfer": ["cloud-backup-setup", "printer-setup"],
+  "ssd-speed-boost": ["windows-reinstall", "data-backup-full-system-image"],
+};
+
+// Heuristic fallback for new bundles
+function guessIncludesFrom(title: string): string[] {
+  const t = title.toLowerCase();
+  const picks: string[] = [];
+  const push = (slug: string) => !picks.includes(slug) && findSvc(slug) && picks.push(slug);
+
+  if (t.includes("rescue") || t.includes("wipe")) {
+    push("data-recovery"); push("data-migration"); push("data-destruction-certified-wipe");
+  }
+  if (t.includes("reinstall")) {
+    push("windows-reinstall-and-backup"); push("driver-installation"); push("cybersecurity-hardening");
+  }
+  if (t.includes("wi-fi") || t.includes("wifi") || t.includes("printer")) {
+    push("mesh-wifi-planning-install"); push("printer-setup"); push("wifi-network-troubleshooting");
+  }
+  if (t.includes("malware")) {
+    push("virus-malware-removal"); push("speedup-tuneup"); push("cybersecurity-hardening");
+  }
+  if (t.includes("new pc") || t.includes("transfer")) {
+    push("new-pc-laptop-setup"); push("data-migration"); push("email-setup"); push("software-installation-bulk");
+  }
+  if (t.includes("ssd") || t.includes("speed")) {
+    push("ssd-upgrade-bundle-clone-swap"); push("thermal-paste-deep-clean"); push("firmware-bios-uefi-updates");
+  }
+  return picks.slice(0, 4);
+}
+
+// Resolve included/addons into concrete links
+const bundleSlug = entry.slug;
+const includeSlugs = (INCLUDED[bundleSlug] ?? guessIncludesFrom(title)).filter(findSvc);
+const addonSlugs = (ADDONS[bundleSlug] ?? []).filter(findSvc);
+
+const includedServices = includeSlugs.map((s) => findSvc(s)!);
+const addonServices = addonSlugs.map((s) => findSvc(s)!);
+
+// Related bundles
+const allBundles = await getCollection("bundles", ({ data }) => !data.draft);
+const related = allBundles
   .filter((b) => b.slug !== entry.slug)
   .sort(
     (a, b) =>
@@ -44,17 +136,21 @@ const related = all
 
 // Helpers
 const urlFor = (p: string) => (Astro.site ? new URL(p, Astro.site).href : p);
-const priceNumber =
-  Number((price || "").replace(/[^\d.]/g, "")) || undefined;
+const priceNumber = Number((price || "").replace(/[^\d.]/g, "")) || undefined;
 
-// JSON-LD: Product
-const productLd = {
+// JSON-LD
+const productLd: any = {
   "@context": "https://schema.org",
   "@type": "Product",
   name: title,
   description: summary,
   url: urlFor(`/bundles/${entry.slug}/`),
   brand: { "@type": "Brand", name: "Digissential" },
+  hasPart: includedServices.map((s) => ({
+    "@type": "Service",
+    name: s.title,
+    url: urlFor(s.href),
+  })),
   ...(priceNumber
     ? {
         offers: {
@@ -67,7 +163,6 @@ const productLd = {
     : {}),
 };
 
-// JSON-LD: Breadcrumbs
 const breadcrumbLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -78,7 +173,6 @@ const breadcrumbLd = {
   ],
 };
 
-// JSON-LD: FAQ (if provided)
 const faqLd =
   Array.isArray(faq) && faq.length
     ? {
@@ -95,10 +189,11 @@ const faqLd =
 const pageTitle = `${title} — Bundles`;
 const description = summary;
 ---
+
 <Base title={`${pageTitle} | Digissential`} description={description}>
   <Section id="bundle" eyebrow="Bundles" title={title} description={summary}>
     <!-- Breadcrumbs -->
-    <nav class="mb-6 text-sm" aria-label="Breadcrumb">
+    <nav class="mb-5 text-sm" aria-label="Breadcrumb">
       <ol class="flex flex-wrap items-center gap-2 text-white/70">
         <li><a class="hover:underline text-white/80" href="/">Home</a></li>
         <li aria-hidden="true">/</li>
@@ -109,7 +204,7 @@ const description = summary;
     </nav>
 
     <!-- Layout -->
-    <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr),360px]">
+    <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr),360px]">
       <!-- Main content -->
       <article class="min-w-0">
         <section>
@@ -124,27 +219,36 @@ const description = summary;
           </ul>
         </section>
 
-        {(ideal_for || save) && (
-          <section class="mt-8 grid gap-4 md:grid-cols-2">
-            {ideal_for && (
-              <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-                <h3 class="font-semibold text-white">Best for</h3>
-                <p class="mt-1 text-slate-300">{ideal_for}</p>
-              </div>
-            )}
-            {save && (
-              <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-                <h3 class="font-semibold text-white">Why this bundle</h3>
-                <p class="mt-1 text-slate-300">{save}</p>
-              </div>
-            )}
+        {includedServices.length > 0 && (
+          <section class="mt-4">
+            <h3 class="font-semibold text-white">Included services</h3>
+            <ul class="mt-2 grid gap-2 sm:grid-cols-2">
+              {includedServices.map((s) => (
+                <li>
+                  <a href={s.href} class="svc-pill" aria-label={`Open ${s.title}`}>
+                    {s.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {addonServices.length > 0 && (
+          <section class="mt-4">
+            <h3 class="font-semibold text-white">Useful add-ons</h3>
+            <ul class="mt-2 flex flex-wrap gap-2">
+              {addonServices.map((s) => (
+                <li><a href={s.href} class="addon-chip">{s.title}</a></li>
+              ))}
+            </ul>
           </section>
         )}
 
         {Array.isArray(faq) && faq.length > 0 && (
-          <section class="mt-10">
+          <section class="mt-8">
             <h2 class="text-xl font-semibold text-white">FAQ</h2>
-            <div class="mt-4 space-y-3">
+            <div class="mt-3 space-y-3">
               {faq.map((item: any) => (
                 <details class="rounded-xl bg-slate-900/60 p-4 border border-slate-800">
                   <summary class="cursor-pointer text-white font-medium">{item.q}</summary>
@@ -155,7 +259,7 @@ const description = summary;
           </section>
         )}
 
-        <p class="mt-10 text-sm text-white/70">
+        <p class="mt-8 text-sm text-white/70">
           Flat rate includes labour. Parts and paid licences are separate. On-site travel may apply outside our local radius.
           We follow POPIA for privacy and issue certificates for standards-aligned secure wipes where relevant.
         </p>
@@ -171,13 +275,20 @@ const description = summary;
         >
           <div class="rounded-2xl bg-slate-950/85 border border-white/10 p-5 sm:p-6">
             <div class="flex items-start justify-between gap-3">
-              <h3 class="text-white font-semibold">{title}</h3>
+              <!-- Title uses remaining space so the chip never wraps -->
+              <h3 class="text-white font-semibold flex-1 min-w-0">{title}</h3>
               {price && (
-                <span class="rounded-lg px-2.5 py-1 text-sm font-bold bg-sky-500/15 text-sky-100 ring-1 ring-sky-300/40">
-                  {price}
+                <span
+                  class="shrink-0 whitespace-nowrap leading-none
+                         inline-flex items-center justify-center
+                         rounded-lg px-2.5 py-1 text-sm font-bold
+                         bg-sky-500/15 text-sky-100 ring-1 ring-sky-300/40"
+                >
+                  {String(price || "").replace(/\s/g, "\u00A0")}
                 </span>
               )}
             </div>
+
             <p class="mt-2 text-slate-300">{summary}</p>
 
             <div class="mt-5 flex flex-col gap-2">
@@ -223,17 +334,26 @@ const description = summary;
           />
         </div>
 
-        <ul class="mt-4 space-y-2 text-sm text-white/70">
-          <li>Transparent, flat-rate labour</li>
-          <li>Parts (if needed) quoted separately</li>
-          <li>POPIA-aligned privacy handling</li>
-          <li>CPA-aligned warranty</li>
-        </ul>
-      </aside>
+        {(ideal_for || save) && (
+          <div class="mt-4 grid gap-3">
+            {ideal_for && (
+              <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+                <h3 class="font-semibold text-white text-base">Best for</h3>
+                <p class="mt-1 text-slate-300 text-[0.95rem] leading-relaxed">{ideal_for}</p>
+              </div>
+            )}
+            {save && (
+              <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+                <h3 class="font-semibold text-white text-base">Why this bundle</h3>
+                <p class="mt-1 text-slate-300 text-[0.95rem] leading-relaxed">{save}</p>
+              </div>
+            )}
+          </div>
+        )}
     </div>
 
     {related.length > 0 && (
-      <section class="mt-16">
+      <section class="mt-14">
         <h2 class="text-xl font-semibold text-white">You might also like</h2>
         <div class="mt-4 grid auto-rows-fr gap-6 md:gap-7 sm:grid-cols-2 xl:grid-cols-3">
           {related.map((b) => (
@@ -258,4 +378,27 @@ const description = summary;
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
     {faqLd && <script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>}
   </Section>
+
+  <style>
+    .svc-pill{
+      display:inline-flex; align-items:center; gap:.5rem;
+      width:100%; padding:.6rem .8rem;
+      border-radius:.9rem;
+      background: rgba(15,23,42,.6);
+      border:1px solid rgba(148,163,184,.25);
+      color:#e6f0ff; text-decoration:none;
+      transition: background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+    .svc-pill:hover{ background: rgba(30,41,59,.7); border-color: rgba(148,163,184,.45); transform: translateY(-1px); }
+
+    .addon-chip{
+      display:inline-flex; align-items:center;
+      padding:.4rem .65rem; border-radius:.75rem;
+      background: rgba(2,6,23,.55);
+      border:1px dashed rgba(148,163,184,.35);
+      color:#dbeafe; text-decoration:none; font-size:.9rem;
+      transition: background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+    .addon-chip:hover{ background: rgba(30,41,59,.65); border-color: rgba(148,163,184,.6); transform: translateY(-1px); }
+  </style>
 </Base>

@@ -1,0 +1,406 @@
+---
+import { getCollection } from "astro:content";
+
+/** All services (for SEO list) */
+const allServices = (await getCollection("services", ({ data }) => !data.draft))
+  .sort((a, b) => a.slug.localeCompare(b.slug));
+
+/** Featured only → conveyor cards */
+const featured = allServices
+  .filter((s) => s.data.featured === true)
+  .map((s) => {
+    const title = (s.data.navTitle as string) || (s.data.title as string);
+    const blurb =
+      (s.data.blurb as string) ||
+      (s.data.summary as string) ||
+      ((Array.isArray(s.data.bullets) && s.data.bullets[0]) as string) ||
+      "";
+    return { title, blurb, href: `/services/${s.slug}/` };
+  });
+
+/** Duplicate for seamless loop */
+const loop = featured.concat(featured);
+
+/** Categorisation: use front-matter category/tags if available; else intelligent fallback */
+const groupOrder = [
+  "Diagnostics & Tune-Up",
+  "Windows & Software",
+  "Setup & Install",
+  "Backups & Data",
+  "Security & Protection",
+  "Hardware & Upgrades",
+  "Wi-Fi & Networking",
+  "Support & Remote",
+  "Admin & Logistics",
+  "Other",
+];
+
+const pick = (s: any) => {
+  const title = ((s.data.navTitle as string) || s.data.title || "").toLowerCase();
+  const tags  = (Array.isArray(s.data.tags) ? s.data.tags : []).map((t: any) => String(t).toLowerCase()).join(" ");
+  const hay   = `${s.slug} ${title} ${tags}`;
+
+  if (/(diagnostic|speed|tune|health|check)/.test(hay)) return "Diagnostics & Tune-Up";
+  if (/(reinstall|windows|drivers|software|password|reset|bios|uefi)/.test(hay)) return "Windows & Software";
+  if (/(setup|install|email|printer|new[-\s]?pc|assembly)/.test(hay)) return "Setup & Install";
+  if (/(backup|data|recovery|clone|image|migration)/.test(hay)) return "Backups & Data";
+  if (/(malware|virus|security|hardening|firewall|privacy)/.test(hay)) return "Security & Protection";
+  if (/(ssd|upgrade|battery|screen|keyboard|gpu|cpu|replacement|hardware)/.test(hay)) return "Hardware & Upgrades";
+  if (/(wifi|wi-?fi|network|router|mesh)/.test(hay)) return "Wi-Fi & Networking";
+  if (/(remote|support|after[-\s]?hours|emergency)/.test(hay)) return "Support & Remote";
+  if (/(surcharge|pickup|drop[-\s]?off|service fee)/.test(hay)) return "Admin & Logistics";
+  return "Other";
+};
+
+const grouped = new Map<string, any[]>();
+for (const s of allServices) {
+  const g = (s.data.category as string) || pick(s);
+  if (!grouped.has(g)) grouped.set(g, []);
+  grouped.get(g)!.push(s);
+}
+for (const arr of grouped.values()) arr.sort((a, b) => {
+  const A = ((a.data.navTitle as string) || a.data.title).toLowerCase();
+  const B = ((b.data.navTitle as string) || b.data.title).toLowerCase();
+  return A.localeCompare(B);
+});
+const orderedGroups: Array<[string, any[]]> = [
+  ...groupOrder.filter((g) => grouped.has(g)).map((g) => [g, grouped.get(g)!]),
+  ...[...grouped.entries()].filter(([g]) => !groupOrder.includes(g)),
+];
+
+/** JSON-LD (first 10) */
+const toAbs = (p: string) => (Astro.site ? new URL(p, Astro.site).href : p);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: featured.slice(0, 10).map((it, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: toAbs(it.href),
+    item: { "@type": "Service", name: it.title, url: toAbs(it.href) },
+  })),
+};
+---
+
+<section aria-labelledby="svc-conveyor-heading" class="relative">
+  <h2 id="svc-conveyor-heading" class="sr-only">What we do</h2>
+
+  <div class="wrap">
+    <!-- Conveyor viewport -->
+    <div class="vp">
+      <span class="rail rail--left" aria-hidden="true"></span>
+      <span class="rail rail--right" aria-hidden="true"></span>
+
+      <!-- tech portal edges -->
+      <span class="portal portal--left" aria-hidden="true"></span>
+      <span class="portal portal--right" aria-hidden="true"></span>
+
+      <!-- separate fades for each side -->
+      <span class="fade fade--left" aria-hidden="true"></span>
+      <span class="fade fade--right" aria-hidden="true"></span>
+
+      <div class="marquee" role="list" aria-roledescription="conveyor" aria-label="Featured services" aria-live="off">
+        <ul class="track">
+          {loop.map((it) => (
+            <li class="item" role="listitem">
+              <a href={it.href} class="card">
+                <span class="dot" aria-hidden="true"></span>
+                <div class="txt">
+                  <span class="title">{it.title}</span>
+                  {it.blurb && <span class="blurb clamp-2">{it.blurb}</span>}
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Browse all: popover with organized sections -->
+    <details id="svc-all" class="browse">
+      <summary class="summary" aria-label="Browse all services">
+        <a id="browseLink" href="/services/" class="all-btn" aria-expanded="false">
+          Browse all {allServices.length}+ services
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </summary>
+
+      <div id="browsePanel" class="panel" role="dialog" aria-label="All services">
+        <nav>
+          <div class="panel-sections">
+            {orderedGroups.map(([name, items]) => (
+              <section class="cat">
+                <h4 class="cat-title">
+                  <span>{name}</span>
+                  <span class="count">{items.length}</span>
+                </h4>
+                <ul class="cat-list">
+                  {items.map((s) => (
+                    <li>
+                      <a href={`/services/${s.slug}/`} class="cat-link">
+                        {(s.data.navTitle as string) || s.data.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+
+          <div class="panel-footer">
+            <a href="/services/" class="cta">Open full services page →</a>
+          </div>
+        </nav>
+      </div>
+    </details>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+
+  <script>
+      // Popover behavior:
+      // - Desktop (hover-capable): hover opens/closes; click navigates to /services/
+      // - Touch (no hover): first tap opens; second tap navigates
+      (() => {
+        const browse = /** @type {HTMLDetailsElement} */ (document.getElementById('svc-all'));
+        if (!browse) return;
+        const link = /** @type {HTMLAnchorElement} */ (document.getElementById('browseLink'));
+        const summary = /** @type {HTMLElement} */ (browse.querySelector('summary'));
+
+        const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        let openTimer = 0, closeTimer = 0;
+
+        const setOpen = (v) => {
+          clearTimeout(openTimer); clearTimeout(closeTimer);
+          if (v) {
+            openTimer = window.setTimeout(() => {
+              browse.open = true; link.setAttribute('aria-expanded', 'true');
+            }, 120);
+          } else {
+            closeTimer = window.setTimeout(() => {
+              browse.open = false; link.setAttribute('aria-expanded', 'false');
+            }, 140);
+          }
+        };
+
+        // Only prevent the native toggle when clicking the summary "chrome"
+        // (NOT the main /services/ link). This keeps links in the panel clickable.
+        summary?.addEventListener('click', (e) => {
+          if (e.target === link) return; // let the button handle navigation
+          e.preventDefault();            // don't toggle details via click
+        });
+
+        if (canHover) {
+          browse.addEventListener('mouseenter', () => setOpen(true));
+          browse.addEventListener('mouseleave', () => setOpen(false));
+
+          // Desktop: clicking the main button navigates to /services/
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = link.getAttribute('href');
+          });
+        } else {
+          // Touch: first tap opens; second tap navigates
+          link.addEventListener('click', (e) => {
+            if (!browse.open) {
+              e.preventDefault();
+              browse.open = true;
+              link.setAttribute('aria-expanded', 'true');
+            } // else allow navigation
+          });
+          // Tap outside to close
+          document.addEventListener('click', (e) => {
+            if (!browse.open) return;
+            if (!browse.contains(e.target)) {
+              browse.open = false;
+              link.setAttribute('aria-expanded', 'false');
+            }
+          });
+        }
+      })();
+    </script>
+</section>
+
+<style>
+  :root{
+    --wrap-max: min(1100px, 94vw);
+    --rail-h: 112px;
+    --card-w: clamp(230px, 30vw, 290px);
+    --card-h: 98px;
+    --card-gap: .8rem;
+    --speed: 34s; /* smooth */
+  }
+
+  .wrap{ max-width: var(--wrap-max); margin-inline: auto; }
+
+  .vp{
+    position: relative; overflow: hidden;
+    height: var(--rail-h); border-radius: 1rem;
+    border: 1px solid rgba(255,255,255,.08);
+    background: linear-gradient(180deg, rgba(2,6,23,.65) 0%, rgba(2,6,23,.72) 50%, rgba(2,6,23,.65) 100%);
+  }
+  .vp::before{
+    content:""; position:absolute; inset:0; z-index:12; pointer-events:none;
+    background: radial-gradient(150% 100% at 50% 50%, rgba(2,6,23,0) 60%, rgba(2,6,23,.14) 100%);
+  }
+
+  /* rails */
+  .rail{
+    position:absolute; top:0; bottom:0; width:2px; z-index:14; opacity:.34;
+    background: linear-gradient(180deg, rgba(56,189,248,.70), rgba(217,70,239,.70));
+    filter: drop-shadow(0 0 8px rgba(56,189,248,.45));
+    pointer-events:none;
+  }
+  .rail--left{ left:0; } .rail--right{ right:0; }
+
+  /* portal edges */
+  .portal{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:220px; height:170%; z-index:11; pointer-events:none;
+    opacity:.20; filter:blur(18px) saturate(115%);
+    mix-blend-mode:screen; animation: portalBreath 7s ease-in-out infinite;
+  }
+  @supports (mix-blend-mode: plus-lighter){ .portal{ mix-blend-mode: plus-lighter; } }
+  .portal--right{
+    right:-86px;
+    background:
+      radial-gradient(120% 70% at 100% 50%, rgba(56,189,248,.35) 0, rgba(56,189,248,.22) 36%, rgba(56,189,248,.10) 56%, rgba(56,189,248,0) 70%),
+      radial-gradient(120% 70% at 100% 50%, rgba(217,70,239,.28) 0, rgba(217,70,239,.16) 42%, rgba(217,70,239,0) 72%),
+      radial-gradient(110% 55% at 97% 50%, rgba(255,255,255,.10) 0, rgba(255,255,255,0) 55%);
+    -webkit-mask-image: radial-gradient(120% 80% at 100% 50%, #000 0, #000 52%, rgba(0,0,0,0) 76%);
+            mask-image: radial-gradient(120% 80% at 100% 50%, #000 0, #000 52%, rgba(0,0,0,0) 76%);
+  }
+  .portal--left{
+    left:-86px;
+    background:
+      radial-gradient(120% 70% at 0% 50%, rgba(56,189,248,.35) 0, rgba(56,189,248,.22) 36%, rgba(56,189,248,.10) 56%, rgba(56,189,248,0) 70%),
+      radial-gradient(120% 70% at 0% 50%, rgba(217,70,239,.28) 0, rgba(217,70,239,.16) 42%, rgba(217,70,239,0) 72%),
+      radial-gradient(110% 55% at 3% 50%, rgba(255,255,255,.10) 0, rgba(255,255,255,0) 55%);
+    -webkit-mask-image: radial-gradient(120% 80% at 0% 50%, #000 0, #000 52%, rgba(0,0,0,0) 76%);
+            mask-image: radial-gradient(120% 80% at 0% 50%, #000 0, #000 52%, rgba(0,0,0,0) 76%);
+  }
+  @keyframes portalBreath{
+    0%{opacity:.18; transform:translateY(-50%) scaleX(1);}
+    50%{opacity:.27; transform:translateY(-50%) scaleX(1.02);}
+    100%{opacity:.18; transform:translateY(-50%) scaleX(1);}
+  }
+
+  /* fades */
+  .fade{ position:absolute; inset:0; z-index:13; pointer-events:none; }
+  .fade--left{
+    -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,0) 0%, #000 16%, #000 100%);
+            mask-image: linear-gradient(90deg, rgba(0,0,0,0) 0%, #000 16%, #000 100%);
+  }
+  .fade--right{
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 84%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(90deg, #000 0%, #000 84%, rgba(0,0,0,0) 100%);
+  }
+
+  /* marquee */
+  .marquee{ height:100%; display:flex; align-items:center; }
+  .track{
+    display:inline-flex; gap:var(--card-gap); padding:.25rem .75rem;
+    animation: marquee var(--speed) linear infinite;
+    will-change: transform;
+  }
+  .item{ flex:0 0 auto; }
+  @keyframes marquee{ from{ transform:translate3d(0,0,0);} to{ transform:translate3d(-50%,0,0);} }
+  @media (prefers-reduced-motion: reduce){ .track{ animation:none;} .vp{ overflow-x:auto;} }
+
+  /* cards */
+  .card{
+    display:grid; grid-template-columns:auto 1fr; align-items:center; gap:.65rem;
+    width:var(--card-w); height:var(--card-h); padding:.8rem .95rem;
+    border-radius:1rem; background:rgba(15,23,42,.72);
+    border:1px solid rgba(255,255,255,.08); color:#E6F0FF; text-decoration:none;
+    box-shadow: inset 0 0 0 1px rgba(56,189,248,.12);
+    transition: transform .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .card:hover{ background:rgba(30,41,59,.8); border-color:rgba(56,189,248,.35);
+    box-shadow:0 18px 46px -18px rgba(56,189,248,.35), inset 0 0 0 1px rgba(217,70,239,.28);
+    transform:translateY(-2px);
+  }
+  .dot{ width:.6rem; height:.6rem; border-radius:9999px; background:linear-gradient(90deg, rgba(56,189,248,1), rgba(217,70,239,1)); box-shadow:0 0 12px rgba(56,189,248,.8); }
+  .txt{ min-width:0; }
+  .title{ display:block; font-weight:600; font-size:1rem; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .blurb{ display:block; margin-top:.3rem; font-size:.86rem; line-height:1.25; color:rgba(226,232,240,.82); }
+  .clamp-2{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+
+  /* Browse popover */
+  .browse{ position:relative; display:inline-block; }
+  .summary{ list-style:none; }
+  .summary::-webkit-details-marker{ display:none; }
+  .all-btn{
+    display:inline-flex; align-items:center; gap:.5rem;
+    border-radius:.75rem; border:1px solid rgba(100,116,139,.5);
+    background: rgba(15,23,42,.6);
+    padding:.55rem .8rem; color:#fff; text-decoration:none;
+    transition: background-color .2s ease, border-color .2s ease, transform .1s ease;
+  }
+  .all-btn:hover{ background: rgba(30,41,59,.7); border-color: rgba(148,163,184,.7); transform: translateY(-1px); }
+  .chev{ opacity:.8; transition: transform .2s ease; }
+  .browse[open] .chev{ transform: rotate(180deg); }
+
+  /* Popover panel base */
+  .panel{
+    position:absolute; left:0; top: calc(100% + .5rem);
+    width: min(1100px, 96vw);
+    border-radius: 1rem;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(2,6,23,.92);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 30px 80px -30px rgba(56,189,248,.25);
+    padding: .9rem;
+    opacity: 0; transform: translateY(-4px) scale(.98);
+    transition: opacity .18s ease, transform .18s ease;
+    pointer-events: none; z-index: 20;
+  }
+  .browse[open] .panel{ opacity:1; transform: translateY(0) scale(1); pointer-events:auto; }
+
+  /* Organized sections */
+  .panel-sections{
+    max-height: 44vh; overflow:auto; padding-right:.25rem;
+    display:grid; gap:.75rem .8rem;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+  @media (min-width: 800px){ .panel-sections{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  @media (min-width: 1100px){ .panel-sections{ grid-template-columns: repeat(4, minmax(0,1fr)); } }
+
+  .cat{
+    background: rgba(15,23,42,.55);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:.8rem;
+    padding:.55rem .55rem .6rem;
+  }
+  .cat-title{
+    position: sticky; top: 0;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:.15rem .1rem .35rem;
+    font-size:.86rem; font-weight:700; color:#E6F0FF;
+    background: inherit; z-index:1;
+  }
+  .count{
+    font-weight:600; font-size:.72rem; color:#9bdcff;
+    background: rgba(56,189,248,.15);
+    border:1px solid rgba(56,189,248,.35);
+    padding:.05rem .4rem; border-radius:.5rem;
+  }
+  .cat-list{ display:grid; grid-template-columns:1fr; gap:.4rem; }
+  .cat-link{
+    display:block; width:100%; text-decoration:none;
+    border:1px solid rgba(100,116,139,.30);
+    background: rgba(2,6,23,.45);
+    color:#e5f0ff; padding:.45rem .5rem; border-radius:.55rem;
+  }
+  .cat-link:hover{ background: rgba(30,41,59,.7); border-color: rgba(148,163,184,.65); }
+
+  .panel-footer{ display:flex; justify-content:flex-end; margin-top:.7rem; }
+  .cta{
+    display:inline-flex; align-items:center; gap:.35rem;
+    color:#a5e1ff; text-decoration:none; font-weight:600;
+    padding:.4rem .6rem; border-radius:.5rem;
+  }
+  .cta:hover{ background: rgba(56,189,248,.12); }
+</style>

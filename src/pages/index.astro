@@ -10,6 +10,7 @@ import WebSiteLD from '@components/WebSiteLD.astro';
 import ContactForm from '@components/ContactForm.astro';
 import ContactInfoCard from '@components/ContactInfoCard.astro';
 import BundlesGrid from "@components/BundlesGrid.astro";
+import ServicesConveyor from "@components/ServicesConveyor.astro";
 
 // Bundles for home + JSON-LD
 const allBundles = await getCollection('bundles', ({ data }) => !data.draft);
@@ -67,6 +68,10 @@ const urlFor = (p: string) => Astro.site ? new URL(p, Astro.site).href : p;
       </FeatureCard>
     </div>
   </Section>
+
+  <div class="mt-6">
+    <ServicesConveyor />
+  </div>
 
   <!-- BUNDLES -->
   <Section

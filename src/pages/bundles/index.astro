@@ -3,6 +3,7 @@ import Base from "@layouts/Base.astro";
 import Section from "@components/Section.astro";
 import BundlesGrid from "@components/BundlesGrid.astro";
 import { getCollection } from "astro:content";
+import ServicesConveyor from "@components/ServicesConveyor.astro";
 
 const title = "Service Bundles";
 const description =
@@ -59,6 +60,10 @@ const jsonLd = {
       Flat rates include labour. Parts and paid licences are separate. On-site travel may apply outside our local radius.
       Not sure which bundle is right? <a href="/contact/" class="text-digi-primary underline underline-offset-2">Message us</a>.
     </p>
+
+    <div class="mt-6">
+     <ServicesConveyor />
+    </div>
 
     <!-- SEO: page JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>

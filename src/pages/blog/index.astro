@@ -4,6 +4,7 @@ import Base from '@layouts/Base.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
 import fs from 'node:fs';
+import ServicesConveyor from "@components/ServicesConveyor.astro";
 
 // Posts (no drafts), newest first
 const posts = (await getCollection('blog'))
@@ -268,4 +269,9 @@ const hasPublicFile = (p?: string) => {
     apply();
   })();
   </script>
+
+  <div class="mt-6">
+    <ServicesConveyor />
+   </div>
+
 </Base>

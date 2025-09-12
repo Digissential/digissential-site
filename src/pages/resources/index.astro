@@ -2,6 +2,7 @@
 import Base from '@layouts/Base.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
+import ServicesConveyor from "@components/ServicesConveyor.astro";
 
 // NOTE: If your collection id is "resource" (singular), change 'resources' below.
 const entries = (await getCollection('resources'))
@@ -50,8 +51,7 @@ const fmtDate = (d: Date | string) =>
     <section class="mt-4 card p-5 md:p-6 hero-bg">
       <h1 class="text-2xl md:text-3xl font-extrabold">Resources</h1>
       <p class="mt-1 text-white/75 max-w-2xl">
-        Extreme-SEO, research-driven pages citing official sources. Hidden from nav; built to rank and
-        route you to the right service.
+        Research-driven pages citing official sources. Built to route you to the right service.
       </p>
 
       <div class="mt-4 flex flex-wrap gap-3 items-center">
@@ -234,4 +234,9 @@ const fmtDate = (d: Date | string) =>
     apply();
   })();
   </script>
+
+  <div class="mt-6">
+    <ServicesConveyor />
+  </div>
+
 </Base>
