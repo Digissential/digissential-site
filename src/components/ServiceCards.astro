@@ -1,12 +1,9 @@
 ---
 import { getCollection } from "astro:content";
+import { resolveSlug, mediaForService } from "@lib/serviceMedia";
 
-export interface Props {
-  title?: string;
-  slugs?: string[]; // optional override; defaults to the 6 core services
-}
+export interface Props { title?: string; slugs?: string[]; }
 
-/** The six core services and their thumbnail assets */
 const CORE = [
   "laptop-screen-replacement",
   "battery-replacement",
@@ -16,51 +13,26 @@ const CORE = [
   "remote-it-support",
 ];
 
-/** Thumbnail map (place these files under /public/images/services/) */
-const thumbs: Record<string, { src: string; alt: string }> = {
-  "laptop-screen-replacement": {
-    src: "/images/services/stellenbosch-laptop-screen-repair-digissential.webp",
-    alt: "A close-up shot of a technician expertly replacing a cracked laptop screen.",
-  },
-  "battery-replacement": {
-    src: "/images/services/stellenbosch-laptop-battery-replacement-digissential.webp",
-    alt: "A new laptop battery being installed in a thin-and-light notebook.",
-  },
-  "virus-malware-removal": {
-    src: "/images/services/stellenbosch-malware-virus-removal-digissential.webp",
-    alt: "Security scan running on a laptop during a professional malware cleanup.",
-  },
-  "data-recovery": {
-    src: "/images/services/stellenbosch-data-recovery-digissential.webp",
-    alt: "Technician cloning a failing drive for safe data recovery.",
-  },
-  "wifi-network-troubleshooting": {
-    src: "/images/services/stellenbosch-wifi-network-troubleshooting-digissential.webp",
-    alt: "Router and laptop during a Wi-Fi troubleshooting session.",
-  },
-  "remote-it-support": {
-    src: "/images/services/stellenbosch-remote-it-support-digissential.webp",
-    alt: "Remote IT support session on a laptop with headset and tools.",
-  },
-};
-
 const { title, slugs } = Astro.props;
-const wanted = (slugs?.length ? slugs : CORE);
+const wanted = (slugs?.length ? slugs : CORE).map(resolveSlug);
 
 const all = await getCollection("services", ({ slug, data }) =>
-  wanted.includes(slug) && data.visibility !== "internal" && !data.noindex
+  wanted.includes(resolveSlug(slug)) && data.visibility !== "internal" && !data.noindex
 );
 
-// Keep the order defined in CORE/wanted
-const services = all.sort(
-  (a, b) => wanted.indexOf(a.slug) - wanted.indexOf(b.slug)
-).map(e => ({
-  slug: e.slug,
-  title: e.data.title,
-  summary: e.data.summary,
-  thumb: thumbs[e.slug]?.src,
-  alt: thumbs[e.slug]?.alt || e.data.title,
-}));
+// Keep UI order, attach media
+const services = wanted.map((key) => {
+  const entry = all.find((e) => resolveSlug(e.slug) === key);
+  if (!entry) return null;
+  const m = mediaForService(key, entry.slug, entry.data.title);
+  return {
+    slug: entry.slug,
+    title: entry.data.title,
+    summary: entry.data.summary,
+    thumb: m?.src,
+    alt: m?.alt || entry.data.title,
+  };
+}).filter(Boolean);
 
 const site = (Astro.site?.toString?.() || "https://digissential.co.za").replace(/\/+$/, "");
 const itemListLd = {
@@ -72,6 +44,7 @@ const itemListLd = {
     position: i + 1,
     name: s.title,
     url: `${site}/services/${s.slug}/`,
+    image: s.thumb ? new URL(s.thumb, site).toString() : undefined,
   })),
 };
 ---
@@ -83,18 +56,20 @@ const itemListLd = {
     {services.map((s) => (
       <li class="card p-0 overflow-hidden">
         <a href={`/services/${s.slug}/`} class="block rounded-[inherit] focus:outline-none focus:ring-2 focus:ring-digi-primary">
-          <figure>
-            <img
-              src={s.thumb}
-              alt={s.alt}
-              width="800"
-              height="450"
-              loading="lazy"
-              decoding="async"
-              sizes="(min-width: 768px) 50vw, 100vw"
-              class="w-full aspect-[16/9] object-cover"
-            />
-          </figure>
+          {s.thumb && (
+            <figure>
+              <img
+                src={s.thumb}
+                alt={s.alt}
+                width="800"
+                height="450"
+                loading="lazy"
+                decoding="async"
+                sizes="(min-width: 768px) 50vw, 100vw"
+                class="w-full aspect-[16/9] object-cover"
+              />
+            </figure>
+          )}
           <div class="p-3">
             <h3 class="font-semibold">{s.title}</h3>
             {s.summary && <p class="text-sm text-white/70 mt-0.5">{s.summary}</p>}

@@ -3,6 +3,7 @@ import Base from '@layouts/Base.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import Button from '@components/Button.astro';
 import { getCollection } from 'astro:content';
+import { mediaForService } from "@lib/serviceMedia";
 
 // 1) Pre-render all service slugs for static output
 export async function getStaticPaths() {
@@ -17,6 +18,210 @@ export async function getStaticPaths() {
 const { entry } = Astro.props as { entry: any };
 const { data } = entry;
 const { Content } = await entry.render();
+
+/** Per-service hero image (under /public/images/services/) */
+const HERO: Record<string, { src: string; alt: string }> = {
+  // Diagnostics / tune-ups
+  "diagnostic-in-shop": {
+    src: "/images/services/stellenbosch-diagnostic-in-shop-digissential.webp",
+    alt: "Bench diagnostics for laptops and PCs in the shop.",
+  },
+  "battery-diagnostics": {
+    src: "/images/services/stellenbosch-battery-diagnostics-digissential.webp",
+    alt: "Technician checking laptop battery health and cycle count.",
+  },
+  "local-tune-up-speed-up": {
+    src: "/images/services/stellenbosch-local-tune-up-speed-up-digissential.webp",
+    alt: "PC tune-up to improve startup time and performance.",
+  },
+  "tune-up-remote": {
+    src: "/images/services/stellenbosch-tune-up-remote-digissential.webp",
+    alt: "Remote tune-up to optimise Windows and apps.",
+  },
+
+  // Screens / batteries / fans / thermal
+  "laptop-screen-repair": {
+    src: "/images/services/stellenbosch-laptop-screen-repair-digissential.webp",
+    alt: "A close-up of a cracked laptop screen being replaced.",
+  },
+  "laptop-screen-replacement": {
+    src: "/images/services/stellenbosch-laptop-screen-repair-digissential.webp",
+    alt: "A close-up of a cracked laptop screen being replaced.",
+  },
+  "laptop-battery-replacement": {
+    src: "/images/services/stellenbosch-laptop-battery-replacement-digissential.webp",
+    alt: "Installing a new laptop battery for longer runtime.",
+  },
+  "battery-replacement": {
+    src: "/images/services/stellenbosch-laptop-battery-replacement-digissential.webp",
+    alt: "Installing a new laptop battery for longer runtime.",
+  },
+  "laptop-fan-replacement-labour": {
+    src: "/images/services/stellenbosch-laptop-fan-replacement-labour-digissential.webp",
+    alt: "Replacing a noisy or failed laptop cooling fan.",
+  },
+  "thermal-paste-deep-clean": {
+    src: "/images/services/stellenbosch-thermal-paste-deep-clean-digissential.webp",
+    alt: "Deep clean with fresh thermal paste for better cooling.",
+  },
+
+  // Storage / SSD / migrations / data
+  "hdd-to-ssd-migration": {
+    src: "/images/services/stellenbosch-hdd-to-ssd-migration-digissential.webp",
+    alt: "Migrating from hard drive to SSD for faster boot.",
+  },
+  "ssd-upgrade-bundle-clone-swap": {
+    src: "/images/services/stellenbosch-ssd-upgrade-bundle-clone-swap-digissential.webp",
+    alt: "SSD upgrade bundle with clone and swap service.",
+  },
+  "data-migration-new-machine": {
+    src: "/images/services/stellenbosch-data-migration-new-machine-digissential.webp",
+    alt: "Moving files and settings to a new computer.",
+  },
+  "data-backup-standard-files": {
+    src: "/images/services/stellenbosch-data-backup-standard-files-digissential.webp",
+    alt: "Backing up documents, photos, and key folders.",
+  },
+  "data-backup-full-system-image": {
+    src: "/images/services/stellenbosch-data-backup-full-system-image-digissential.webp",
+    alt: "Creating a full system image backup for recovery.",
+  },
+  "data-recovery": {
+    src: "/images/services/stellenbosch-data-recovery-digissential.webp",
+    alt: "Technician recovering files from a failing drive.",
+  },
+  "data-recovery-basic": {
+    src: "/images/services/stellenbosch-data-recovery-basic-digissential.webp",
+    alt: "Basic file recovery for accidentally deleted data.",
+  },
+  "data-destruction-certified-wipe": {
+    src: "/images/services/stellenbosch-data-destruction-certified-wipe-digissential.webp",
+    alt: "Certified data wipe for safe device disposal.",
+  },
+
+  // Malware / security
+  "malware-virus-removal": {
+    src: "/images/services/stellenbosch-malware-virus-removal-digissential.webp",
+    alt: "Malware scan and cleanup on a Windows laptop.",
+  },
+  "virus-malware-removal": {
+    src: "/images/services/stellenbosch-malware-virus-removal-digissential.webp",
+    alt: "Malware scan and cleanup on a Windows laptop.",
+  },
+  "virus-malware-removal-basic": {
+    src: "/images/services/stellenbosch-virus-malware-removal-basic-digissential.webp",
+    alt: "Basic malware removal and security baseline.",
+  },
+
+  // Windows / drivers / firmware
+  "windows-install-driver-pack": {
+    src: "/images/services/stellenbosch-windows-install-driver-pack-digissential.webp",
+    alt: "Installing device drivers for stable Windows performance.",
+  },
+  "driver-installation": {
+    src: "/images/services/stellenbosch-driver-installation-digissential.webp",
+    alt: "Setting up correct drivers for hardware devices.",
+  },
+  "firmware-bios-uefi-updates": {
+    src: "/images/services/stellenbosch-firmware-bios-uefi-updates-digissential.webp",
+    alt: "Updating BIOS/UEFI firmware safely on the bench.",
+  },
+  "windows-os-reinstall-with-backup": {
+    src: "/images/services/stellenbosch-windows-os-reinstall-with-backup-digissential.webp",
+    alt: "Windows reinstall with data backed up first.",
+  },
+  "windows-os-reinstall-without-backup": {
+    src: "/images/services/stellenbosch-windows-os-reinstall-without-backup-digissential.webp",
+    alt: "Clean Windows reinstall without data backup.",
+  },
+  "os-reinstall-windows-with-backup": {
+    src: "/images/services/stellenbosch-os-reinstall-windows-with-backup-digissential.webp",
+    alt: "Windows reinstall with data backed up first.",
+  },
+  "os-reinstall-windows-without-backup": {
+    src: "/images/services/stellenbosch-os-reinstall-windows-without-backup-digissential.webp",
+    alt: "Clean Windows reinstall without data backup.",
+  },
+  "windows-password-reset-consent-only": {
+    src: "/images/services/stellenbosch-windows-password-reset-consent-only-digissential.webp",
+    alt: "Assisted Windows password reset with written consent.",
+  },
+
+  // Networking / remote / cloud / email
+  "wifi-network-troubleshooting": {
+    src: "/images/services/stellenbosch-wifi-network-troubleshooting-digissential.webp",
+    alt: "Troubleshooting a home or office Wi-Fi network.",
+  },
+  "remote-it-support": {
+    src: "/images/services/stellenbosch-remote-it-support-digissential.webp",
+    alt: "Remote IT support session assisting a client securely.",
+  },
+  "remote-support-session": {
+    src: "/images/services/stellenbosch-remote-support-session-digissential.webp",
+    alt: "On-demand remote support for quick fixes.",
+  },
+  "remote-support-setup": {
+    src: "/images/services/stellenbosch-remote-support-setup-digissential.webp",
+    alt: "Setting up secure remote support access.",
+  },
+  "cloud-backup-setup": {
+    src: "/images/services/stellenbosch-cloud-backup-setup-digissential.webp",
+    alt: "Configuring reliable cloud backup with encryption.",
+  },
+  "email-setup": {
+    src: "/images/services/stellenbosch-email-setup-digissential.webp",
+    alt: "Setting up email accounts and syncing devices.",
+  },
+
+  // Printers
+  "printer-setup": {
+    src: "/images/services/stellenbosch-printer-setup-digissential.webp",
+    alt: "Setting up a new home or office printer.",
+  },
+  "printer-troubleshooting": {
+    src: "/images/services/stellenbosch-printer-troubleshooting-digissential.webp",
+    alt: "Fixing printer connection and driver problems.",
+  },
+
+  // Hardware / builds / upgrades / workstation
+  "component-replacement-assistance": {
+    src: "/images/services/stellenbosch-component-replacement-assistance-digissential.webp",
+    alt: "Installing and testing a replacement hardware component.",
+  },
+  "gpu-cpu-upgrade": {
+    src: "/images/services/stellenbosch-gpu-cpu-upgrade-digissential.webp",
+    alt: "Upgrading CPU or GPU for better performance.",
+  },
+  "custom-pc-build-consultation": {
+    src: "/images/services/stellenbosch-custom-pc-build-consultation-digissential.webp",
+    alt: "Consultation for a custom PC build in Stellenbosch.",
+  },
+  "workstation-setup-new-or-reset": {
+    src: "/images/services/stellenbosch-workstation-setup-new-or-reset-digissential.webp",
+    alt: "Setting up a new or reset workstation for work.",
+  },
+  "software-install-bulk-per-device": {
+    src: "/images/services/stellenbosch-software-install-bulk-per-device-digissential.webp",
+    alt: "Bulk software installation per device for teams.",
+  },
+
+  // New PC / expedited / pickup
+  "new-pc-laptop-setup": {
+    src: "/images/services/stellenbosch-new-pc-laptop-setup-digissential.webp",
+    alt: "Setting up a new laptop with apps and accounts.",
+  },
+  "expedited-service-ticket": {
+    src: "/images/services/stellenbosch-expedited-service-ticket-digissential.webp",
+    alt: "Expedited service ticket for priority turnaround.",
+  },
+  "pickup-drop-off-local": {
+    src: "/images/services/stellenbosch-pickup-drop-off-local-digissential.webp",
+    alt: "Local pickup or drop-off arranged for your device.",
+  },
+};
+
+const hero = mediaForService(entry.slug);
+
 
 const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
 const url = `${site}/services/${entry.slug}`;
@@ -59,6 +264,14 @@ const serviceLd = {
         },
       }
     : {}),
+  ...(hero ? {
+    image: [{
+      '@type': 'ImageObject',
+      url: new URL(hero.src, site).toString(),
+      width: 1600,
+      height: 900,
+    }]
+  } : {})
 };
 
 const faqLd =
@@ -79,7 +292,7 @@ const pageDesc =
   data.summary || `${data.title} in Stellenbosch. Transparent pricing and fast turnaround.`;
 ---
 
-<Base title={pageTitle} description={pageDesc} ogImage="/favicon.svg">
+<Base title={pageTitle} description={pageDesc} ogImage="/images/brand-cover-1200x630.jpg">
   <main class="container-prose pt-28">
     <Breadcrumbs
       items={[
@@ -92,6 +305,23 @@ const pageDesc =
     <p class="mt-2 text-white/80">
       Serving Stellenbosch &amp; surrounds • Transparent pricing • POPIA-aligned
     </p>
+
+    {hero && (
+      <div class="not-prose mt-3">
+        <figure class="overflow-hidden rounded-2xl border border-white/10 shadow-sm">
+          <img
+            src={hero.src}
+            alt={hero.alt}
+            width="1600"
+            height="900"
+            loading="eager"
+            fetchpriority="high"
+            sizes="100vw"
+            class="block w-full h-[38vh] sm:h-[44vh] md:h-[50vh] lg:h-[56vh] object-cover object-center"
+          />
+        </figure>
+      </div>
+    )}
 
     <div class="mt-6 grid gap-6 md:grid-cols-3">
       <!-- LEFT: main content -->

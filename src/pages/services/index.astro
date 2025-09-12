@@ -1,75 +1,70 @@
 ---
 import Base from '@layouts/Base.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
-import { getCollection } from 'astro:content';
 import RateBanner from '@components/RateBanner.astro';
+import { getCollection } from 'astro:content';
+import { mediaForService, missingMedia } from '@lib/serviceMedia';
 
-// Fetch and sort all services
+/* ── Data ─────────────────────────────────────────────────────────────── */
 const all = (await getCollection('services'))
   .map(e => ({ ...e, data: { ...e.data } }))
   .sort((a, b) => (a.data.title || '').localeCompare(b.data.title || ''));
 
-// Helper: numeric price for filtering
+const groups: Record<string, typeof all> = {};
+for (const e of all) (groups[e.data.category || 'Other'] ??= []).push(e);
+const cats = Object.keys(groups).sort();
+
+const toId = (s: string) =>
+  (s || 'other').toLowerCase().normalize('NFKD')
+    .replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
+
+const seen = new Set<string>();
+const catIds = Object.fromEntries(
+  cats.map(c => {
+    let id = toId(c), i = 2;
+    while (seen.has(id)) id = `${toId(c)}-${i++}`;
+    seen.add(id);
+    return [c, id] as const;
+  })
+);
+
 const getPriceNum = (p: unknown) => {
   if (p == null) return '';
   const n = Number(String(p).replace(/[^\d.]/g, ''));
   return Number.isFinite(n) ? n : '';
 };
 
-// Group by category
-const groups: Record<string, typeof all> = {};
-for (const e of all) {
-  const cat = e.data.category || 'Other';
-  (groups[cat] ||= []).push(e);
-}
-const cats = Object.keys(groups).sort();
-
-const toId = (s: string) =>
-  (s || 'other')
-    .toLowerCase()
-    .normalize('NFKD')
-    .replace(/[^\w\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-');
-
-const seenIds = new Set<string>();
-const catIds = Object.fromEntries(
-  cats.map(c => {
-    let id = toId(c);
-    let i = 2;
-    while (seenIds.has(id)) id = `${toId(c)}-${i++}`;
-    seenIds.add(id);
-    return [c, id] as const;
-  })
-);
-
-// SEO: ItemList
-const site = Astro.site?.toString?.() || 'https://www.digissential.co.za';
-const items = (await getCollection('services')).sort((a,b) =>
-  (a.data.title || '').localeCompare(b.data.title || '')
-);
-const itemListLd = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "itemListElement": items.map((e, i) => ({
-    "@type": "ListItem",
-    "position": i + 1,
-    "url": new URL(`/services/${e.slug}`, site).toString(),
-    "name": e.data.title
-  }))
-};
-
-// UI helper: format price uniformly (adds "R" if numeric)
 const fmtPrice = (p: unknown) => {
   if (p == null) return '';
- if (typeof p === 'number' && Number.isFinite(p)) return `R${p}`;
+  if (typeof p === 'number' && Number.isFinite(p)) return `R${p}`;
   const s = String(p).trim();
-  // Already has R/ r
-  if (/^\s*r\s*\d/i.test(s)) return s.replace(/^\s*r\s*/i, 'R'); // normalize spacing/case
-  // Pure number-ish? Prefix R
+  if (/^\s*r\s*\d/i.test(s)) return s.replace(/^\s*r\s*/i, 'R');
   if (/^\d+([.,]\d+)?$/.test(s)) return `R${s}`;
   return s;
 };
+
+/* ── JSON-LD (ItemList) ───────────────────────────────────────────────── */
+const site = (Astro.site?.toString?.() || import.meta.env.PUBLIC_SITE_URL || 'https://digissential.co.za').replace(/\/+$/, '');
+const itemListLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: all.map((e, i) => {
+    const m = mediaForService(e.slug, e.slug, e.data.title);
+    return {
+      "@type": "ListItem",
+      position: i + 1,
+      name: e.data.title,
+      url: new URL(`/services/${e.slug}/`, site).toString(),
+      ...(m?.src ? { image: new URL(m.src, site).toString() } : {}),
+    };
+  }),
+};
+
+/* ── Dev helper: log any slugs missing media mapping ──────────────────── */
+if (import.meta.env.DEV) {
+  const missing = missingMedia(all.map(e => e.slug));
+  if (missing.length) console.warn('[services] Missing media for slugs:', missing);
+}
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(itemListLd)} />
@@ -83,46 +78,45 @@ const fmtPrice = (p: unknown) => {
       <RateBanner emitLd={true} />
     </header>
 
-      <!-- Filter toolbar -->
-  <section class="mt-6 card p-4 md:p-5">
-    <form id="filters" class="mt-6 grid gap-4 md:grid-cols-[1fr,240px,240px,auto] items-end">
-      <label class="text-sm">
-        Search
-        <input id="q" name="q"
-          class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
-          type="search" placeholder="Type a service, keyword, or issue…" autocomplete="off" />
-      </label>
+    <!-- Filter toolbar -->
+    <section class="mt-6 card p-4 md:p-5">
+      <form id="filters" class="mt-6 grid gap-4 md:grid-cols-[1fr,240px,240px,auto] items-end">
+        <label class="text-sm">
+          Search
+          <input id="q" name="q"
+            class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary"
+            type="search" placeholder="Type a service, keyword, or issue…" autocomplete="off" />
+        </label>
 
-      <label class="text-sm">
-        Category
-        <select id="cat" name="cat"
-          class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary">
-          <option value="">All categories</option>
-          {cats.map(c => <option value={c}>{c}</option>)}
-        </select>
-      </label>
+        <label class="text-sm">
+          Category
+          <select id="cat" name="cat"
+            class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary">
+            <option value="">All categories</option>
+            {cats.map(c => <option value={c}>{c}</option>)}
+          </select>
+        </label>
 
-      <label class="text-sm">
-        Price
-        <select id="price" name="price"
-          class="mt-1 w-full rounded-xl2 bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary">
-          <option value="">Any price</option>
-          <option value="lt500">&lt; R500</option>
-          <option value="500-1000">R500–R1000</option>
-          <option value="gt1000">&gt; R1000</option>
-        </select>
-      </label>
+        <label class="text-sm">
+          Price
+          <select id="price" name="price"
+            class="mt-1 w-full rounded-2xl bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-digi-primary">
+            <option value="">Any price</option>
+            <option value="lt500">&lt; R500</option>
+            <option value="500-1000">R500–R1000</option>
+            <option value="gt1000">&gt; R1000</option>
+          </select>
+        </label>
 
-      <button type="reset" class="btn btn-outline w-full md:w-auto">Clear</button>
-    </form>
+        <button type="reset" class="btn btn-outline w-full md:w-auto">Clear</button>
+      </form>
 
-   <p class="mt-3 text-sm text-white/60" aria-live="polite" aria-atomic="true">
-     <span id="result-count">{all.length}</span> services
-   </p>
-  </section>
+      <p class="mt-3 text-sm text-white/60" aria-live="polite" aria-atomic="true">
+        <span id="result-count">{all.length}</span> services
+      </p>
+    </section>
 
-
-    <!-- Results by category (still grouped for SEO/UX) -->
+    <!-- Results by category (with thumbnails) -->
     <section class="mt-8 grid gap-10">
       {cats.map((c) => (
         <section id={catIds[c]} class="svc-group scroll-mt-24">
@@ -130,36 +124,55 @@ const fmtPrice = (p: unknown) => {
 
           <div class="grid gap-4 md:grid-cols-2">
             {groups[c].map((e) => {
-              // Build a lowercase keywords string for client-side searching
               const keywords = [
                 e.data.summary || '',
                 ...(Array.isArray(e.data.bullets) ? e.data.bullets : []),
               ].join(' ').toLowerCase();
 
               const priceNum = getPriceNum(e.data.price);
+              const m = mediaForService(e.slug, e.slug, e.data.title);
+              const thumb = m?.src;
+              const altText = m?.alt || `${e.data.title} — Digissential`;
 
               return (
                 <article
-                  class="card p-5 spotlight h-full flex flex-col svc"
+                  class="card p-0 overflow-hidden spotlight h-full flex flex-col svc"
                   data-title={(e.data.title || '').toLowerCase()}
                   data-keywords={keywords}
                   data-cat={e.data.category || 'Other'}
                   data-price={String(priceNum)}
                 >
-                  <h3 class="text-lg font-semibold">
-                    <a class="hover:text-white link-fancy" href={`/services/${e.slug}/`}>{e.data.title}</a>
-                  </h3>
-                  <p class="mt-1 text-white/70 text-sm">{e.data.summary}</p>
-
-                  {e.data.bullets?.length > 0 && (
-                    <ul class="mt-3 list-disc pl-5 text-sm text-white/80">
-                      {e.data.bullets.slice(0, 3).map((b: string) => <li>{b}</li>)}
-                    </ul>
+                  {thumb && (
+                    <figure class="not-prose">
+                      <img
+                        src={thumb}
+                        alt={altText}
+                        width="800"
+                        height="450"
+                        loading="lazy"
+                        decoding="async"
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        class="block w-full aspect-[16/9] object-cover"
+                      />
+                    </figure>
                   )}
 
-                  <div class="mt-4 flex items-center justify-between text-sm">
-                    <a class="btn btn-outline" href={`/services/${e.slug}/`}>View details</a>
-                    <span class="text-white/80">{fmtPrice(e.data.price) ? `From ${fmtPrice(e.data.price)}` : 'Get a quote'}</span>
+                  <div class="p-5 grow flex flex-col">
+                    <h3 class="text-lg font-semibold">
+                      <a class="hover:text-white link-fancy" href={`/services/${e.slug}/`}>{e.data.title}</a>
+                    </h3>
+                    <p class="mt-1 text-white/70 text-sm">{e.data.summary}</p>
+
+                    {e.data.bullets?.length > 0 && (
+                      <ul class="mt-3 list-disc pl-5 text-sm text-white/80">
+                        {e.data.bullets.slice(0, 3).map((b: string) => <li>{b}</li>)}
+                      </ul>
+                    )}
+
+                    <div class="mt-4 flex items-center justify-between text-sm">
+                      <a class="btn btn-outline" href={`/services/${e.slug}/`}>View details</a>
+                      <span class="text-white/80">{fmtPrice(e.data.price) ? `From ${fmtPrice(e.data.price)}` : 'Get a quote'}</span>
+                    </div>
                   </div>
                 </article>
               );
@@ -172,9 +185,8 @@ const fmtPrice = (p: unknown) => {
     </section>
   </main>
 
-    <!-- Client-side filtering (no libs) -->
-    <script>
-      (() => {
+  <script>
+    (() => {
       const $  = (s) => document.querySelector(s);
       const $$ = (s) => Array.from(document.querySelectorAll(s));
 
@@ -190,15 +202,8 @@ const fmtPrice = (p: unknown) => {
       const norm = (s) => (s || '').toLowerCase().trim();
       const getAttr = (el, name) => (el.getAttribute(name) || '');
 
-      // Stop form submissions (prevents URL changes/reloads)
       form.addEventListener('submit', (e) => e.preventDefault());
-
-      // Also prevent Enter in the search box from submitting
-      q?.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') { e.preventDefault(); apply(); }
-      });
-
-      // Fire when the native clear (✕) is used
+      q?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); apply(); } });
       q?.addEventListener('search', () => apply());
 
       function matchPrice(filter, p) {
@@ -238,7 +243,7 @@ const fmtPrice = (p: unknown) => {
           const ok =
             (!qs || t.includes(qs) || k.includes(qs)) &&
             (!c  || c === catv) &&
-           matchPrice(pv, p);
+            matchPrice(pv, p);
 
           card.classList.toggle('hidden', !ok);
           if (ok) shown++;
@@ -248,28 +253,19 @@ const fmtPrice = (p: unknown) => {
         updateGroupVisibility();
       }
 
-      // Debounce only the text input
       function debounce(fn, ms = 120) {
         let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
       }
       q?.addEventListener('input', debounce(apply, 150));
       cat?.addEventListener('change', apply);
       price?.addEventListener('change', apply);
-
-      // Let native reset clear fields, then re-apply
       form.addEventListener('reset', () => setTimeout(apply, 0));
-
       apply();
     })();
-    </script>
-
-
+  </script>
 
   <style is:global>
-    /* Make native dropdown options readable inside the Services filter bar */
     #filters select { color: rgba(255,255,255,.92); }
     #filters option { color: #0b1220; background: #ffffff; }
   </style>
-
-
 </Base>
