@@ -1,0 +1,142 @@
+---
+export interface Props {
+  slug?: string;
+  title: string;
+  price: string;
+  summary: string;
+  bullets: string[];
+  save?: string;
+  cta_text: string;
+  cta_link: string; // e.g. "/contact/?reason=quote"
+  variant?: "home" | "full";
+  detail_href?: string; // optional override for details URL
+}
+
+const {
+  slug: slugMaybe,
+  title,
+  price,
+  summary,
+  bullets,
+  save,
+  cta_text,
+  cta_link,
+  variant = "home",
+  detail_href,
+} = Astro.props;
+
+const visibleBullets = variant === "home" ? bullets.slice(0, 4) : bullets;
+
+// Safe details URL (never /bundles/undefined/)
+const safeSlug = typeof slugMaybe === "string" && slugMaybe.length > 0 ? slugMaybe : null;
+const detailUrl =
+  (typeof detail_href === "string" && detail_href) ||
+  (safeSlug ? `/bundles/${safeSlug}/` : "#");
+const hasDetail = detailUrl !== "#";
+
+// Normalize /contact links for trailingSlash:"always" and append helpful params
+function buildCtaUrl(input: string | undefined, bundleTitle: string) {
+  const href = String(input || "/contact/");
+  const [rawPath, rawQuery = ""] = href.split("?");
+  const path = rawPath.endsWith("/") ? rawPath : `${rawPath}/`;
+  const params = new URLSearchParams(rawQuery);
+
+  if (path === "/contact/") {
+    if (!params.has("reason")) params.set("reason", "bundle");
+    if (!params.has("bundle")) params.set("bundle", bundleTitle);
+  }
+  const qs = params.toString();
+  return qs ? `${path}?${qs}` : path;
+}
+const primaryCtaUrl = buildCtaUrl(cta_link, title);
+---
+
+<div
+  class="group relative rounded-2xl p-[1px]
+         bg-gradient-to-br from-sky-400/70 via-fuchsia-500/70 to-cyan-400/70
+         hover:shadow-[0_16px_48px_-12px] hover:shadow-cyan-400/40
+         transform-gpu will-change-transform transition-[transform,box-shadow,opacity] duration-300
+         hover:-translate-y-1.5 hover:scale-[1.015]
+         motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100"
+>
+  <article
+    class="relative h-full flex flex-col rounded-2xl bg-slate-950/85 border border-white/10 backdrop-blur-sm p-5 sm:p-6 transition-colors duration-300"
+  >
+    {hasDetail && (
+      <a
+        href={detailUrl}
+        aria-label={"Open " + title + " details"}
+        title={title}
+        class="absolute inset-2 sm:inset-2 rounded-xl z-10
+               focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400
+               focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+      ></a>
+    )}
+
+    <header class="relative z-20 flex items-start justify-between gap-3">
+      <h3 class="font-semibold text-white leading-tight text-[clamp(1.05rem,0.9rem+0.5vw,1.25rem)]">
+        {title}
+      </h3>
+
+      {price && (
+        <span
+          class="shrink-0 rounded-lg px-2.5 py-1 text-sm font-bold tracking-tight
+                 bg-sky-500/15 text-sky-100 ring-1 ring-sky-300/40
+                 group-hover:bg-sky-500/20 group-hover:ring-sky-300/60 transition"
+          aria-label={"Price: " + price}
+        >
+          {price}
+        </span>
+      )}
+    </header>
+
+    <p class="relative z-20 mt-2 text-slate-300 leading-relaxed text-[clamp(0.95rem,0.85rem+0.35vw,1rem)]">
+      {summary}
+    </p>
+
+    <ul class="relative z-20 mt-4 space-y-2 text-slate-200">
+      {visibleBullets.map((b) => (
+        <li class="flex gap-2 leading-relaxed text-[15px] md:text-[16px]">
+          <span class="mt-2 h-1.5 w-1.5 rounded-full bg-gradient-to-r from-sky-400 to-fuchsia-400"></span>
+          <span class="grow">{b}</span>
+        </li>
+      ))}
+    </ul>
+
+    {save && <p class="relative z-20 mt-3 text-xs text-slate-400">{save}</p>}
+
+    <!-- Bottom CTAs -->
+    <div class="relative z-20 mt-auto pt-5 flex flex-col gap-2">
+      <a
+        href={detailUrl}
+        class:list={{
+          "order-1 inline-flex items-center justify-center rounded-xl px-4 py-2 font-medium bg-slate-800/80 text-white hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 transition": true,
+          "opacity-60 cursor-not-allowed pointer-events-none": !hasDetail
+        }}
+      >
+        View details
+      </a>
+
+      <a
+        href={primaryCtaUrl}
+        class="order-2 inline-flex items-center justify-center rounded-xl px-4 py-2 font-medium
+               bg-gradient-to-r from-sky-500 to-fuchsia-500 text-white
+               shadow-[0_12px_32px_-10px] shadow-fuchsia-500/40
+               hover:from-sky-400 hover:to-fuchsia-400
+               focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400
+               focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 transition"
+      >
+        {cta_text}
+      </a>
+    </div>
+  </article>
+
+  <span
+    aria-hidden="true"
+    class="pointer-events-none absolute -inset-1 rounded-3xl opacity-0
+           group-hover:opacity-80 blur-2xl group-hover:blur-[32px]
+           transform-gpu transition-[opacity,filter,transform] duration-300
+           group-hover:scale-105
+           bg-[radial-gradient(60%_60%_at_30%_10%,rgba(56,189,248,0.40),transparent),radial-gradient(50%_50%_at_80%_30%,rgba(217,70,239,0.35),transparent)]"
+  />
+</div>

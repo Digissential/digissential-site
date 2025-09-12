@@ -3,16 +3,21 @@ import Base from '@layouts/Base.astro';
 import Section from '@components/Section.astro';
 import Button from '@components/Button.astro';
 import Badge from '@components/Badge.astro';
-import PriceCard from '@components/PriceCard.astro';
 import FeatureCard from '@components/FeatureCard.astro';
 import Trust from '@components/Trust.astro';
 import { getCollection } from 'astro:content';
 import WebSiteLD from '@components/WebSiteLD.astro';
 import ContactForm from '@components/ContactForm.astro';
 import ContactInfoCard from '@components/ContactInfoCard.astro';
-const services = await getCollection('services');
-const featured = services.filter(s => s.data.featured);
-const others = services.filter(s => !s.data.featured);
+import BundlesGrid from "@components/BundlesGrid.astro";
+
+// Bundles for home + JSON-LD
+const allBundles = await getCollection('bundles', ({ data }) => !data.draft);
+const topBundles = allBundles
+  .sort((a,b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0) || a.slug.localeCompare(b.slug))
+  .slice(0, 6);
+
+const urlFor = (p: string) => Astro.site ? new URL(p, Astro.site).href : p;
 ---
 <Base>
   <a id="top" class="sr-only">Top</a>
@@ -27,14 +32,17 @@ const others = services.filter(s => !s.data.featured);
         <h1 class="mt-4 text-4xl sm:text-5xl font-extrabold leading-tight">
           Keeping your <span class="text-digi-primary">tech essentials</span> perfect.
         </h1>
-        <p class="mt-4 text-white/80 max-w-xl">Fast, honest repairs and support: Windows installs, data recovery, malware removal, upgrades, and remote help. No tech jargon — just real solutions.</p>
+        <p class="mt-4 text-white/80 max-w-xl">
+          Fast, honest repairs and support: Windows installs, data recovery, malware removal, upgrades, and remote help. No tech jargon — just real solutions.
+        </p>
         <div class="mt-8 flex flex-wrap gap-3">
           <Button href="/contact/" class="w-full sm:w-auto">Get a free quote</Button>
-          <Button href="/services/" variant="ghost" class="w-full sm:w-auto">View services</Button>
+          <Button href="/bundles/" variant="ghost" class="w-full sm:w-auto">View bundles</Button>
           <Button href="tel:+27664256314" variant="secondary" class="w-full sm:w-auto">Call now</Button>
         </div>
-        <p class="mt-4 text-xs text-white/60">Transparent rates • POPIA‑aligned privacy • CPA‑aligned warranty</p>
+        <p class="mt-4 text-xs text-white/60">Transparent rates • POPIA-aligned privacy • CPA-aligned warranty</p>
       </div>
+
       <div class="relative">
         <div class="card p-6">
           <h3 class="font-semibold">Quick Contact</h3>
@@ -43,7 +51,6 @@ const others = services.filter(s => !s.data.featured);
       </div>
     </div>
   </section>
-
 
   <Section id="services" eyebrow="Services" title="What we do" description="Core services that solve 90% of everyday computer problems.">
     <div class="grid gap-6 md:grid-cols-3">
@@ -61,45 +68,61 @@ const others = services.filter(s => !s.data.featured);
     </div>
   </Section>
 
+  <!-- BUNDLES -->
+  <Section
+    id="bundles"
+    eyebrow="Bundles"
+    title="Popular, flat-rate bundles"
+    description="Clear prices. Labour included. Parts (if needed) are quoted separately and approved before we proceed."
+  >
+    <BundlesGrid variant="home" limit={6} />
 
+    <p class="mt-6 text-sm text-white/70">
+      These packages combine our most requested fixes — Windows reinstalls, malware cleanups, SSD upgrades, Wi-Fi setup, and data rescue with secure wipes —
+      so you know the cost up-front. <a href="/bundles/" class="text-digi-primary underline underline-offset-2">See full bundle details</a>.
+    </p>
 
-  <Section id="pricing" eyebrow="Pricing" title="Transparent, simple rates" description="No surprises. Most fixes start with these baseline rates.">
-    <div class="grid gap-6 md:grid-cols-3">
-      {featured.map((s) => (
-        <PriceCard title={s.data.title} price={s.data.price} bullets={s.data.bullets} ctaHref={`/services/${s.slug}/`} ctaLabel="View details" />
-      ))}
-    </div>
-    {others.length > 0 && (
-      <div class="mt-6 grid gap-4 sm:grid-cols-2">
-        {others.map((s) => (
-          <a href={`/services/${s.slug}/`} class="card p-4 flex items-center justify-between hover:bg-white/10 transition">
-            <div>
-              <h4 class="font-semibold">{s.data.title}</h4>
-              <p class="text-sm text-white/70">{s.data.bullets[0]}</p>
-            </div>
-            <span class="text-digi-primary font-bold">{s.data.price}</span>
-          </a>
-        ))}
-      </div>
-    )}
+    <!-- JSON-LD: ItemList of the 6 bundles -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Popular service bundles",
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "itemListElement": topBundles.map((b, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "url": urlFor(`/bundles/${b.slug}/`),
+        "item": {
+          "@type": "Product",
+          "name": b.data.title,
+          "description": b.data.summary,
+          "url": urlFor(`/bundles/${b.slug}/`),
+          "offers": {
+            "@type": "Offer",
+            "price": (b.data.price || "").replace(/[^\d.]/g, ""),
+            "priceCurrency": "ZAR",
+            "url": urlFor(`/bundles/${b.slug}/`)
+          }
+        }
+      }))
+    })}></script>
   </Section>
+
 
   <Trust />
 
-    <Section
+  <Section
     id="contact"
     eyebrow="Contact"
     title="Get help today"
     description="Fast replies during business hours. Remote support available."
   >
     <div class="grid gap-6 md:grid-cols-2">
-      <!-- Left: form card -->
       <div class="card p-6">
         <h3 class="font-semibold">Request a Quote</h3>
         <ContactForm subject="Quote request" source="home-contact" />
       </div>
 
-      <!-- Right: unified contact info + map -->
       <ContactInfoCard
         phone="+27664256314"
         phoneDisplay="066 425 6314"
@@ -110,7 +133,6 @@ const others = services.filter(s => !s.data.featured);
     </div>
   </Section>
 
-
   <script>
     const attachCounter = (sel) => {
       document.querySelectorAll(sel).forEach((ta) => {
@@ -120,7 +142,6 @@ const others = services.filter(s => !s.data.featured);
         update();
       });
     };
-    attachCounter('textarea[data-count-target]');   
+    attachCounter('textarea[data-count-target]');
   </script>
-
 </Base>

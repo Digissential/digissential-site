@@ -1,0 +1,261 @@
+---
+export const prerender = true;
+
+import Base from "@layouts/Base.astro";
+import Section from "@components/Section.astro";
+import BundleCard from "@components/BundleCard.astro";
+import { getCollection } from "astro:content";
+
+// 1) Build-time paths for all non-draft bundle slugs
+export async function getStaticPaths() {
+  const bundles = await getCollection("bundles", ({ data }) => !data.draft);
+  return bundles.map((b) => ({
+    params: { slug: b.slug },
+    props: { entry: b }, // pass the whole entry as a prop
+  }));
+}
+
+// 2) Use the pre-fetched entry (and optionally fetch others for "related")
+const { entry } = Astro.props;
+if (!entry) throw new Error("Bundle not found");
+
+const {
+  title,
+  price = "",
+  summary = "",
+  bullets = [],
+  faq = [],
+  cta_text = "Book this bundle",
+  cta_link = "/contact",
+  ideal_for = "",
+  save = "",
+} = entry.data;
+
+// Related bundles (first 3 others, featured first, then A–Z)
+const all = await getCollection("bundles", ({ data }) => !data.draft);
+const related = all
+  .filter((b) => b.slug !== entry.slug)
+  .sort(
+    (a, b) =>
+      (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0) ||
+      a.slug.localeCompare(b.slug)
+  )
+  .slice(0, 3);
+
+// Helpers
+const urlFor = (p: string) => (Astro.site ? new URL(p, Astro.site).href : p);
+const priceNumber =
+  Number((price || "").replace(/[^\d.]/g, "")) || undefined;
+
+// JSON-LD: Product
+const productLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: title,
+  description: summary,
+  url: urlFor(`/bundles/${entry.slug}/`),
+  brand: { "@type": "Brand", name: "Digissential" },
+  ...(priceNumber
+    ? {
+        offers: {
+          "@type": "Offer",
+          price: String(priceNumber),
+          priceCurrency: "ZAR",
+          url: urlFor(`/bundles/${entry.slug}/`),
+        },
+      }
+    : {}),
+};
+
+// JSON-LD: Breadcrumbs
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: urlFor("/") },
+    { "@type": "ListItem", position: 2, name: "Bundles", item: urlFor("/bundles/") },
+    { "@type": "ListItem", position: 3, name: title, item: urlFor(`/bundles/${entry.slug}/`) },
+  ],
+};
+
+// JSON-LD: FAQ (if provided)
+const faqLd =
+  Array.isArray(faq) && faq.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faq.map((x: any) => ({
+          "@type": "Question",
+          name: x.q,
+          acceptedAnswer: { "@type": "Answer", text: x.a },
+        })),
+      }
+    : null;
+
+const pageTitle = `${title} — Bundles`;
+const description = summary;
+---
+<Base title={`${pageTitle} | Digissential`} description={description}>
+  <Section id="bundle" eyebrow="Bundles" title={title} description={summary}>
+    <!-- Breadcrumbs -->
+    <nav class="mb-6 text-sm" aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-2 text-white/70">
+        <li><a class="hover:underline text-white/80" href="/">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a class="hover:underline text-white/80" href="/bundles/">Bundles</a></li>
+        <li aria-hidden="true">/</li>
+        <li class="text-white">{title}</li>
+      </ol>
+    </nav>
+
+    <!-- Layout -->
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr),360px]">
+      <!-- Main content -->
+      <article class="min-w-0">
+        <section>
+          <h2 class="text-xl font-semibold text-white">What’s included</h2>
+          <ul class="mt-3 space-y-2 text-slate-200">
+            {bullets.map((b: string) => (
+              <li class="flex gap-2 leading-relaxed">
+                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-gradient-to-r from-sky-400 to-fuchsia-400"></span>
+                <span class="grow">{b}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {(ideal_for || save) && (
+          <section class="mt-8 grid gap-4 md:grid-cols-2">
+            {ideal_for && (
+              <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
+                <h3 class="font-semibold text-white">Best for</h3>
+                <p class="mt-1 text-slate-300">{ideal_for}</p>
+              </div>
+            )}
+            {save && (
+              <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
+                <h3 class="font-semibold text-white">Why this bundle</h3>
+                <p class="mt-1 text-slate-300">{save}</p>
+              </div>
+            )}
+          </section>
+        )}
+
+        {Array.isArray(faq) && faq.length > 0 && (
+          <section class="mt-10">
+            <h2 class="text-xl font-semibold text-white">FAQ</h2>
+            <div class="mt-4 space-y-3">
+              {faq.map((item: any) => (
+                <details class="rounded-xl bg-slate-900/60 p-4 border border-slate-800">
+                  <summary class="cursor-pointer text-white font-medium">{item.q}</summary>
+                  <p class="mt-2 text-slate-300 leading-relaxed">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <p class="mt-10 text-sm text-white/70">
+          Flat rate includes labour. Parts and paid licences are separate. On-site travel may apply outside our local radius.
+          We follow POPIA for privacy and issue certificates for standards-aligned secure wipes where relevant.
+        </p>
+      </article>
+
+      <!-- Sticky neon CTA panel -->
+      <aside class="lg:sticky lg:top-24">
+        <div
+          class="group relative rounded-2xl p-[1px]
+                 bg-gradient-to-br from-sky-400/70 via-fuchsia-500/70 to-cyan-400/70
+                 shadow-[0_16px_48px_-12px] shadow-cyan-400/30
+                 transform-gpu transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-cyan-400/40"
+        >
+          <div class="rounded-2xl bg-slate-950/85 border border-white/10 p-5 sm:p-6">
+            <div class="flex items-start justify-between gap-3">
+              <h3 class="text-white font-semibold">{title}</h3>
+              {price && (
+                <span class="rounded-lg px-2.5 py-1 text-sm font-bold bg-sky-500/15 text-sky-100 ring-1 ring-sky-300/40">
+                  {price}
+                </span>
+              )}
+            </div>
+            <p class="mt-2 text-slate-300">{summary}</p>
+
+            <div class="mt-5 flex flex-col gap-2">
+              <a
+                href={cta_link}
+                class="inline-flex items-center justify-center rounded-xl px-4 py-2 font-medium
+                       bg-gradient-to-r from-sky-500 to-fuchsia-500 text-white
+                       shadow-[0_12px_32px_-10px] shadow-fuchsia-500/40
+                       hover:from-sky-400 hover:to-fuchsia-400
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400
+                       focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 transition"
+              >
+                {cta_text}
+              </a>
+              <a
+                href="/contact/?reason=bundle"
+                class="inline-flex items-center justify-center rounded-xl px-4 py-2 font-medium
+                       bg-slate-800/80 text-white hover:bg-slate-700
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400
+                       focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 transition"
+              >
+                Ask a question
+              </a>
+              <a
+                href="tel:+27664256314"
+                class="inline-flex items-center justify-center rounded-xl px-4 py-2 font-medium
+                       bg-slate-900/70 text-white/90 hover:bg-slate-800
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400
+                       focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 transition"
+              >
+                Call 066 425 6314
+              </a>
+            </div>
+          </div>
+
+          <span
+            aria-hidden="true"
+            class="pointer-events-none absolute -inset-1 rounded-3xl opacity-0
+                   group-hover:opacity-80 blur-2xl group-hover:blur-[32px]
+                   transform-gpu transition-[opacity,filter,transform] duration-300
+                   group-hover:scale-105
+                   bg-[radial-gradient(60%_60%_at_30%_10%,rgba(56,189,248,0.40),transparent),radial-gradient(50%_50%_at_80%_30%,rgba(217,70,239,0.35),transparent)]"
+          />
+        </div>
+
+        <ul class="mt-4 space-y-2 text-sm text-white/70">
+          <li>Transparent, flat-rate labour</li>
+          <li>Parts (if needed) quoted separately</li>
+          <li>POPIA-aligned privacy handling</li>
+          <li>CPA-aligned warranty</li>
+        </ul>
+      </aside>
+    </div>
+
+    {related.length > 0 && (
+      <section class="mt-16">
+        <h2 class="text-xl font-semibold text-white">You might also like</h2>
+        <div class="mt-4 grid auto-rows-fr gap-6 md:gap-7 sm:grid-cols-2 xl:grid-cols-3">
+          {related.map((b) => (
+            <BundleCard
+              slug={b.slug}
+              title={b.data.title}
+              price={b.data.price}
+              summary={b.data.summary}
+              bullets={b.data.bullets}
+              save={b.data.save}
+              cta_text={b.data.cta_text}
+              cta_link={b.data.cta_link}
+              variant="home"
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(productLd)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
+    {faqLd && <script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>}
+  </Section>
+</Base>
