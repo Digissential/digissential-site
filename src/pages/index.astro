@@ -10,6 +10,7 @@ import { getCollection } from 'astro:content';
 import WebSiteLD from '@components/WebSiteLD.astro';
 import ContactForm from '@components/ContactForm.astro';
 import ContactInfoCard from '@components/ContactInfoCard.astro';
+import ServicesRail from "@components/ServicesRail.astro";
 const services = await getCollection('services');
 const featured = services.filter(s => s.data.featured);
 const others = services.filter(s => !s.data.featured);
@@ -61,7 +62,9 @@ const others = services.filter(s => !s.data.featured);
     </div>
   </Section>
 
-
+  <div class="mt-8">
+    <ServicesRail />
+  </div>
 
   <Section id="pricing" eyebrow="Pricing" title="Transparent, simple rates" description="No surprises. Most fixes start with these baseline rates.">
     <div class="grid gap-6 md:grid-cols-3">

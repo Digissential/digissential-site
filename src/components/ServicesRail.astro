@@ -1,0 +1,124 @@
+---
+import { getCollection } from "astro:content";
+
+// Load services (non-draft), featured first then A–Z
+const services = (await getCollection("services", ({ data }) => !data.draft))
+  .sort(
+    (a, b) =>
+      (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0) ||
+      a.slug.localeCompare(b.slug)
+  );
+
+// Build link items for the rail
+const items = services.map((s) => ({
+  title: (s.data.navTitle as string) || (s.data.title as string),
+  href: `/services/${s.slug}/`,
+}));
+
+// Duplicate list for seamless loop
+const loop = items.concat(items);
+
+// JSON-LD (first 12 services for rich snippets)
+const toAbs = (p: string) => (Astro.site ? new URL(p, Astro.site).href : p);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: items.slice(0, 12).map((it, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: toAbs(it.href),
+    item: {
+      "@type": "Service",
+      name: it.title,
+      url: toAbs(it.href),
+    },
+  })),
+};
+---
+
+<div class="relative">
+  <div class="pointer-events-none absolute inset-0 z-10 mask-fade"></div>
+
+  <div class="space-y-3">
+    <!-- Row 1 -->
+    <div class="group overflow-hidden">
+      <ul class="rail animate-scroll duration-[40s] group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]">
+        {loop.map((it, i) => (
+          <li class="inline-block mr-3" aria-hidden={i >= items.length ? "true" : "false"}>
+            <a href={it.href} class="chip">{it.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Row 2 (reverse) -->
+    <div class="group overflow-hidden">
+      <ul class="rail animate-scroll-reverse duration-[42s] group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]">
+        {loop.map((it, i) => (
+          <li class="inline-block mr-3" aria-hidden={i >= items.length ? "true" : "false"}>
+            <a href={it.href} class="chip chip--ghost">{it.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <a
+      href="/services/"
+      class="inline-flex items-center rounded-xl px-4 py-2 text-sm font-medium
+             bg-slate-800/80 text-white hover:bg-slate-700
+             focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400
+             focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 transition"
+    >
+      View all services
+    </a>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+</div>
+
+<style>
+  .rail { display: inline-flex; white-space: nowrap; will-change: transform; }
+  @keyframes rail-x {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes rail-x-rev {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+  .animate-scroll { animation: rail-x linear infinite; }
+  .animate-scroll-reverse { animation: rail-x-rev linear infinite; }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-scroll, .animate-scroll-reverse { animation: none; }
+  }
+
+  /* Edge fade for a clean crop on dark bg */
+  .mask-fade {
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+            mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  }
+
+  /* Chip styles (keep light) */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    border: 1px solid rgba(100,116,139,.5); /* slate-600-ish */
+    background: rgba(15,23,42,.6);          /* slate-900/60 */
+    padding: .375rem .75rem;                 /* px-3 py-1.5 */
+    font-size: .875rem;                      /* text-sm */
+    color: rgba(255,255,255,.85);
+    text-decoration: none;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+  }
+  .chip:hover { background: rgba(30,41,59,.7); }
+  .chip--ghost {
+    border-color: rgba(100,116,139,.35);
+    background: rgba(15,23,42,.5);
+    color: rgba(255,255,255,.75);
+  }
+</style>
