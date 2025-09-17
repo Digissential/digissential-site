@@ -23,12 +23,12 @@ faq:
 ### Apple Authorised Service (iStore Stellenbosch)
 - **Focus:** Genuine Apple repairs with OEM parts under AppleCare.  
 - **Best for:** MacBook owners who want warranty-safe service.  
-- **Website:** [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch)  
 
 ### Computer Mania Stellenbosch
 - **Focus:** Retail + repairs with budget-friendly options.  
 - **Best for:** General student/SME repairs and accessories.  
-- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
 
 ### Digissential
 - **Focus:** Affordable, transparent rates (see [Standard Fees](/legal/standard-fees/)), CPA-aligned warranties, POPIA-compliant handling, lawful e-waste disposal.  
@@ -38,17 +38,17 @@ faq:
 ### Incredible Connection Stellenbosch
 - **Focus:** National retail chain offering entry-level repairs and hardware.  
 - **Best for:** Walk-in service, quick accessories, and bundled “speed boosts.”  
-- **Website:** [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch)  
 
 ### Matrix Warehouse Stellenbosch
 - **Focus:** Networking and gaming laptop expertise.  
 - **Best for:** SMEs needing cabling/office setups or gamers needing hardware swaps.  
-- **Website:** [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch)  
 
 ### Stellenbosch University IT Helpdesk
 - **Focus:** Student and staff IT support (email, SU accounts, Eduroam Wi-Fi).  
 - **Best for:** Software-only support — not hardware repairs.  
-- **Website:** [SU IT Helpdesk](https://www.sun.ac.za/english/it?utm_source=chatgpt.com)  
+- **Website:** [SU IT Helpdesk](https://www.sun.ac.za/english/it)  
 
 ---
 
@@ -70,10 +70,10 @@ Every option here has its role:
 - [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
-- [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  
-- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
-- [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch?utm_source=chatgpt.com)  
-- [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch?utm_source=chatgpt.com)  
-- [SU IT Helpdesk](https://www.sun.ac.za/english/it?utm_source=chatgpt.com)  
+- [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch)  
+- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
+- [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch)  
+- [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch)  
+- [SU IT Helpdesk](https://www.sun.ac.za/english/it)  
 
 *Updated on 2025-09-05.*

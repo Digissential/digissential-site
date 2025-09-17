@@ -108,7 +108,7 @@ A: Yes. We set up UPS units, optimise Wi-Fi, and offer remote/device health chec
 - [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
-- [eWASA – E-Waste Association of SA](https://ewasa.org/?utm_source=chatgpt.com)  
-- [MWeb Fibre Stellenbosch](https://www.mweb.co.za/?utm_source=chatgpt.com)  
+- [eWASA – E-Waste Association of SA](https://ewasa.org/)  
+- [MWeb Fibre Stellenbosch](https://www.mweb.co.za/)  
 
 *Updated on 2025-09-05.*

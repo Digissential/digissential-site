@@ -36,22 +36,22 @@ Recovery saves what matters. Disposal ensures no one else can ever access it.
 ### Computer Mania Stellenbosch
 - **Services:** Basic file recovery, limited disposal options.  
 - **CoDD:** ❌ Not advertised.  
-- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
 
 ### Matrix Warehouse Stellenbosch
 - **Services:** Some recovery, with partner labs for advanced cases.  
 - **CoDD:** ❌ Not standard.  
-- **Website:** [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch)  
 
 ### WastePlan (licensed recycler)
 - **Services:** Large-scale e-waste recycling, data-bearing devices included.  
 - **CoDD:** ✅ Certificates of destruction for bulk collections.  
-- **Website:** [WastePlan](https://wasteplan.co.za/?utm_source=chatgpt.com)  
+- **Website:** [WastePlan](https://wasteplan.co.za/)  
 
 ### The E-Waste Group
 - **Services:** National recycler with Western Cape coverage.  
 - **CoDD:** ✅ Certificates available on request.  
-- **Website:** [The E-Waste Group](https://www.ewastegroup.co.za/?utm_source=chatgpt.com)  
+- **Website:** [The E-Waste Group](https://www.ewastegroup.co.za/)  
 
 ---
 
@@ -81,10 +81,10 @@ Recovery saves what matters. Disposal ensures no one else can ever access it.
 - [Data Recovery Consent & Waiver](/legal/data-recovery-consent-waiver/)  
 
 External references:  
-- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
-- [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch?utm_source=chatgpt.com)  
-- [WastePlan](https://wasteplan.co.za/?utm_source=chatgpt.com)  
-- [The E-Waste Group](https://www.ewastegroup.co.za/?utm_source=chatgpt.com)  
-- [eWASA – E-Waste Association of SA](https://ewasa.org/?utm_source=chatgpt.com)  
+- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
+- [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch)  
+- [WastePlan](https://wasteplan.co.za/)  
+- [The E-Waste Group](https://www.ewastegroup.co.za/)  
+- [eWASA – E-Waste Association of SA](https://ewasa.org/)  
 
 *Updated on 2025-09-05.*

@@ -22,7 +22,7 @@ faq:
 
 For Macs under AppleCare or still within warranty, Apple’s authorised partners are the safest route:
 - **iStore Stellenbosch** — Apple-authorised with genuine OEM screens and batteries.  
-  - [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+  - [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch)  
 
 Pros:
 - Genuine Apple parts.  
@@ -43,10 +43,10 @@ For out-of-warranty MacBooks, independents are often faster and more affordable:
   - [Digissential Services →](/services/)  
 
 - **Computer Mania Stellenbosch** — mixed brand repairs, student-friendly location.  
-  - [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
+  - [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
 
 - **Matrix Warehouse Stellenbosch** — strong with upgrades and gaming laptops, some Mac repairs.  
-  - [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+  - [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch)  
 
 Pros:
 - Lower labour costs.  
@@ -84,8 +84,8 @@ Cons:
 - [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
 
 External references:  
-- [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  
-- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
-- [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+- [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch)  
+- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
+- [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch)  
 
 *Updated on 2025-09-05.*

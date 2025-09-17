@@ -126,7 +126,7 @@ A: We can reinstall the OS, restore from backup, or recover data separately befo
 - [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
-- [Microsoft – How to install a new SSD](https://support.microsoft.com/en-us/windows/installing-an-ssd?utm_source=chatgpt.com)  
-- [Crucial – SATA vs NVMe explained](https://www.crucial.com/articles/about-ssd/sata-vs-nvme?utm_source=chatgpt.com)  
+- [Microsoft – How to install a new SSD](https://support.microsoft.com/en-us/windows/installing-an-ssd)  
+- [Crucial – SATA vs NVMe explained](https://www.crucial.com/articles/about-ssd/sata-vs-nvme)  
 
 *Updated on 2025-09-05.*

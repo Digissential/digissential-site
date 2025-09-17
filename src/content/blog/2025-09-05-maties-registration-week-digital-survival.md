@@ -106,7 +106,7 @@ A: Yes. We set up SU email, Wi-Fi, printing, backups, and cybersecurity via remo
 - [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
-- [Eduroam Official](https://eduroam.org/?utm_source=chatgpt.com)  
-- [Stellenbosch University IT Helpdesk](https://www.sun.ac.za/english/it?utm_source=chatgpt.com)  
+- [Eduroam Official](https://eduroam.org/)  
+- [Stellenbosch University IT Helpdesk](https://www.sun.ac.za/english/it)  
 
 *Updated on 2025-09-05.*

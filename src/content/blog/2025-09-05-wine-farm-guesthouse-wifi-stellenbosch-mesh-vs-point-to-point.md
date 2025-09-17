@@ -111,7 +111,7 @@ A: Mesh kits: R3,000–R6,000. Point-to-point links: R4,500–R9,000. On-site su
 - [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
-- [MWeb Fibre Stellenbosch](https://www.mweb.co.za/?utm_source=chatgpt.com)  
-- [eWASA – E-Waste Association of SA](https://ewasa.org/?utm_source=chatgpt.com)  
+- [MWeb Fibre Stellenbosch](https://www.mweb.co.za/)  
+- [eWASA – E-Waste Association of SA](https://ewasa.org/)  
 
 *Updated on 2025-09-05.*

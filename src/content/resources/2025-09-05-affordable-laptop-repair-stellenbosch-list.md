@@ -30,11 +30,11 @@ Affordability is more than low pricing — it’s about **transparent pricing** 
 | Shop | Publishes Prices? | Link |
 |---|---|---|
 | **Digissential** | ✅ Yes (Price List published) | [Standard Fees & Diagnostic Rates](/legal/standard-fees/) |
-| iStore Stellenbosch (Apple Authorised) | ❌ No public rates | [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com) |
-| Computer Mania Stellenbosch | ❌ No public repair rates | [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com) |
-| Incredible Connection Stellenbosch | ❌ No public repair rates | [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch?utm_source=chatgpt.com) |
-| Matrix Warehouse Stellenbosch | ❌ No public repair rates | [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch?utm_source=chatgpt.com) |
-| Stellenbosch University IT Helpdesk | ✅ Limited (service scope only) | [SU IT Helpdesk](https://www.sun.ac.za/english/it?utm_source=chatgpt.com) |
+| iStore Stellenbosch (Apple Authorised) | ❌ No public rates | [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch) |
+| Computer Mania Stellenbosch | ❌ No public repair rates | [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch) |
+| Incredible Connection Stellenbosch | ❌ No public repair rates | [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch) |
+| Matrix Warehouse Stellenbosch | ❌ No public repair rates | [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch) |
+| Stellenbosch University IT Helpdesk | ✅ Limited (service scope only) | [SU IT Helpdesk](https://www.sun.ac.za/english/it) |
 
 ---
 
@@ -52,10 +52,10 @@ Affordability is more than low pricing — it’s about **transparent pricing** 
 - [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
-- [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  
-- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
-- [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch?utm_source=chatgpt.com)  
-- [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch?utm_source=chatgpt.com)  
-- [SU IT Helpdesk](https://www.sun.ac.za/english/it?utm_source=chatgpt.com)  
+- [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch)  
+- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
+- [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch)  
+- [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch)  
+- [SU IT Helpdesk](https://www.sun.ac.za/english/it)  
 
 *Updated on 2025-09-05.*

@@ -113,7 +113,7 @@ A: Yes. We guide ISP setup, router config, and Wi-Fi optimisation via [Remote Su
 - [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
-- [Microsoft Quick Assist](https://support.microsoft.com/en-us/windows/get-help-with-quick-assist?utm_source=chatgpt.com)  
-- [AnyDesk Official](https://anydesk.com/?utm_source=chatgpt.com)  
+- [Microsoft Quick Assist](https://support.microsoft.com/en-us/windows/get-help-with-quick-assist)  
+- [AnyDesk Official](https://anydesk.com/)  
 
 *Updated on 2025-09-05.*

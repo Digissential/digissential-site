@@ -108,7 +108,7 @@ A: Same-day for cleaning; 1–2 days for repaste or fan replacement if parts are
 - [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
-- [Intel – Causes of Overheating](https://www.intel.com/content/www/us/en/gaming/resources/cpu-overheating.html?utm_source=chatgpt.com)  
-- [AMD – Thermal & Stability Tips](https://www.amd.com/en/support/kb/faq/pa-200?utm_source=chatgpt.com)  
+- [Intel – Causes of Overheating](https://www.intel.com/content/www/us/en/gaming/resources/cpu-overheating.html)  
+- [AMD – Thermal & Stability Tips](https://www.amd.com/en/support/kb/faq/pa-200)  
 
 *Updated on 2025-09-05.*

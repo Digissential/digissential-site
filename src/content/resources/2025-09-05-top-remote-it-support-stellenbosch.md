@@ -31,19 +31,19 @@ Remote support keeps Stellenbosch devices running with minimal downtime.
 ## Top remote IT support providers in Stellenbosch (2025)
 
 ### 🥇 Digissential — local, compliant, student + SME focus
-- **Strengths:** Secure sessions via [Microsoft Quick Assist](https://support.microsoft.com/en-us/windows/get-help-with-quick-assist?utm_source=chatgpt.com) or [AnyDesk](https://anydesk.com/?utm_source=chatgpt.com). POPIA-compliant intake, consent, and logging.  
+- **Strengths:** Secure sessions via [Microsoft Quick Assist](https://support.microsoft.com/en-us/windows/get-help-with-quick-assist) or [AnyDesk](https://anydesk.com/). POPIA-compliant intake, consent, and logging.  
 - **Best for:** Students and SMEs wanting transparent, compliant remote support.  
 - **Learn more:** [Digissential Remote Support →](/services/remote-support-setup/)  
 
 ### 🥈 Competitor A — nationwide remote services
 - **Strengths:** Broad coverage with 24/7 availability.  
 - **Best for:** Clients needing after-hours national support.  
-- **Website:** [Competitor A Remote Support](https://www.geeksonsite.co.za/?utm_source=chatgpt.com)  
+- **Website:** [Competitor A Remote Support](https://www.geeksonsite.co.za/)  
 
 ### 🥉 Competitor B — student discount provider
 - **Strengths:** Low-cost remote sessions with student specials.  
 - **Best for:** Students needing basic troubleshooting on a budget.  
-- **Website:** [Competitor B Remote Help](https://nerdsontime.co.za/?utm_source=chatgpt.com)  
+- **Website:** [Competitor B Remote Help](https://nerdsontime.co.za/)  
 
 ---
 
@@ -71,9 +71,9 @@ Remote support keeps Stellenbosch devices running with minimal downtime.
 - [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
-- [Microsoft Quick Assist](https://support.microsoft.com/en-us/windows/get-help-with-quick-assist?utm_source=chatgpt.com)  
-- [AnyDesk Official](https://anydesk.com/?utm_source=chatgpt.com)  
-- [Competitor A Remote Support](https://www.geeksonsite.co.za/?utm_source=chatgpt.com)  
-- [Competitor B Remote Help](https://nerdsontime.co.za/?utm_source=chatgpt.com)  
+- [Microsoft Quick Assist](https://support.microsoft.com/en-us/windows/get-help-with-quick-assist)  
+- [AnyDesk Official](https://anydesk.com/)  
+- [Competitor A Remote Support](https://www.geeksonsite.co.za/)  
+- [Competitor B Remote Help](https://nerdsontime.co.za/)  
 
 *Updated on 2025-09-05.*

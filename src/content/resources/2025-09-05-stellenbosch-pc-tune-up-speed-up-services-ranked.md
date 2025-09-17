@@ -39,12 +39,12 @@ A tune-up restores speed without replacing the device.
 ### 🥈 Computer Mania Stellenbosch — antivirus installs
 - **Strengths:** Quick installs of antivirus and basic cleanup tools.  
 - **Limits:** Limited optimisation beyond security software.  
-- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
 
 ### 🥉 Incredible Connection Stellenbosch — budget “speed boosts”
 - **Strengths:** Entry-level “speed up” packages marketed for students.  
 - **Limits:** Often limited to disk cleanup or trial software.  
-- **Website:** [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch)  
 
 ---
 
@@ -71,8 +71,8 @@ A tune-up restores speed without replacing the device.
 - [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
-- [Microsoft – Improve PC performance](https://support.microsoft.com/en-us/windows/tips-to-improve-pc-performance-in-windows?utm_source=chatgpt.com)  
-- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
-- [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+- [Microsoft – Improve PC performance](https://support.microsoft.com/en-us/windows/tips-to-improve-pc-performance-in-windows)  
+- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
+- [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch)  
 
 *Updated on 2025-09-05.*

@@ -107,7 +107,7 @@ A: Keep drivers updated, test Wi-Fi coverage, and maintain backup paper/chargers
 - [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
-- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
-- [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
+- [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch)  
 
 *Updated on 2025-09-05.*

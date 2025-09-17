@@ -112,7 +112,7 @@ A: Yes. We assist with driver updates, display settings, and testing remotely. H
 - [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
-- [Microsoft – Fix external monitor issues](https://support.microsoft.com/en-us/windows/troubleshoot-external-monitor-connections-in-windows?utm_source=chatgpt.com)  
-- [Apple – Detect displays on Mac](https://support.apple.com/en-za/guide/mac-help/mchlp2591/mac?utm_source=chatgpt.com)  
+- [Microsoft – Fix external monitor issues](https://support.microsoft.com/en-us/windows/troubleshoot-external-monitor-connections-in-windows)  
+- [Apple – Detect displays on Mac](https://support.apple.com/en-za/guide/mac-help/mchlp2591/mac)  
 
 *Updated on 2025-09-05.*

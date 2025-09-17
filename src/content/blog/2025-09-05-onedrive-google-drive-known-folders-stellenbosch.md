@@ -107,7 +107,7 @@ A: Yes, provided access is secured with MFA and sensitive SME data is only share
 - [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
-- [OneDrive – Back up PC folders](https://support.microsoft.com/en-us/office/back-up-your-folders-with-onedrive?utm_source=chatgpt.com)  
-- [Google Drive – Restore files](https://support.google.com/drive/answer/1716222?utm_source=chatgpt.com)  
+- [OneDrive – Back up PC folders](https://support.microsoft.com/en-us/office/back-up-your-folders-with-onedrive)  
+- [Google Drive – Restore files](https://support.google.com/drive/answer/1716222)  
 
 *Updated on 2025-09-05.*

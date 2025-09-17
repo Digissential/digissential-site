@@ -116,7 +116,7 @@ A: Canon, HP, and Kyocera MFPs dominate. All support SMTP, but firmware updates 
 - [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
-- [Gmail SMTP settings](https://support.google.com/mail/answer/7126229?utm_source=chatgpt.com)  
-- [Microsoft 365 SMTP relay](https://learn.microsoft.com/en-us/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365?utm_source=chatgpt.com)  
+- [Gmail SMTP settings](https://support.google.com/mail/answer/7126229)  
+- [Microsoft 365 SMTP relay](https://learn.microsoft.com/en-us/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365)  
 
 *Updated on 2025-09-05.*

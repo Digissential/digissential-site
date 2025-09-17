@@ -37,12 +37,12 @@ Without recovery, years of work or critical financials can be gone.
 ### 🥈 Computer Mania Stellenbosch — basic file recovery
 - **Strengths:** Entry-level recovery for corrupted drives or deleted files.  
 - **Limits:** No formal POPIA compliance or chain-of-custody.  
-- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
 
 ### 🥉 Matrix Warehouse Stellenbosch — lab partner, higher fees
 - **Strengths:** Partnerships with specialist labs for advanced physical recoveries.  
 - **Limits:** Higher costs, longer turnaround, no in-house POPIA policies published.  
-- **Website:** [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Matrix Warehouse Stellenbosch](https://www.matrixwarehouse.co.za/store/stellenbosch)  
 
 ---
 
@@ -70,7 +70,7 @@ Without recovery, years of work or critical financials can be gone.
 - [POPIA Privacy Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
-- [Microsoft OneDrive – Restore files](https://support.microsoft.com/en-us/office/back-up-your-folders-with-onedrive?utm_source=chatgpt.com)  
-- [Apple iCloud – Restore files](https://support.apple.com/en-za/guide/icloud/mmfc0f748924/icloud?utm_source=chatgpt.com)  
+- [Microsoft OneDrive – Restore files](https://support.microsoft.com/en-us/office/back-up-your-folders-with-onedrive)  
+- [Apple iCloud – Restore files](https://support.apple.com/en-za/guide/icloud/mmfc0f748924/icloud)  
 
 *Updated on 2025-09-05.*

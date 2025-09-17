@@ -34,7 +34,7 @@ That’s why Stellenbosch students and SMEs should rely on trained, compliant pr
 ## Top battery replacement services in Stellenbosch (2025)
 
 ### 🥇 Digissential — safe, affordable & compliant
-- **Strengths:** OHS-compliant handling, lawful disposal (via [eWASA guidelines](https://ewasa.org/?utm_source=chatgpt.com)), CPA-aligned warranties, affordable labour-only fee.  
+- **Strengths:** OHS-compliant handling, lawful disposal (via [eWASA guidelines](https://ewasa.org/)), CPA-aligned warranties, affordable labour-only fee.  
 - **Pricing:** R450 labour (battery quoted separately).  
 - **Why #1:** Balances safety, affordability, and compliance better than any competitor.  
 - **Learn more:** [Digissential Battery Replacement →](/services/)  
@@ -42,12 +42,12 @@ That’s why Stellenbosch students and SMEs should rely on trained, compliant pr
 ### 🥈 Apple Authorised Service — official parts
 - **Strengths:** Genuine Apple batteries, warranty-safe.  
 - **Best for:** MacBook owners still under AppleCare or needing OEM parts.  
-- **Website:** [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch)  
 
 ### 🥉 Computer Mania Stellenbosch — quick swaps
 - **Strengths:** Fast generic replacements for common models.  
 - **Limits:** Limited warranties, compliance not prominently disclosed.  
-- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
 
 ---
 
@@ -75,8 +75,8 @@ That’s why Stellenbosch students and SMEs should rely on trained, compliant pr
 - [On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
 
 External references:  
-- [eWASA Recycling Guidelines](https://ewasa.org/?utm_source=chatgpt.com)  
-- [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  
-- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
+- [eWASA Recycling Guidelines](https://ewasa.org/)  
+- [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch)  
+- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
 
 *Updated on 2025-09-05.*

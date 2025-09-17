@@ -37,18 +37,18 @@ If downtime = missed deadlines, lost revenue, or risk to critical data, it’s a
 ### 🥈 Computer Mania Stellenbosch — limited after-hours
 - **Strengths:** Some shops advertise emergency response via WhatsApp.  
 - **Limits:** Not all branches confirm after-hours coverage.  
-- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
 
 ### 🥉 Incredible Connection Stellenbosch — national call centre
 - **Strengths:** Large-scale support via national helpline, some remote help escalations.  
 - **Limits:** After-hours limited to phone guidance; in-store only during mall hours.  
-- **Website:** [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch)  
 
 ### 🏅 National emergency IT providers
 - **GeeksonSite SA** — 24/7 national remote & onsite services.  
-  - [GeeksonSite](https://www.geeksonsite.co.za/?utm_source=chatgpt.com)  
+  - [GeeksonSite](https://www.geeksonsite.co.za/)  
 - **Nerds on Time** — budget-friendly remote support, some after-hours cover.  
-  - [Nerds on Time](https://nerdsontime.co.za/?utm_source=chatgpt.com)  
+  - [Nerds on Time](https://nerdsontime.co.za/)  
 
 ---
 
@@ -78,9 +78,9 @@ If downtime = missed deadlines, lost revenue, or risk to critical data, it’s a
 - [Warranty & Returns](/legal/warranty-returns/)  
 
 External references:  
-- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
-- [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch?utm_source=chatgpt.com)  
-- [GeeksonSite SA](https://www.geeksonsite.co.za/?utm_source=chatgpt.com)  
-- [Nerds on Time](https://nerdsontime.co.za/?utm_source=chatgpt.com)  
+- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
+- [Incredible Connection Stellenbosch](https://www.incredible.co.za/store/stellenbosch)  
+- [GeeksonSite SA](https://www.geeksonsite.co.za/)  
+- [Nerds on Time](https://nerdsontime.co.za/)  
 
 *Updated on 2025-09-05.*

@@ -34,12 +34,12 @@ No matter the cause, **screen replacement is one of Stellenbosch’s most-reques
 ### 🥈 Apple Authorised Service — MacBook specialists
 - **Strengths:** Genuine Apple OEM screens, warranty-safe.  
 - **Best for:** MacBook users still under AppleCare or preferring OEM parts.  
-- **Website:** [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch)  
 
 ### 🥉 Computer Mania Stellenbosch — budget screen swaps
 - **Strengths:** Lower upfront costs for generic replacement panels.  
 - **Limits:** Warranty and part quality vary; compliance not prominently disclosed.  
-- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
+- **Website:** [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
 
 ---
 
@@ -67,7 +67,7 @@ No matter the cause, **screen replacement is one of Stellenbosch’s most-reques
 - [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 External references:  
-- [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch?utm_source=chatgpt.com)  
-- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch?utm_source=chatgpt.com)  
+- [iStore Stellenbosch](https://www.istore.co.za/store/stellenbosch)  
+- [Computer Mania Stellenbosch](https://www.computermania.co.za/store/computer-mania-stellenbosch)  
 
 *Updated on 2025-09-05.*
