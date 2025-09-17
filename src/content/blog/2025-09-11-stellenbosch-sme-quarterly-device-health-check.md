@@ -1,6 +1,6 @@
 ---
 title: "Stellenbosch SMEs: Why a Quarterly Device Health Check Saves You Money"
-description: "Technopark SMEs can cut downtime costs with quarterly device health checks. Digissential offers CPA-backed tune-ups, remote support, and compliance-ready reports."
+description: "Technopark SMEs can cut downtime costs with quarterly device health checks. Digissential offers CPA-backed tune-ups, remote support, and reports."
 pubDate: "2025-09-11"
 updatedDate: "2025-09-11"
 author: "Digissential Team"
@@ -82,8 +82,8 @@ A: System audit, speed-up/tune-up, backup verification, security hardening, and 
 ---
 
 **Compliance & trust**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 - [POPIA Privacy Notice](/legal/privacy-popia-processing-notice/)  
 
 External references  

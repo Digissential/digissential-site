@@ -1,6 +1,6 @@
 ---
 title: "Secure Your Data Before Laptop Repairs in Stellenbosch (POPIA-Aware)"
-description: "Laptop going in for repair? Stellenbosch clients need POPIA-compliant backup & data wipe options. Digissential provides full-system backups and CoDD certificates."
+description: "Laptop going in for repair? Stellenbosch clients need backup & data wipe options. Digissential provides full-system backups and CoDD certificates."
 pubDate: "2025-09-11"
 updatedDate: "2025-09-11"
 author: "Digissential Team"
@@ -19,7 +19,7 @@ faq:
   - q: "Why does POPIA matter for computer repairs?"
     a: "Because laptops often hold IDs, client data, or financial info. POPIA requires responsible handling — no shortcuts."
   - q: "How does Digissential secure my data?"
-    a: "We operate under Annex B (POPIA Notice), use consent forms, log access, and provide certified wipes if drives are replaced."
+    a: "We operate under POPIA, use consent forms, log access, and provide certified wipes if drives are replaced."
   - q: "Can I get my files back before a wipe?"
     a: "Yes. With the Data Rescue + Secure Wipe Bundle, we recover what you need first, then issue a CoDD."
   - q: "What if my laptop can’t boot?"
@@ -41,8 +41,8 @@ faq:
 - **Data Backup (Full System Image):** preserve everything before work starts.  
 - **Data Destruction (Certified Wipe):** safe disposal of faulty/old drives with CoDD proof.  
 - **Data Rescue + Secure Wipe Bundle:** recover what you need, then securely wipe.  
-- **POPIA paperwork:** [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/).  
-- **CPA warranty coverage:** clear rights on labour/parts (see Annex C).  
+- **POPIA paperwork:** [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/).  
+- **CPA warranty coverage:** clear rights on labour/parts.  
 
 ---
 
@@ -69,7 +69,7 @@ faq:
 A: Because laptops often hold IDs, client data, or financial info. POPIA requires responsible handling — no shortcuts.
 
 **Q: How does Digissential secure my data?**  
-A: We operate under Annex B (POPIA Notice), use consent forms, log access, and provide certified wipes if drives are replaced.
+A: We operate under POPIA Notice, use consent forms, log access, and provide certified wipes if drives are replaced.
 
 **Q: Can I get my files back before a wipe?**  
 A: Yes. With the Data Rescue + Secure Wipe Bundle, we recover what you need first, then issue a CoDD.
@@ -83,9 +83,9 @@ A: Yes. A CoDD lists device identifiers, wipe methods, dates, and handler signat
 ---
 
 **Compliance & trust**  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [Standard Fees](/legal/standard-fees/)  
 
 **External references**  
 - [SABRIC – Scams & Fraud Alerts](https://www.sabric.co.za/)  
