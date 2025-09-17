@@ -9,6 +9,7 @@ dist/
 .astro/
 .env
 .env.*
+.zip
 
 # Logs
 npm-debug.log*
