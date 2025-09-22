@@ -84,8 +84,8 @@ A: Yes. We design Wi-Fi for residences, multi-floor houses, and commercial guest
 ---
 
 **Compliance & trust**  
-- [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
+- [On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
+- [Standard Fees](/legal/standard-fees/)  
 - [POPIA Privacy Notice](/legal/privacy-popia-processing-notice/)  
 
 External references  

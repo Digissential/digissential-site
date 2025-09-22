@@ -83,9 +83,9 @@ faq:
 
 ## Why Digissential stands out
 - Only Stellenbosch shop combining **accessory sales + repairs**.  
-- **CPA/POPIA/OHS compliance** documented in annexes.  
+- **CPA/POPIA/OHS compliance** documented in our [Trust](/legal/) page.  
 - **Eco-friendly disposal** of batteries/chargers under [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/).  
-- **Transparent fees:** listed in [Annex A – Standard Fees](/legal/annex-a-standard-fees/).  
+- **Transparent fees:** listed in [Standard Fees](/legal/annex-a-standard-fees/).  
 
 ---
 
@@ -96,8 +96,8 @@ faq:
 ---
 
 **Compliance & trust**  
-- [Annex A – Standard Fees](/legal/annex-a-standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
-- [Annex D – E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
+- [Standard Fees](/legal/annex-a-standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
 
 *Updated on 2025-09-18.*

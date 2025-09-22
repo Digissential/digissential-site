@@ -58,7 +58,7 @@ For students and SMEs, a cracked screen is a show-stopper during exams or work d
 - **Diagnostics (In-Shop):** no guesswork; you approve before we fit.  
 - **Laptop Screen Replacement:** CPA/POPIA-compliant with clear invoices.  
 - **Warranty:** 90-day labour + 6–12 month supplier coverage on parts.  
-- **Transparent pricing:** see [Annex A – Standard Fees](/legal/standard-fees/).  
+- **Transparent pricing:** see [Standard Fees](/legal/standard-fees/).  
 
 ---
 
@@ -90,8 +90,8 @@ A: If your machine is older than 5 years and repair >50% of replacement cost, co
 ---
 
 **Compliance & trust**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 - [POPIA Privacy Notice](/legal/privacy-popia-processing-notice/)  
 
 External references  

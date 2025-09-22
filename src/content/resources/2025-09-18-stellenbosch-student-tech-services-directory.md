@@ -54,7 +54,7 @@ faq:
 
 - **Affordable bundles:** reinstall + backup at student-friendly rates.  
 - **Fast turnaround:** diagnostics same/next-day; urgent fixes prioritised during exams.  
-- **Transparent fees:** published in [Annex A – Standard Fees](/legal/annex-a-standard-fees/).  
+- **Transparent fees:** published in [Standard Fees](/legal/annex-a-standard-fees/).  
 - **Compliance edge:** POPIA/CPA policies protect your personal data.  
 - **Student focus:** same-day triage for deadlines, Wi-Fi help in digs, and backup restore tests.  
 
@@ -74,7 +74,7 @@ faq:
 - **Affordable:** student bundles cut costs without cutting corners.  
 - **Fast:** local triage, not depot delays.  
 - **Safe:** POPIA-aware backups and CPA-aligned warranties.  
-- **Clear:** published annexes + invoices ensure no surprises.  
+- **Clear:** published policies + invoices ensure no surprises.  
 
 ---
 
@@ -85,9 +85,9 @@ faq:
 ---
 
 **Compliance & trust**  
-- [Annex A – Standard Fees](/legal/annex-a-standard-fees/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
+- [Standard Fees](/legal/annex-a-standard-fees/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 *Updated on 2025-09-18.*
 

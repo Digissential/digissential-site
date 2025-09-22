@@ -25,7 +25,7 @@ faq:
   - q: "Can you help me remotely if my laptop dies during exams?"
     a: "Yes — we run same-day Remote Support sessions to fix settings, accounts, and Wi-Fi even if you’re off-campus."
   - q: "What if my laptop needs a deeper repair?"
-    a: "Bring it in. We offer diagnostics, transparent Annex A rates, and CPA/POPIA-compliant service."
+    a: "Bring it in. We offer diagnostics, transparent rates, and CPA/POPIA-compliant service."
 ---
 
 > **TL;DR:** With **32,000 SU students** depending on laptops, exam season is prime time for failures. Follow these simple prep steps — and if disaster strikes, Digissential is your fast, compliant local repair partner.
@@ -76,14 +76,14 @@ A: Enable OneDrive or Google Drive Known Folders. Digissential also offers stude
 A: Yes — we run same-day Remote Support sessions to fix settings, accounts, and Wi-Fi even if you’re off-campus.
 
 **Q: What if my laptop needs a deeper repair?**  
-A: Bring it in. We offer diagnostics, transparent Annex A rates, and CPA/POPIA-compliant service.
+A: Bring it in. We offer diagnostics, transparent rates, and CPA/POPIA-compliant service.
 
 ---
 
 **Compliance & trust**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
+- [Standard Fees](/legal/standard-fees/)  
 - [POPIA Privacy Notice](/legal/privacy-popia-processing-notice/)  
-- [Warranty & Returns – Annex C](/legal/warranty-returns/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 External references  
 - [Microsoft OneDrive Known Folders](https://support.microsoft.com/office/back-up-your-folders-with-onedrive)  

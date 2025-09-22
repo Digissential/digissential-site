@@ -81,19 +81,19 @@ faq:
 ## Why transparency matters
 - **CPA rights:** you are entitled to clear pricing before repairs.  
 - **Student/SME budgets:** no surprise invoices during exam crunch or SME deadlines.  
-- **Trust:** published annexes = documented promises.  
+- **Trust:** published policy = documented promises.  
 
 ---
 
 ## Book help in minutes
-- [Annex A – Standard Fees & Diagnostics](/legal/annex-a-standard-fees/)  
+- [Standard Fees & Diagnostics](/legal/annex-a-standard-fees/)  
 - [Speed-Up / Tune-Up](https://digissential.co.za/services/speed-up-tune-up/)  
 
 ---
 
 **Compliance & trust**  
-- [Annex A – Standard Fees](/legal/annex-a-standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
+- [Standard Fees](/legal/annex-a-standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 - [POPIA Privacy Notice](/legal/privacy-popia-processing-notice/)  
 
 *Updated on 2025-09-18.*

@@ -25,7 +25,7 @@ faq:
   - q: "Are Apple-authorised repairs faster?"
     a: "Not always. Many are sent to depots. Digissential offers same/next-day triage locally."
   - q: "Do you recycle faulty Mac parts?"
-    a: "Yes. All parts are processed under our Annex D – E-Waste Policy for lawful disposal."
+    a: "Yes. All parts are processed under our E-Waste Policy for lawful disposal."
 ---
 
 > **TL;DR:** Need a MacBook repaired in Stellenbosch? **Authorised providers** are best for in-warranty fixes. For **out-of-warranty Macs**, **Digissential** leads with **transparent fees, data migration bundles, and e-waste compliance**.
@@ -54,8 +54,8 @@ faq:
 👉 [New Mac / Laptop Setup](https://digissential.co.za/services/new-pc-setup-transfer/)  
 
 - **Repairs covered:** screens, batteries, SSD upgrades, logic board assessments.  
-- **Transparent fees:** published in [Annex A – Standard Fees](/legal/annex-a-standard-fees/).  
-- **Compliance edge:** CPA-backed invoices, POPIA consent, and lawful disposal via [Annex D – E-Waste Policy](/legal/ewaste-disposal-policy/).  
+- **Transparent fees:** published in [Standard Fees](/legal/annex-a-standard-fees/).  
+- **Compliance edge:** CPA-backed invoices, POPIA consent, and lawful disposal via [E-Waste Policy](/legal/ewaste-disposal-policy/).  
 - **Data-first:** migration, backup, or secure wipe options before work.  
 - **Turnaround:** same/next-day diagnostics; 2–3 days if parts in stock.  
 
@@ -75,7 +75,7 @@ faq:
 - **Local triage:** no waiting for Cape Town depots just to get a quote.  
 - **Student/SME focus:** tailored bundles like migration and setup.  
 - **Trust process:** CPA, POPIA, and OHS aligned; every job logged with a [Job Completion Acknowledgement](/legal/job-completion-acknowledgement/).  
-- **Sustainability:** parts processed under Annex D for legal e-waste disposal.  
+- **Sustainability:** parts processed under [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/) for legal e-waste disposal.  
 
 ---
 
@@ -86,8 +86,8 @@ faq:
 ---
 
 **Compliance & trust**  
-- [Annex A – Standard Fees](/legal/annex-a-standard-fees/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex D – E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
+- [Standard Fees](/legal/annex-a-standard-fees/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
 
 *Updated on 2025-09-18.*

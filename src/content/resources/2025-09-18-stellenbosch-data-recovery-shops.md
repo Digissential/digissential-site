@@ -39,7 +39,7 @@ faq:
 - Logical recoveries for deleted files, corrupt drives, or OS failures.  
 - Optional **secure wipe + CoDD** once recovery is complete.  
 - POPIA-aligned intake, consent paperwork, and CPA warranties.  
-- Transparent fees in [Annex A – Standard Fees](/legal/annex-a-standard-fees/).  
+- Transparent fees in [Standard Fees](/legal/annex-a-standard-fees/).  
 
 ---
 
@@ -84,8 +84,8 @@ faq:
 ---
 
 **Compliance & trust**  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex A – Standard Fees](/legal/annex-a-standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/annex-a-standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 *Updated on 2025-09-18.*

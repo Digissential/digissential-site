@@ -19,7 +19,7 @@ faq:
   - q: "Does any shop in Stellenbosch offer true after-hours help?"
     a: "Most chains don’t. Digissential offers after-hours triage by remote session, with on-site booked next day if needed."
   - q: "Is after-hours support more expensive?"
-    a: "Yes, a surcharge applies. Digissential lists this openly in Annex A — no hidden fees."
+    a: "Yes, a surcharge applies. Digissential lists this openly in with hidden fees."
   - q: "Can urgent remote help fix everything?"
     a: "Not always. But many issues (Wi-Fi, accounts, malware) are resolved remotely in minutes."
   - q: "Is data handling still POPIA-compliant after hours?"
@@ -37,7 +37,7 @@ faq:
 👉 [OHS Compliance Statement](/legal/ohs-compliance-statement/)  
 
 - **Remote sessions:** quick fixes for urgent Wi-Fi, software, and account issues.  
-- **Transparent fees:** after-hours surcharge published in [Annex A – Standard Fees](/legal/annex-a-standard-fees/).  
+- **Transparent fees:** after-hours surcharge published in [Standard Fees](/legal/annex-a-standard-fees/).  
 - **Safety:** on-site follow-ups always under OHS compliance, even at night.  
 - **POPIA handling:** intake consent + logged access every time.  
 
@@ -84,8 +84,8 @@ faq:
 ---
 
 **Compliance & trust**  
-- [Annex A – Standard Fees](/legal/annex-a-standard-fees/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
+- [Standard Fees](/legal/annex-a-standard-fees/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
 
 *Updated on 2025-09-18.*

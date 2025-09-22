@@ -11,15 +11,15 @@ howTo:
   title: "Safe on-site IT support: what to expect in Stellenbosch"
   steps:
     - "Book your call-out; we log the request with time, place, and technician details."
-    - "Our team arrives with PPE and follows [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)."
+    - "Our team arrives with PPE and follows [On-Site Safety Checklist](/legal/on-site-safety-checklist/)."
     - "We isolate faulty equipment, check power/network safety, and carry out work cleanly."
     - "Once complete, we log work performed in the Job Completion Acknowledgement."
     - "Invoices and warranties follow CPA rules, with clear parts/labour coverage."
 faq:
   - q: "Do you charge extra for on-site visits?"
-    a: "Yes. Our call-outs carry an on-site surcharge (see Annex A). We’re transparent about travel costs up-front."
+    a: "Yes. Our call-outs carry an on-site surcharge. We’re transparent about travel costs up-front."
   - q: "Are your technicians OHS-compliant?"
-    a: "Yes. We follow [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/) for electrical, fire, and handling risks."
+    a: "Yes. We follow [On-Site Safety Checklist](/legal/on-site-safety-checklist/) for electrical, fire, and handling risks."
   - q: "What businesses do you support on-site?"
     a: "We cover Stellenbosch CBD, Technopark, and surrounding SMEs within 20 km — same/next-day for most issues."
   - q: "Can you set up offices, not just fix laptops?"
@@ -38,8 +38,8 @@ faq:
 ---
 
 ## What Digissential provides on-site
-- **Transparent call-out costs:** listed in [Annex A – Standard Fees](/legal/standard-fees/) under On-Site Surcharge.  
-- **Safety first:** all technicians follow [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/).  
+- **Transparent call-out costs:** listed in [Standard Fees](/legal/standard-fees/) under On-Site Surcharge.  
+- **Safety first:** all technicians follow [On-Site Safety Checklist](/legal/on-site-safety-checklist/).  
 - **Documented work:** Job Completion Acknowledgement after every job.  
 - **Services covered:** laptops, desktops, Wi-Fi, printers, security hardening.  
 
@@ -61,10 +61,10 @@ We provide:
 ## FAQs
 
 **Q: Do you charge extra for on-site visits?**  
-A: Yes. Our call-outs carry an on-site surcharge (see Annex A). We’re transparent about travel costs up-front.
+A: Yes. Our call-outs carry an on-site surcharge. We’re transparent about travel costs up-front.
 
 **Q: Are your technicians OHS-compliant?**  
-A: Yes. We follow [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/) for electrical, fire, and handling risks.
+A: Yes. We follow [On-Site Safety Checklist](/legal/on-site-safety-checklist/) for electrical, fire, and handling risks.
 
 **Q: What businesses do you support on-site?**  
 A: We cover Stellenbosch CBD, Technopark, and surrounding SMEs within 20 km — same/next-day for most issues.
@@ -78,8 +78,8 @@ A: We follow our POPIA Privacy Notice and Data Recovery Consent when accessing d
 ---
 
 **Compliance & trust**  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
 - [POPIA Privacy Notice](/legal/privacy-popia-processing-notice/)  
 
 External references  

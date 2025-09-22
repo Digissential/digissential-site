@@ -14,7 +14,7 @@ howTo:
     - "Configure automatic cloud backups with versioning and test restores."
     - "Restrict access: only authorised staff should see sensitive client data."
     - "Use professional services for secure disposal or wipe of old drives."
-    - "Document policies and keep proof: Annex B (Privacy & POPIA), Annex A (fees), Annex C (warranty)."
+    - "Document policies and keep proof: Privacy & POPIA, fees, warranty."
 faq:
   - q: "Why does POPIA compliance matter for SMEs?"
     a: "It’s the law. Non-compliance risks fines and reputational damage. Clients increasingly ask if you handle data safely."
@@ -45,7 +45,7 @@ With 2,500 SMEs in Stellenbosch’s orbit, compliance isn’t optional — it’
 2. **Cloud backup with restore tests** — prevent ransomware and accidental loss.  
 3. **Access controls** — HR files only for HR; invoices only for finance.  
 4. **Certified data destruction** — wipe/recycle old drives with chain-of-custody logs.  
-5. **Document everything** — keep Digissential’s signed annexes for audit readiness.  
+5. **Document everything** — keep Digissential’s signed documents for audit readiness.  
 
 ---
 
@@ -53,7 +53,7 @@ With 2,500 SMEs in Stellenbosch’s orbit, compliance isn’t optional — it’
 - **Cybersecurity Hardening** — MFA, firewall sanity, phishing awareness.  
 - **Cloud Backup Setup** — configured + tested restores.  
 - **Data Destruction (Certified Wipe)** — CoDD with identifiers and NIST/crypto erase methods.  
-- **POPIA paperwork included** — [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/), Intake Agreement, Job Completion Acknowledgement.  
+- **POPIA paperwork included** — [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/), Intake Agreement, Job Completion Acknowledgement.  
 
 ---
 
@@ -86,9 +86,9 @@ A: Yes. Sessions are consent-based, encrypted, and logged in our Client Intake A
 ---
 
 **Compliance & trust**  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
 
 External references  
 - [SABRIC – Scams & Fraud Alerts](https://www.sabric.co.za/)  

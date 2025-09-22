@@ -25,7 +25,7 @@ faq:
   - q: "What if I bought parts elsewhere?"
     a: "We’ll fit client-supplied parts, but we can’t warranty them. Labour warranty still applies."
   - q: "How do I start a claim?"
-    a: "Contact us with your invoice. We’ll check Annex C (Warranty & Returns) and guide you through the claim process."
+    a: "Contact us with your invoice. We’ll check Warranty & Returns and guide you through the claim process."
 ---
 
 > **TL;DR:** In Stellenbosch, the **Consumer Protection Act (CPA)** plus Digissential’s own warranties mean you’re covered: 90-day labour guarantee, parts under supplier terms, and transparent returns.
@@ -40,7 +40,7 @@ faq:
 ## Digissential’s warranty promise
 - **Labour:** 90-day warranty on all repair work.  
 - **Parts:** covered by the supplier/manufacturer (usually 6–12 months).  
-- **Process:** documented in [Annex C – Warranty & Returns](/legal/warranty-returns/).  
+- **Process:** documented in [Warranty & Returns](/legal/warranty-returns/).  
 
 If something fails, we log the case, test it, and repair/replace under the correct warranty stream.
 
@@ -79,13 +79,13 @@ A: No. Warranty covers workmanship and manufacturer defects, not drops, liquid, 
 A: We’ll fit client-supplied parts, but we can’t warranty them. Labour warranty still applies.
 
 **Q: How do I start a claim?**  
-A: Contact us with your invoice. We’ll check Annex C (Warranty & Returns) and guide you through the claim process.
+A: Contact us with your invoice. We’ll check Warranty & Returns and guide you through the claim process.
 
 ---
 
 **Compliance & trust**  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [Standard Fees](/legal/standard-fees/)  
 - [POPIA Privacy Notice](/legal/privacy-popia-processing-notice/)  
 
 External references  

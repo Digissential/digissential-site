@@ -25,7 +25,7 @@ faq:
   - q: "Do you accept all e-waste?"
     a: "We take laptops, drives, phones, chargers, and batteries. CRTs/large appliances are referred to municipal streams."
   - q: "Can you collect e-waste from my office or residence?"
-    a: "Yes, subject to load and schedule. We follow Annex E – On-Site Safety rules for lithium handling."
+    a: "Yes, subject to load and schedule. We follow On-Site Safety rules for lithium handling."
 ---
 
 > **TL;DR:** Stellenbosch produces high volumes of e-waste from **student turnover** and **SME device refresh cycles**. Under **NEM:WA**, laptops and batteries are hazardous — Digissential disposes of them lawfully and wipes your data with CoDD proof.
@@ -53,7 +53,7 @@ faq:
 - **Data Destruction (Certified Wipe):** every drive wiped or destroyed with certificate.  
 - **Data Rescue + Secure Wipe Bundle:** recover what you need first, then issue CoDD.  
 - **Chain of custody:** intake logs, device IDs, handler signatures.  
-- **Safety procedures:** [Annex D – E-Waste Disposal Policy](/legal/ewaste-disposal-policy/) + [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/).  
+- **Safety procedures:** [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/) + [On-Site Safety Checklist](/legal/on-site-safety-checklist/).  
 
 ---
 
@@ -80,14 +80,14 @@ A: Yes. With your consent, we attempt logical recovery first, then securely wipe
 A: We take laptops, drives, phones, chargers, and batteries. CRTs/large appliances are referred to municipal streams.
 
 **Q: Can you collect e-waste from my office or residence?**  
-A: Yes, subject to load and schedule. We follow Annex E – On-Site Safety rules for lithium handling.
+A: Yes, subject to load and schedule. We follow On-Site Safety rules for lithium handling.
 
 ---
 
 **Compliance & trust**  
-- [Annex D – E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
-- [Annex E – On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
+- [On-Site Safety Checklist](/legal/on-site-safety-checklist/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
 
 **External references**  
 - [eWASA – E-Waste Association of SA](https://ewasa.org/)  

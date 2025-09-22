@@ -85,8 +85,8 @@ A: We follow our POPIA Notice, require consent via waiver, and issue Certificate
 
 **Compliance & trust**  
 - [Master Data Recovery Consent & Waiver](/legal/data-recovery-consent-waiver/)  
-- [Annex B – Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
-- [Annex A – Standard Fees](/legal/standard-fees/)  
+- [Privacy & POPIA Notice](/legal/privacy-popia-processing-notice/)  
+- [Standard Fees](/legal/standard-fees/)  
 
 **External references**  
 - [Microsoft – Restore deleted files](https://support.microsoft.com/office/restore-deleted-files)  

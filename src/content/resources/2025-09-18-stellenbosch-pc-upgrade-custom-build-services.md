@@ -82,7 +82,7 @@ faq:
 - Only Stellenbosch-based provider for **gaming PC builds**.  
 - **Compliance-first:** CPA, POPIA, and OHS alignment.  
 - **Service bundles:** migration, OS setup, and backup add-ons.  
-- **Transparency:** published [Annex A – Standard Fees](/legal/annex-a-standard-fees/).  
+- **Transparency:** published [Standard Fees](/legal/annex-a-standard-fees/).  
 - **Peace of mind:** local support if issues arise — not just a courier box.  
 
 ---
@@ -94,8 +94,8 @@ faq:
 ---
 
 **Compliance & trust**  
-- [Annex A – Standard Fees](/legal/annex-a-standard-fees/)  
-- [Annex C – Warranty & Returns](/legal/warranty-returns/)  
-- [Annex D – E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
+- [Standard Fees](/legal/annex-a-standard-fees/)  
+- [Warranty & Returns](/legal/warranty-returns/)  
+- [E-Waste Disposal Policy](/legal/ewaste-disposal-policy/)  
 
 *Updated on 2025-09-18.*
